@@ -21,7 +21,6 @@ export class HomePageGuard implements CanActivate {
 
     return this.usersService.getOne(user_id)
       .map(res => {
-        console.log(res);
         if (res) {
           return true;
         }
