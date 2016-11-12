@@ -10,7 +10,9 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { routing } from './app.routes';
 import { LoginComponent } from './components/login/login.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { HomePageGuard } from './pages/home-page/home-page.guard';
 
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { UsersService } from './services/users/users.service';
@@ -36,6 +38,7 @@ import ArxivumHttpProvider from './utils/http/arxivum-http.service.provider';
   providers: [
     AuthenticationService,
     UsersService,
+    HomePageGuard,
     ArxivumHttpProvider,
   ],
   bootstrap: [AppComponent]

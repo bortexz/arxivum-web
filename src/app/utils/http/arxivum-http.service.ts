@@ -7,8 +7,6 @@ import 'rxjs/add/observable/throw';
 
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 
-const INCORRECT_CREDENTIALS = 'Incorrect credentials';
-
 /**
  * HTTP service that adds the Authorization header automatically from localStorage
  * and redirects to state login if received Unauthorized response.
@@ -20,24 +18,23 @@ export class ArxivumHttp extends Http {
   }
 
   private onAuthError = (err) => {
-    const body = JSON.parse(err._body);
-    if (!(body.message === INCORRECT_CREDENTIALS)) {
-      if (this.authService) {
-        this.authService.logout();
-      }
+    if (this.authService) {
+      this.authService.logout();
     }
   }
 
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
     const authToken = localStorage.getItem('auth_token');
     if (authToken) {
-      if (!options || !options.headers) {
+      if (url instanceof Request) {
+        url.headers.append('Authorization', `Bearer ${authToken}`);
+      } else if (!options || !options.headers) {
         if (!options) {
-          options = {};
+          options = new RequestOptions({withCredentials: true});
         }
         options.headers = new Headers();
+        options.headers.append('Authorization', `Bearer ${authToken}`);
       }
-      options.headers.append('Authorization', 'Bearer ' + authToken);
     }
 
     return super.request(url, options)

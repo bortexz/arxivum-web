@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ArxivumHttp } from '../../utils/http/arxivum-http.service';
+
+// AuthService uses normal Http service to avoid circular dependency,
+// and because it doesn't need to check for 401 error
+import {Http} from '@angular/http';
+const urljoin = require('url-join');
 import 'rxjs/add/operator/map'; // map for type Observable<Response>
-import * as url from 'url';
 import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment';
@@ -9,9 +12,9 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class AuthenticationService {
   private loggedIn = false;
-  private loginUrl = url.resolve(environment.server_url,'authenticate');
+  private loginUrl = urljoin(environment.server_url, 'authenticate');
 
-  constructor(private http: ArxivumHttp, private router: Router) {
+  constructor(private http: Http, private router: Router) {
     this.loggedIn = !!localStorage.getItem('auth_token');
   }
 
