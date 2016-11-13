@@ -13,13 +13,13 @@ export class HomePageGuard implements CanActivate {
   constructor(private usersService: UsersService, private router: Router) {}
 
   canActivate() {
-    const user_id = localStorage.getItem('user_id');
-    if (!user_id) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user._id) {
       this.router.navigate(['/login']);
       return Observable.from([false]);
     }
 
-    return this.usersService.getOne(user_id)
+    return this.usersService.getOne(user._id)
       .map(res => {
         if (res) {
           return true;
