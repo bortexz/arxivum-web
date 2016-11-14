@@ -6,29 +6,29 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 
 /**
- * Get the user id info will be used as the guard to access the home page. HomePage is protected.
+ * The logic is the following: If we ARE authenticated, then go to /home
  */
 @Injectable()
-export class HomePageGuard implements CanActivate {
+export class LoginPageGuard implements CanActivate {
   constructor(private usersService: UsersService, private router: Router) {}
 
   canActivate() {
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
-      this.router.navigate(['/login']);
-      return Observable.from([false]);
+      return Observable.from([true]);
     }
 
     return this.usersService.getOne(user.id)
       .map(res => {
         if (res) {
-          return true;
+          this.router.navigate(['/home']);
+          return false;
         }
-        return false;
+
+        return true;
       })
       .catch(err => {
-        this.router.navigate(['/login']);
-        return Observable.throw(err);
+        return Observable.from([true]); // If error when user, then /login
       });
   }
 }

@@ -24,17 +24,21 @@ export class ArxivumHttp extends Http {
   }
 
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-    const authToken = localStorage.getItem('auth_token');
-    if (authToken) {
-      if (url instanceof Request) {
-        url.headers.append('Authorization', `Bearer ${authToken}`);
-      } else if (!options || !options.headers) {
-        if (!options) {
-          options = new RequestOptions({withCredentials: true});
+    const user = localStorage.getItem('user');
+    if (user) {
+      const authToken = JSON.parse(user).token;
+      if (authToken) {
+        if (url instanceof Request) {
+          url.headers.append('Authorization', `Bearer ${authToken}`);
+        } else if (!options || !options.headers) {
+          if (!options) {
+            options = new RequestOptions();
+          }
+          options.headers = new Headers();
+          options.headers.append('Authorization', `Bearer ${authToken}`);
         }
-        options.headers = new Headers();
-        options.headers.append('Authorization', `Bearer ${authToken}`);
       }
+
     }
 
     return super.request(url, options)

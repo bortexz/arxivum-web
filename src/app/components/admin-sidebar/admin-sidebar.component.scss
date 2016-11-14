@@ -1,0 +1,13 @@
+.navbar-fixed-left {
+  width: 170px;
+  position: fixed;
+  border-radius: 0;
+  height: 100%;
+
+  .navbar-nav {
+    li {
+        float: none;
+        width: 170px;
+    }
+  }
+}

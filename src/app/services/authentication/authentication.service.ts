@@ -21,8 +21,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
-  private loggedIn = false;
-  private admin = false;
+  private user = null;
 
   private loginUrl = urljoin(environment.server_url, 'authenticate');
 
@@ -30,13 +29,10 @@ export class AuthenticationService {
     try {
       const user = JSON.parse(localStorage.getItem('user'));
       if (user) {
-        this.loggedIn = !!user.token;
-        this.admin = user.admin;
+        this.user = user;
       }
     } catch (e) {
       // There is no user
-      this.loggedIn = false;
-      this.admin = false;
     }
   }
 
@@ -51,7 +47,7 @@ export class AuthenticationService {
         console.log(res);
         if (res.token) {
           localStorage.setItem('user', JSON.stringify(res));
-          this.loggedIn = true;
+          this.user = res;
         }
         return res;
       });
@@ -60,16 +56,15 @@ export class AuthenticationService {
   // Removes token and redirects to login page
   logout() {
     localStorage.removeItem('user');
-    this.loggedIn = false;
-    this.admin = false;
+    this.user = null;
     this.router.navigate(['/login']); // have another home with no login required?
   }
 
-  isLoggedIn() {
-    return this.loggedIn;
+  get loggedIn() {
+    return !!this.user;
   }
 
-  isAdmin() {
-    return this.admin;
+  get admin() {
+    return this.user.admin;
   }
 }

@@ -5,11 +5,15 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { LoginPageGuard } from './pages/login-page/login-page.guard';
 
 import { routing } from './app.routes';
 import { LoginComponent } from './components/login/login.component';
+
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { AdminPageGuard } from './pages/admin-page/admin-page.guard';
 
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomePageGuard } from './pages/home-page/home-page.guard';
@@ -18,6 +22,7 @@ import { AuthenticationService } from './services/authentication/authentication.
 import { UsersService } from './services/users/users.service';
 
 import ArxivumHttpProvider from './utils/http/arxivum-http.service.provider';
+import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
 
 
 @NgModule({
@@ -27,7 +32,8 @@ import ArxivumHttpProvider from './utils/http/arxivum-http.service.provider';
     LoginPageComponent,
     LoginComponent,
     AdminPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    AdminSidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +45,9 @@ import ArxivumHttpProvider from './utils/http/arxivum-http.service.provider';
     AuthenticationService,
     UsersService,
     HomePageGuard,
-    ArxivumHttpProvider,
+    LoginPageGuard,
+    AdminPageGuard,
+    ArxivumHttpProvider
   ],
   bootstrap: [AppComponent]
 })

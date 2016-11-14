@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { UsersService } from '../../services/users/users.service';
 import { Router } from '@angular/router';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 
 /**
  * Get the user id info will be used as the guard to access the home page. HomePage is protected.
  */
 @Injectable()
-export class HomePageGuard implements CanActivate {
+export class AdminPageGuard implements CanActivate {
   constructor(private usersService: UsersService, private router: Router) {}
 
   canActivate() {
@@ -21,9 +21,10 @@ export class HomePageGuard implements CanActivate {
 
     return this.usersService.getOne(user.id)
       .map(res => {
-        if (res) {
+        if (res && res.admin) {
           return true;
         }
+        this.router.navigate(['/home']); // If user but not admin, go to Home
         return false;
       })
       .catch(err => {
