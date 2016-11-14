@@ -65,6 +65,6 @@ export class AuthenticationService {
   }
 
   get admin() {
-    return this.user.admin;
+    return this.user && this.user.admin;
   }
 }
