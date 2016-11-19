@@ -18,8 +18,7 @@
       "prefix": "ax",
       "mobile": false,
       "styles": [
-        "styles/styles.css",
-        "styles/bootstrap.min.css"
+        "styles/styles.scss"
       ],
       "scripts": [
       ],
