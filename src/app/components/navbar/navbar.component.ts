@@ -12,9 +12,4 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  isAdmin() {
-    return this.authService.admin;
-  }
-
 }
