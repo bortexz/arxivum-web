@@ -4,9 +4,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+// Clarity Import
+import { ClarityModule } from 'clarity-angular';
+
 
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { HeaderComponent } from './components/header/header.component';
 
 // LOGIN
 import { LoginPageComponent } from './pages/login-page/login-page.component';
@@ -39,7 +42,7 @@ import { UPLOAD_DIRECTIVES } from 'ng2-uploader';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
+    HeaderComponent,
     LoginPageComponent,
     LoginComponent,
     AdminPageComponent,
@@ -55,6 +58,7 @@ import { UPLOAD_DIRECTIVES } from 'ng2-uploader';
     BrowserModule,
     FormsModule,
     HttpModule,
+    ClarityModule,
     routing
   ],
   providers: [

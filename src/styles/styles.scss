@@ -1,16 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-$icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
+/*$icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
 @import "./_ax_variables"; // override scss bootstrap variables
 @import "./_variables";
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
-@import "./_bootswatch";
+@import "./_bootswatch";*/
 
 /* Import custom styles */
-@import "./_ax_mixins";
-@import "./_ax_navbar";
+/*@import "./_ax_mixins";
+@import "./_ax_navbar";*/
 
 /* To make navbar not overlay rest of the page */
-body {
+/*body {
   padding-top: 50px;
 }
 
@@ -20,4 +20,4 @@ body {
 
 html, body {
   height: 100%;
-}
+}*/

@@ -1,7 +1,3 @@
 :host {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: stretch;
-  height: 100%;
+  all: inherit;
 }

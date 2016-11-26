@@ -1,4 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
+import * as parseTorrent from 'parse-torrent';
+// import * as wtClient from 'webtorrent';
+var wtClient = require('webtorrent');
 
 @Component({
   selector: 'ax-file-upload',
@@ -22,8 +25,30 @@ export class FileUploadComponent implements OnInit {
 
   handleUpload(data: any): void {
     this.zone.run(() => {
-      this.response = data;
       this.progress = data.progress.percent / 100;
+      if (data.done) {
+        let torrentBuffer = JSON.parse(data.response)[0].torrent.data;
+        torrentBuffer = Buffer.from(torrentBuffer);
+
+        // download using webtorrent
+        const client = new wtClient({
+          tracker: {
+            announce: ['ws://localhost:4000/announce']
+          }
+        });
+
+        client.on('error', function (err) {console.log('an error ocurredd', err)});
+        console.log(parseTorrent(torrentBuffer));
+        client.add(torrentBuffer, function (torrent) {
+          // Got torrent metadata!
+          console.log('Client is downloading:', torrent.infoHash);
+
+          torrent.on('noPeers', () => console.log('no peers'));
+          torrent.on('done', () => console.log('done'));
+
+        });
+
+      }
     });
   }
 
