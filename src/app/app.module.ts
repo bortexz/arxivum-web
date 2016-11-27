@@ -37,7 +37,8 @@ import ArxivumHttpProvider from './utils/http/arxivum-http.service.provider';
 import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
-import { UPLOAD_DIRECTIVES } from 'ng2-uploader';
+import { Ng2UploaderModule } from 'ng2-uploader';
+import { FilesPageComponent } from './pages/files-page/files-page.component';
 
 @NgModule({
   declarations: [
@@ -52,13 +53,14 @@ import { UPLOAD_DIRECTIVES } from 'ng2-uploader';
     AdminUsersPageComponent,
     AdminFilesPageComponent,
     FileUploadComponent,
-    UPLOAD_DIRECTIVES
+    FilesPageComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     ClarityModule,
+    Ng2UploaderModule,
     routing
   ],
   providers: [

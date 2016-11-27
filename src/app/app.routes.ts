@@ -14,6 +14,8 @@ import { AdminDashboardPageComponent } from './pages/admin-page/admin-dashboard-
 import { AdminUsersPageComponent } from './pages/admin-page/admin-users-page/admin-users-page.component';
 import { AdminFilesPageComponent } from './pages/admin-page/admin-files-page/admin-files-page.component';
 
+import { FilesPageComponent } from './pages/files-page/files-page.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -22,6 +24,7 @@ export const routes: Routes = [
   },
   { path: 'login', component: LoginPageComponent, canActivate: [LoginPageGuard]},
   { path: 'home', component: HomePageComponent, canActivate: [HomePageGuard]},
+  { path: 'files', component: FilesPageComponent},
   { path: 'admin', component: AdminPageComponent, canActivate: [AdminPageGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'prefix'},
