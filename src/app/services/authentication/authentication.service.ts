@@ -44,7 +44,6 @@ export class AuthenticationService {
       )
       .map(res => res.json())
       .map((res) => {
-        console.log(res);
         if (res.token) {
           localStorage.setItem('user', JSON.stringify(res));
           this.user = res;

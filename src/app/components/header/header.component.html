@@ -6,16 +6,29 @@
     </a>
   </section>
   <section class="header-nav">
-      <a routerLink="/home"
-        routerLinkActive="active"
-        class='nav-link'>
-        <span class="nav-text">Home</span>
-      </a>
-      <a *ngIf='authService.admin'
-        routerLink="/admin"
-        routerLinkActive="active"
-        class='nav-link'>
-        <span class="nav-text">Admin</span>
-      </a>
+    <a routerLink="/home" *ngIf='authService.loggedIn' routerLinkActive="active" class='nav-link'>
+      <span class="nav-text">Home</span>
+    </a>
+    <a *ngIf='authService.admin' routerLink="/admin" routerLinkActive="active" class='nav-link'>
+      <span class="nav-text">Admin</span>
+    </a>
+  </section>
+  <section class="header-actions">
+    <!-- Authenticated -->
+    <span class='nav-text nav-link' *ngIf="authService.loggedIn">{{authService.user.email}}</span>
+    <clr-dropdown *ngIf="authService.loggedIn" class="dropdown bottom-right">
+      <button class="nav-icon" clrDropdownToggle>
+        <clr-icon shape="user"></clr-icon>
+        <clr-icon shape="caret" class="icon-orient-down"></clr-icon>
+      </button>
+      <div class="dropdown-menu">
+        <a (click)='authService.logout()' clrDropdownItem>Log out</a>
+      </div>
+    </clr-dropdown>
+
+    <!-- Not authenticated -->
+    <a routerLink='login' *ngIf='!authService.loggedIn' class="nav-link nav-text">
+      Login
+    </a>
   </section>
 </header>
