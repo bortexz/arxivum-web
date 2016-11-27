@@ -26,7 +26,7 @@
     "clarity-ui": "^0.7.2",
     "core-js": "^2.4.1",
     "mutationobserver-shim": "^0.3.2",
-    "ng2-uploader": "^1.4.1",
+    "ng2-uploader": "^1.5.3",
     "parse-torrent": "^5.8.1",
     "rxjs": "5.0.0-beta.12",
     "ts-helpers": "^1.1.1",
