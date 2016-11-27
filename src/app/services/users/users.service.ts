@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class UsersService {
-  private usersUrl = urljoin(environment.server_url, 'users');
+  private usersUrl = urljoin(environment.api_url, 'users');
 
   constructor(private http: ArxivumHttp) { }
 

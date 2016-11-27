@@ -7,7 +7,7 @@ const urljoin = require('url-join');
 
 export const environment = {
   production: false,
-  server_url: process.env.SERVER_URL ?
+  api_url: process.env.SERVER_URL ?
     urljoin(process.env.SERVER_URL, 'api')  :
-    'http://localhost:3000/api/'
+    'http://localhost:2000/api/'
 };

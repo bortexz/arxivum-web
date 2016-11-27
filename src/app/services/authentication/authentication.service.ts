@@ -23,7 +23,7 @@ import { environment } from '../../../environments/environment';
 export class AuthenticationService {
   private user = null;
 
-  private loginUrl = urljoin(environment.server_url, 'authenticate');
+  private loginUrl = urljoin(environment.api_url, 'authenticate');
 
   constructor(private http: Http, private router: Router) {
     try {

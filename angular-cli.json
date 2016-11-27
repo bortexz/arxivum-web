@@ -18,9 +18,9 @@
       "prefix": "ax",
       "mobile": false,
       "styles": [
-        "styles/styles.scss",
         "../node_modules/clarity-icons/clarity-icons.min.css",
-        "../node_modules/clarity-ui/clarity-ui.min.css"
+        "../node_modules/clarity-ui/clarity-ui.min.css",
+        "styles/styles.scss"
       ],
       "scripts": [
         "../node_modules/mutationobserver-shim/dist/mutationobserver.min.js",

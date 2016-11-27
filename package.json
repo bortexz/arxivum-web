@@ -25,6 +25,7 @@
     "clarity-icons": "^0.7.2",
     "clarity-ui": "^0.7.2",
     "core-js": "^2.4.1",
+    "http-proxy": "^1.15.2",
     "mutationobserver-shim": "^0.3.2",
     "ng2-uploader": "^1.4.1",
     "parse-torrent": "^5.8.1",
