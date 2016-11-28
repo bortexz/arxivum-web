@@ -9,7 +9,7 @@
     <a routerLink="/home" *ngIf='authService.loggedIn' routerLinkActive="active" class='nav-link'>
       <span class="nav-text">Home</span>
     </a>
-    <a routerLink="/files" *ngIf='authService.loggedIn' routerLinkActive="active" class='nav-link'>
+    <a routerLink="/folder" *ngIf='authService.loggedIn' routerLinkActive="active" class='nav-link'>
       <span class="nav-text">Files</span>
     </a>
     <a *ngIf='authService.admin' routerLink="/admin" routerLinkActive="active" class='nav-link'>

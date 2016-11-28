@@ -16,6 +16,9 @@ import { AdminFilesPageComponent } from './pages/admin-page/admin-files-page/adm
 
 import { FilesPageComponent } from './pages/files-page/files-page.component';
 
+import { RootFolderResolver } from './services/folders/root.resolver';
+import { FolderResolver } from './services/folders/folder.resolver';
+
 export const routes: Routes = [
   {
     path: '',
@@ -24,7 +27,8 @@ export const routes: Routes = [
   },
   { path: 'login', component: LoginPageComponent, canActivate: [LoginPageGuard]},
   { path: 'home', component: HomePageComponent, canActivate: [HomePageGuard]},
-  { path: 'files', component: FilesPageComponent},
+  { path: 'folder', component: FilesPageComponent, resolve: {folder: RootFolderResolver}},
+  { path: 'folder/:id', component: FilesPageComponent, resolve: {folder: FolderResolver}},
   { path: 'admin', component: AdminPageComponent, canActivate: [AdminPageGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'prefix'},
