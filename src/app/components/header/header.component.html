@@ -6,14 +6,8 @@
     </a>
   </section>
   <section class="header-nav">
-    <a routerLink="/home" *ngIf='authService.loggedIn' routerLinkActive="active" class='nav-link'>
-      <span class="nav-text">Home</span>
-    </a>
-    <a routerLink="/folder" *ngIf='authService.loggedIn' routerLinkActive="active" class='nav-link'>
-      <span class="nav-text">Files</span>
-    </a>
-    <a *ngIf='authService.admin' routerLink="/admin" routerLinkActive="active" class='nav-link'>
-      <span class="nav-text">Admin</span>
+    <a routerLink="/folder" *ngIf='authService.loggedIn' routerLinkActive="active" class='nav-link nav-icon'>
+      <clr-icon shape='cloud'></clr-icon>
     </a>
   </section>
   <section class="header-actions">

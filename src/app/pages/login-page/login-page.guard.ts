@@ -21,7 +21,7 @@ export class LoginPageGuard implements CanActivate {
     return this.usersService.getOne(user.id)
       .map(res => {
         if (res) {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/folder']);
           return false;
         }
 

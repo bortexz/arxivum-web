@@ -1,0 +1,72 @@
+<clr-wizard
+  #wizard
+  [clrWizardSize]='"lg"'>
+  <div class='wizard-title'>Create new folder</div>
+
+  <clr-wizard-step>Folder info</clr-wizard-step>
+  <!--<clr-wizard-step>Invite people</clr-wizard-step>
+  <clr-wizard-step>Select upload</clr-wizard-step>-->
+
+  <clr-wizard-page
+    [clrWizardPageNextDisabled]="!folderInfoForm.form.valid"
+    (clrWizardPageOnCommit)='onFinish()'>
+    <form class='compact' #folderInfoForm='ngForm'>
+      <section class='form-block'>
+        <label>New folder info</label>
+
+        <div class='form-group row'>
+          <div class='col-md-3'>
+            <label
+              class='required'
+              for='folder_name'>
+              Name
+            </label>
+          </div>
+          <div class='col-md-9'>
+            <label
+              for='folder_name'
+              aria-haspopup="true"
+              role="tooltip"
+              class="tooltip tooltip-validation tooltip-sm tooltip-top-left required"
+              [class.invalid]='folderName.touched && !folderName.valid'>
+              <input
+                type='text'
+                id='folder_name'
+                placeholder='Funny names allowed :)'
+                size='45'
+                [(ngModel)]='folder.name'
+                name='folderName'
+                #folderName='ngModel'
+                required>
+                <span class="tooltip-content">
+                  Required!
+                </span>
+            </label>
+          </div>
+        </div>
+        <div class='form-group row'>
+          <div class='col-md-3'>
+            <label for="folder_description">Description</label>
+          </div>
+          <div class='col-md-9'>
+            <textarea
+            id='folder_description'
+            rows='3'
+            placeholder='What will be found inside?'
+            [(ngModel)]='folder.description'
+            name='folderDescription'
+            #folderDescription='ngModel'>
+          </textarea>
+          </div>
+        </div>
+      </section>
+    </form>
+  </clr-wizard-page>
+  <!--<clr-wizard-page>
+    Just next!
+
+  </clr-wizard-page>
+  <clr-wizard-page>
+    Just next!
+  </clr-wizard-page>-->
+</clr-wizard>

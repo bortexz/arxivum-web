@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { AdminSidebarComponent } from './admin-sidebar.component';
+import { CreateFolderWizardComponent } from './create-folder-wizard.component';
 
-describe('AdminSidebarComponent', () => {
-  let component: AdminSidebarComponent;
-  let fixture: ComponentFixture<AdminSidebarComponent>;
+describe('CreateFolderWizardComponent', () => {
+  let component: CreateFolderWizardComponent;
+  let fixture: ComponentFixture<CreateFolderWizardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminSidebarComponent ]
+      declarations: [ CreateFolderWizardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminSidebarComponent);
+    fixture = TestBed.createComponent(CreateFolderWizardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

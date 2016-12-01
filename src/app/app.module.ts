@@ -44,6 +44,7 @@ import { FilesPageComponent } from './pages/files-page/files-page.component';
 
 import { RootFolderResolver } from './services/folders/root.resolver';
 import { FolderResolver } from './services/folders/folder.resolver';
+import { CreateFolderWizardComponent } from './wizards/create-folder-wizard/create-folder-wizard.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { FolderResolver } from './services/folders/folder.resolver';
     AdminUsersPageComponent,
     AdminFilesPageComponent,
     FileUploadComponent,
-    FilesPageComponent
+    FilesPageComponent,
+    CreateFolderWizardComponent
   ],
   imports: [
     BrowserModule,

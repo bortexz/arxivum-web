@@ -8,6 +8,8 @@ const urljoin = require('url-join');
 export class FoldersService {
   private foldersUrl = urljoin(environment.api_url, 'folders');
 
+  // Should cache data?
+
   constructor(private http: ArxivumHttp) { }
 
   getOne (id) {
@@ -18,4 +20,8 @@ export class FoldersService {
     return this.http.get(this.foldersUrl).map(res => res.json());
   }
 
+  create (data) {
+    console.log(data);
+    return this.http.post(this.foldersUrl, data).map(res => res.json());
+  }
 }

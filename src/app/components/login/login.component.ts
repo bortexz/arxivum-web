@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   private onLoginSuccess = (result) => {
     if (result) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/folder']);
     }
   }
 

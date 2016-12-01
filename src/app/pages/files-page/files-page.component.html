@@ -1,14 +1,26 @@
 <section class='content-area'>
-  <h1 class='row flex-items-xs-center'>Arxivum files</h1>
-
-  <div class="row flex-items-xs-center" *ngIf='files.length === 0'>
-    <p class='col-xs-12 col-lg-6 col-xl-4'>You don't have any files or folders yet! Start by creating a new folder or uploading new files.</p>
-  </div>
-  <div class="row flex-items-xs-center" *ngIf='files.length === 0'>
-    <button type="submit" class="btn btn-primary">New folder</button>
+  <div class="row flex-items-xs-center">
+    <button class="btn btn-primary" (click)='wizard.open()'>New folder</button>
+    <button class="btn btn-outline">Upload file</button>
   </div>
 
-  <div class="row flex-items-xs-center" *ngIf='files.length > 0'>
-    Somethin;
+  <div class="row flex-items-xs-center">
+    <div *ngFor='let folder of childFolders' class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <a class="card clickable">
+        <div class="card-header">
+          {{folder.name}}
+        </div>
+        <div class='card-img'>
+          <img width='100px' src='http://icons.iconarchive.com/icons/dtafalonso/yosemite-flat/512/Folder-icon.png'/>
+        </div>
+        <div class="card-block">
+          <p class="card-text" *ngIf='folder.description'>
+            {{folder.description}}
+          </p>
+        </div>
+      </a>
+    </div>
   </div>
 </section>
+
+<ax-create-folder-wizard #wizard (onFinished)='wizardCreateFolderFinished($event)'></ax-create-folder-wizard>
