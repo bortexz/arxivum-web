@@ -1,4 +1,10 @@
 :host {
   all: inherit;
-  text-align: center;
+  .content-area {
+    text-align: center;
+  }
+
+  .sidenav-content {
+    padding: 10px;
+  }
 }

@@ -33,6 +33,8 @@ import { RootFolderResolver } from './services/folders/root.resolver';
 import { FolderResolver } from './services/folders/folder.resolver';
 import { CreateFolderWizardComponent } from './wizards/create-folder-wizard/create-folder-wizard.component';
 
+import { TreeModule } from 'angular2-tree-component';
+import { FileTreeComponent } from './components/file-tree/file-tree.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,8 @@ import { CreateFolderWizardComponent } from './wizards/create-folder-wizard/crea
     LoginComponent,
     FileUploadComponent,
     FilesPageComponent,
-    CreateFolderWizardComponent
+    CreateFolderWizardComponent,
+    FileTreeComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ import { CreateFolderWizardComponent } from './wizards/create-folder-wizard/crea
     HttpModule,
     ClarityModule,
     Ng2UploaderModule,
+    TreeModule,
     routing
   ],
   providers: [
