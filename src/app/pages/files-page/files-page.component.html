@@ -5,8 +5,8 @@
   </div>
 
   <div class="row flex-items-xs-center">
-    <div *ngFor='let folder of childFolders' class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <a class="card clickable">
+    <div *ngFor='let folder of childFolders | async' class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <a class="card clickable" [routerLink]='["/folder", folder._id]'>
         <div class="card-header">
           {{folder.name}}
         </div>

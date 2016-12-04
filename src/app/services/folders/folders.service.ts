@@ -12,16 +12,16 @@ export class FoldersService {
 
   constructor(private http: ArxivumHttp) { }
 
-  getOne (id) {
-    return this.http.get(urljoin(this.foldersUrl, id)).map(res => res.json());
-  }
-
-  getAll () {
-    return this.http.get(this.foldersUrl).map(res => res.json());
+  /**
+   * Function to get one folder. If id is NOT specified, then root folder will
+   * be returned.
+   */
+  getOne (id?) {
+    let url = id ? urljoin(this.foldersUrl, id) : this.foldersUrl;
+    return this.http.get(url).map(res => res.json());
   }
 
   create (data) {
-    console.log(data);
     return this.http.post(this.foldersUrl, data).map(res => res.json());
   }
 }

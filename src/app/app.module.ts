@@ -29,8 +29,6 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import { Ng2UploaderModule } from 'ng2-uploader';
 import { FilesPageComponent } from './pages/files-page/files-page.component';
 
-import { RootFolderResolver } from './services/folders/root.resolver';
-import { FolderResolver } from './services/folders/folder.resolver';
 import { CreateFolderWizardComponent } from './wizards/create-folder-wizard/create-folder-wizard.component';
 
 import { TreeModule } from 'angular2-tree-component';
@@ -61,9 +59,7 @@ import { FileTreeComponent } from './components/file-tree/file-tree.component';
     FoldersService,
     FilesService,
     LoginPageGuard,
-    ArxivumHttpProvider,
-    RootFolderResolver,
-    FolderResolver
+    ArxivumHttpProvider
   ],
   bootstrap: [AppComponent]
 })

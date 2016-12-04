@@ -6,9 +6,6 @@ import { LoginPageGuard } from './pages/login-page/login-page.guard';
 
 import { FilesPageComponent } from './pages/files-page/files-page.component';
 
-import { RootFolderResolver } from './services/folders/root.resolver';
-import { FolderResolver } from './services/folders/folder.resolver';
-
 export const routes: Routes = [
   {
     path: '',
@@ -16,8 +13,8 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   { path: 'login', component: LoginPageComponent, canActivate: [LoginPageGuard]},
-  { path: 'folder', component: FilesPageComponent, resolve: {folder: RootFolderResolver}},
-  { path: 'folder/:id', component: FilesPageComponent, resolve: {folder: FolderResolver}}
+  { path: 'folder', component: FilesPageComponent},
+  { path: 'folder/:id', component: FilesPageComponent}
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);

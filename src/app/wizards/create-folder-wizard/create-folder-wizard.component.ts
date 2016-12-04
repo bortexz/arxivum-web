@@ -16,8 +16,16 @@ export class CreateFolderWizardComponent implements OnInit {
   invitations: Array<any> = [];
   files: Array<File> = [];
 
+  finished = false;
+
   open () {
     this.wizard.open();
+    // We reset if the previous one was finished. Not otherwise, so we keep
+    // user progress in case wizard is dismissed unintentionally
+    if (this.finished) {
+      this.finished = false;
+      this.folderInfoForm.form.reset();
+    }
   }
 
   constructor() { }
@@ -30,6 +38,6 @@ export class CreateFolderWizardComponent implements OnInit {
       invitations: this.invitations,
       files : this.files
     });
-    this.folderInfoForm.form.reset();
+    this.finished = true;
   }
 }
