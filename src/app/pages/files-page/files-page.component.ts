@@ -28,11 +28,11 @@ export class FilesPageComponent implements OnInit {
   wizardCreateFolderFinished (data) {
     const currentFolder = this.route.snapshot.params['id'];
     data.folder.parent = currentFolder;
-
     this.childFolders = this.foldersService
       .create(data.folder)
       .switchMap(res => this.foldersService.getOne(currentFolder))
       .map(res => res.childFolders)
+      .share()
       .catch(err => {
         console.log(err);
         return Observable.throw(err);

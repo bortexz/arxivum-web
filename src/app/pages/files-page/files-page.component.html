@@ -18,6 +18,9 @@
         </div>
       </a>
     </div>
+    <div *ngIf="(childFolders | async)?.length === 0">
+      Something will be here
+    </div>
   </div>
 </section>
 
@@ -26,6 +29,5 @@
     <ax-file-tree></ax-file-tree>
   </section>
 </nav>
-
 
 <ax-create-folder-wizard #wizard (onFinished)='wizardCreateFolderFinished($event)'></ax-create-folder-wizard>
