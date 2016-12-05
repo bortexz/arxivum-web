@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { ArxivumHttpService } from './arxivum-http.service';
+import { ArxivumHttp } from './arxivum-http.service';
 
 describe('Service: ArxivumHttp', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ArxivumHttpService]
+      providers: [ArxivumHttp]
     });
   });
 
-  it('should ...', inject([ArxivumHttpService], (service: ArxivumHttpService) => {
+  it('should ...', inject([ArxivumHttp], (service: ArxivumHttp) => {
     expect(service).toBeTruthy();
   }));
 });

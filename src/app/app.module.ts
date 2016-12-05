@@ -1,6 +1,6 @@
 // ANGULAR 2 IMPORTS
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
@@ -33,6 +33,7 @@ import { CreateFolderWizardComponent } from './wizards/create-folder-wizard/crea
 
 import { TreeModule } from 'angular2-tree-component';
 import { FileTreeComponent } from './components/file-tree/file-tree.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +61,9 @@ import { FileTreeComponent } from './components/file-tree/file-tree.component';
     FilesService,
     LoginPageGuard,
     ArxivumHttpProvider
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   bootstrap: [AppComponent]
 })

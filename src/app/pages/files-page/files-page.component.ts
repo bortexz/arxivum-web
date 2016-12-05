@@ -32,7 +32,7 @@ export class FilesPageComponent implements OnInit {
       .create(data.folder)
       .switchMap(res => this.foldersService.getOne(currentFolder))
       .map(res => res.childFolders)
-      .share()
+      .share() // 2 Subscribers in html, needed to only execute once.
       .catch(err => {
         console.log(err);
         return Observable.throw(err);
