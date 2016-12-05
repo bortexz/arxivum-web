@@ -8,13 +8,11 @@
     <div *ngFor='let folder of childFolders | async' class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
       <a class="card clickable" [routerLink]='["/folder", folder._id]'>
         <div class="card-header">
-          {{folder.name}}
+          <clr-icon shape='folder' class='icon-color-info'></clr-icon>
+          <span>{{folder.name}}</span>
         </div>
-        <div class='card-img'>
-          <img width='100px' src='http://icons.iconarchive.com/icons/dtafalonso/yosemite-flat/512/Folder-icon.png'/>
-        </div>
-        <div class="card-block">
-          <p class="card-text" *ngIf='folder.description'>
+        <div class="card-block" *ngIf='folder.description'>
+          <p class="card-text">
             {{folder.description}}
           </p>
         </div>
