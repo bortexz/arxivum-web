@@ -19,7 +19,7 @@ export class FilesPageComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const observable = this.foldersService.getOne(params['id']);
+      const observable = this.foldersService.getOne(params['id']).share();
       this.childFolders = observable.map(res => res.childFolders);
       this.childFiles = observable.map(res => res.files);
     });

@@ -26,7 +26,6 @@ import { FilesService } from './services/files/files.service';
 import ArxivumHttpProvider from './utils/http/arxivum-http.service.provider';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
-import { Ng2UploaderModule } from 'ng2-uploader';
 import { FilesPageComponent } from './pages/files-page/files-page.component';
 
 import { CreateFolderWizardComponent } from './wizards/create-folder-wizard/create-folder-wizard.component';
@@ -50,7 +49,7 @@ import { FileTreeComponent } from './components/file-tree/file-tree.component';
     FormsModule,
     HttpModule,
     ClarityModule,
-    Ng2UploaderModule,
+    // Ng2UploaderModule,
     TreeModule,
     routing
   ],
