@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 export class FilesPageComponent implements OnInit {
   public childFiles: Observable<Array<any>>;
   public childFolders: Observable<Array<any>>;
+  public path: Observable<Array<any>>;
 
   @ViewChild('wizard') wizard: CreateFolderWizardComponent;
 
@@ -22,6 +23,13 @@ export class FilesPageComponent implements OnInit {
       const observable = this.foldersService.getOne(params['id']).share();
       this.childFolders = observable.map(res => res.childFolders);
       this.childFiles = observable.map(res => res.files);
+      this.path = observable.map(res => {
+        let path = [...res.ancestors];
+        if (res._id) {
+          path.push({_id: res._id, name: res.name});
+        }
+        return path;
+      });
     });
   }
 

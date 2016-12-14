@@ -8,3 +8,17 @@
     padding: 10px;
   }
 }
+
+section {
+  position: relative;
+}
+
+.drop-area {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: 100;
+  position: absolute;
+  background: rgba(0, 255, 0, 0.4)
+}

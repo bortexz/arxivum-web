@@ -32,6 +32,7 @@ import { CreateFolderWizardComponent } from './wizards/create-folder-wizard/crea
 
 import { TreeModule } from 'angular2-tree-component';
 import { FileTreeComponent } from './components/file-tree/file-tree.component';
+import { FoldersBreadcrumbComponent } from './components/folders-breadcrumb/folders-breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { FileTreeComponent } from './components/file-tree/file-tree.component';
     FileUploadComponent,
     FilesPageComponent,
     CreateFolderWizardComponent,
-    FileTreeComponent
+    FileTreeComponent,
+    FoldersBreadcrumbComponent
   ],
   imports: [
     BrowserModule,
