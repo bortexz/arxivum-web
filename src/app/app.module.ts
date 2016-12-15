@@ -24,15 +24,16 @@ import { FoldersService } from './services/folders/folders.service';
 import { FilesService } from './services/files/files.service';
 
 import ArxivumHttpProvider from './utils/http/arxivum-http.service.provider';
-import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 import { FilesPageComponent } from './pages/files-page/files-page.component';
 
 import { CreateFolderWizardComponent } from './wizards/create-folder-wizard/create-folder-wizard.component';
 
+import { FileUploadModule } from 'ng2-file-upload';
 import { TreeModule } from 'angular2-tree-component';
 import { FileTreeComponent } from './components/file-tree/file-tree.component';
 import { FoldersBreadcrumbComponent } from './components/folders-breadcrumb/folders-breadcrumb.component';
+import { FileDropAreaComponent } from './components/file-drop-area/file-drop-area.component';
 
 @NgModule({
   declarations: [
@@ -40,19 +41,19 @@ import { FoldersBreadcrumbComponent } from './components/folders-breadcrumb/fold
     HeaderComponent,
     LoginPageComponent,
     LoginComponent,
-    FileUploadComponent,
     FilesPageComponent,
     CreateFolderWizardComponent,
     FileTreeComponent,
-    FoldersBreadcrumbComponent
+    FoldersBreadcrumbComponent,
+    FileDropAreaComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     ClarityModule,
-    // Ng2UploaderModule,
     TreeModule,
+    FileUploadModule,
     routing
   ],
   providers: [

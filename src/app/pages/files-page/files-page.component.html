@@ -1,12 +1,10 @@
 <section class='content-area'>
-  <div class='drop-area'>
-
-  </div>
-  <div class='row flex-items-md-between'>
-    <div class='col-xs-12 col-md-9 row flex-items-xs-left flex-xs-middle'>
+  <ax-file-drop-area></ax-file-drop-area>
+  <div class='row flex-items-xs-between files-header'>
+    <div class='col-xs-12 col-md-10 row flex-items-xs-left flex-xs-middle'>
       <ax-folders-breadcrumb [path]='path'></ax-folders-breadcrumb>
     </div>
-    <div class="col-xs-12 col-md-2">
+    <div class="col-xs-12 col-md-2 flex-items-xs-right">
       <button class="btn btn-primary" (click)='wizard.open()'>New folder</button>
       <!--<button class="btn btn-outline">Upload file</button>-->
     </div>
