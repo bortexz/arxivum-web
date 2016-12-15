@@ -13,18 +13,27 @@ section {
   position: relative;
 }
 
-/* Dropping area styles */
-.drop-area {
+/* Header including breadcrumb and new folder button */
+.files-header {
+  margin: 0px;
+}
+
+.drop-area-layer {
   top: 0;
   left: 0;
   right: 0;
   height: 100%;
-  z-index: 100;
-  position: absolute;
+  width: 100%;
+
+  display:none;
+
   padding: 20px;
   background: rgba(0, 0, 0, 0.5);
   opacity: 0.2;
-  display: none;
+
+  z-index: 100;
+  position: absolute;
+  pointer-events: none;
 
   .drop-area-border {
     width: 100%;
@@ -40,14 +49,9 @@ section {
       line-height: 1.2em;
     }
   }
-
 }
 
-.drop-area-file-over {
-  display:block;
+.drop-area-file-over > .drop-area-layer {
+  display: block;
 }
 
-/* Header including breadcrumb and new folder button */
-.files-header {
-  margin: 0px;
-}

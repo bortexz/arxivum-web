@@ -1,5 +1,16 @@
-<section class='content-area'>
-  <ax-file-drop-area></ax-file-drop-area>
+<section
+  class='content-area'
+  ng2FileDrop
+  [ngClass]='{"drop-area-file-over": hasBaseDropZoneOver}'
+  (fileOver)='fileOverDragArea($event)'
+  [uploader]='uploader'>
+
+  <div class='drop-area-layer'>
+    <div class='drop-area-border'>
+      <span>Drop files to upload them to this folder</span>
+    </div>
+  </div>
+
   <div class='row flex-items-xs-between files-header'>
     <div class='col-xs-12 col-md-10 row flex-items-xs-left flex-xs-middle'>
       <ax-folders-breadcrumb [path]='path'></ax-folders-breadcrumb>

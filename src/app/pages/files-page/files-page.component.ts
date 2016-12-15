@@ -3,6 +3,7 @@ import { CreateFolderWizardComponent } from '../../wizards/create-folder-wizard/
 import { FoldersService } from '../../services/folders/folders.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'ax-files-page',
@@ -15,6 +16,10 @@ export class FilesPageComponent implements OnInit {
   public path: Observable<Array<any>>;
 
   @ViewChild('wizard') wizard: CreateFolderWizardComponent;
+
+  public uploader: FileUploader = new FileUploader({});
+  public hasBaseDropZoneOver: boolean = false;
+
 
   constructor(private foldersService: FoldersService, private route: ActivatedRoute) {};
 
@@ -45,5 +50,9 @@ export class FilesPageComponent implements OnInit {
         console.log(err);
         return Observable.throw(err);
       });
+  }
+
+  public fileOverDragArea(e: any): void {
+    this.hasBaseDropZoneOver = e;
   }
 }
