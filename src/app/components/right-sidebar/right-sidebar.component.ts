@@ -17,10 +17,10 @@ export class RightSidebarComponent implements OnInit {
         'badge-success': this.fileUploaderService.uploader.progress === 100
       };
       this.changeDetector.detectChanges();
-    }.bind(this);
+    };
 
-    fileUploaderService.uploader.onProgressItem = detectChanges;
-    fileUploaderService.uploader.onProgressAll = detectChanges;
+    fileUploaderService.uploader.onProgressItem = detectChanges.bind(this);
+    fileUploaderService.uploader.onProgressAll = detectChanges.bind(this);
   }
 
   ngOnInit() {
