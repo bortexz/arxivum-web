@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment';
 
+import { Observable } from 'rxjs';
+
 /**
  * AuthenticationService, contains login and logout function, as well as
  * a state with loggedIn and admin properties. Usually, when navigating to
@@ -21,8 +23,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
-  private user = null;
-
+  public user = null;
   private loginUrl = urljoin(environment.api_url, 'authenticate');
 
   constructor(private http: Http, private router: Router) {
@@ -57,6 +58,10 @@ export class AuthenticationService {
     localStorage.removeItem('user');
     this.user = null;
     this.router.navigate(['/login']); // have another home with no login required?
+  }
+
+  get authToken () {
+    return this.user ? `Bearer ${this.user.token}` : undefined;
   }
 
   get loggedIn() {

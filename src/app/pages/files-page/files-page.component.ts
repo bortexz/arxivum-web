@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FileUploader } from 'ng2-file-upload';
 
+import { FileUploaderService } from '../../services/file-uploader/file-uploader.service';
+
 @Component({
   selector: 'ax-files-page',
   templateUrl: './files-page.component.html',
@@ -13,32 +15,49 @@ import { FileUploader } from 'ng2-file-upload';
 export class FilesPageComponent implements OnInit {
   public childFiles: Observable<Array<any>>;
   public childFolders: Observable<Array<any>>;
+  public folderInfo: any;
   public path: Observable<Array<any>>;
+  public uploader: FileUploader;
 
   @ViewChild('wizard') wizard: CreateFolderWizardComponent;
 
-  public uploader: FileUploader = new FileUploader({});
   public hasBaseDropZoneOver: boolean = false;
 
+  constructor(
+    private foldersService: FoldersService,
+    private route: ActivatedRoute,
+    public fileUploaderService: FileUploaderService
+  ) {};
 
-  constructor(private foldersService: FoldersService, private route: ActivatedRoute) {};
+  private reload (params?) {
+    params = params || this.route.snapshot.params;
+    const observable = this.foldersService.getOne(params['id']).share();
 
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-      const observable = this.foldersService.getOne(params['id']).share();
-      this.childFolders = observable.map(res => res.childFolders);
-      this.childFiles = observable.map(res => res.files);
-      this.path = observable.map(res => {
-        let path = [...res.ancestors];
-        if (res._id) {
-          path.push({_id: res._id, name: res.name});
-        }
-        return path;
+    this.childFolders = observable.map(res => res.childFolders);
+    this.childFiles = observable.map(res => res.files);
+    this.path = observable.map(res => {
+      let path = [...res.ancestors];
+      if (res._id) {
+        path.push({_id: res._id, name: res.name});
+      }
+      return path;
+    });
+
+    observable.subscribe(res => {
+      this.folderInfo = res;
+      this.uploader = this.fileUploaderService.getNewFileUploader({
+        query: this.folderInfo && this.folderInfo._id ? {folder: this.folderInfo._id} : undefined
       });
     });
   }
 
-  wizardCreateFolderFinished (data) {
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.reload(params);
+    });
+  }
+
+  public wizardCreateFolderFinished (data) {
     const currentFolder = this.route.snapshot.params['id'];
     data.folder.parent = currentFolder;
     this.childFolders = this.foldersService
@@ -50,6 +69,13 @@ export class FilesPageComponent implements OnInit {
         console.log(err);
         return Observable.throw(err);
       });
+  }
+
+  public uploadFiles () {
+    this.uploader.uploadAll();
+    this.uploader.onSuccessItem = () => {
+      this.reload();
+    };
   }
 
   public fileOverDragArea(e: any): void {

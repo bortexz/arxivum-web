@@ -13,7 +13,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
  */
 @Injectable()
 export class ArxivumHttp extends Http {
-  constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private authService?: AuthenticationService) {
+  constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private authService: AuthenticationService) {
     super(backend, defaultOptions);
   }
 
@@ -24,21 +24,18 @@ export class ArxivumHttp extends Http {
   }
 
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-    const user = localStorage.getItem('user');
-    if (user) {
-      const authToken = JSON.parse(user).token;
-      if (authToken) {
-        if (url instanceof Request) {
-          url.headers.append('Authorization', `Bearer ${authToken}`);
-        } else if (!options || !options.headers) {
-          if (!options) {
-            options = new RequestOptions();
-          }
-          options.headers = new Headers();
-          options.headers.append('Authorization', `Bearer ${authToken}`);
-        }
-      }
+    const token = this.authService.authToken;
 
+    if (token) {
+      if (url instanceof Request) {
+        url.headers.append('Authorization', token);
+      } else if (!options || !options.headers) {
+        if (!options) {
+          options = new RequestOptions();
+        }
+        options.headers = new Headers();
+        options.headers.append('Authorization', token);
+      }
     }
 
     return super.request(url, options)

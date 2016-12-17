@@ -33,7 +33,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { TreeModule } from 'angular2-tree-component';
 import { FileTreeComponent } from './components/file-tree/file-tree.component';
 import { FoldersBreadcrumbComponent } from './components/folders-breadcrumb/folders-breadcrumb.component';
-import { FileDropAreaComponent } from './components/file-drop-area/file-drop-area.component';
+import { FileUploaderService } from './services/file-uploader/file-uploader.service';
 
 @NgModule({
   declarations: [
@@ -44,8 +44,7 @@ import { FileDropAreaComponent } from './components/file-drop-area/file-drop-are
     FilesPageComponent,
     CreateFolderWizardComponent,
     FileTreeComponent,
-    FoldersBreadcrumbComponent,
-    FileDropAreaComponent
+    FoldersBreadcrumbComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +61,8 @@ import { FileDropAreaComponent } from './components/file-drop-area/file-drop-are
     FoldersService,
     FilesService,
     LoginPageGuard,
-    ArxivumHttpProvider
+    ArxivumHttpProvider,
+    FileUploaderService
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

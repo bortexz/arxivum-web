@@ -10,7 +10,10 @@ import 'rxjs/add/observable/from';
  */
 @Injectable()
 export class LoginPageGuard implements CanActivate {
-  constructor(private usersService: UsersService, private router: Router) {}
+  constructor(
+    private usersService: UsersService,
+    private router: Router
+  ) {}
 
   canActivate() {
     const user = JSON.parse(localStorage.getItem('user'));

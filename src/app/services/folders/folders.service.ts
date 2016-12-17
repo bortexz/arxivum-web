@@ -6,7 +6,7 @@ const urljoin = require('url-join');
 
 @Injectable()
 export class FoldersService {
-  private foldersUrl = urljoin(environment.api_url, 'folders');
+  public foldersUrl = urljoin(environment.api_url, 'folders');
 
   // Should cache data?
 

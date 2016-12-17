@@ -3,6 +3,7 @@
   ng2FileDrop
   [ngClass]='{"drop-area-file-over": hasBaseDropZoneOver}'
   (fileOver)='fileOverDragArea($event)'
+  (onFileDrop)='uploadFiles()'
   [uploader]='uploader'>
 
   <div class='drop-area-layer'>
