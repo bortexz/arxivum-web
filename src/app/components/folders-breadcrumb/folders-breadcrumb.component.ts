@@ -11,8 +11,6 @@ export class FoldersBreadcrumbComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    this.path.subscribe(data => console.log(data));
-  }
+  ngOnInit() {}
 
 }
