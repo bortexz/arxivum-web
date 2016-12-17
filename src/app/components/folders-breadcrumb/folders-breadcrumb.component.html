@@ -4,6 +4,6 @@
   </li>
   <li *ngFor='let folder of path | async'>
     <clr-icon shape='collapse right'></clr-icon>
-    <a [routerLink]='["/folder", folder._id]'>{{folder.name}}</a>
+    <a [routerLink]='["/folder", {id: folder._id}]'>{{folder.name}}</a>
   </li>
 </ul>

@@ -3,7 +3,6 @@ import { CreateFolderWizardComponent } from '../../wizards/create-folder-wizard/
 import { FoldersService } from '../../services/folders/folders.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { FileUploader } from 'ng2-file-upload';
 
 import { FileUploaderService } from '../../services/file-uploader/file-uploader.service';
 

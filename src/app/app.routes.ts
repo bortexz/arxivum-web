@@ -13,8 +13,7 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   { path: 'login', component: LoginPageComponent, canActivate: [LoginPageGuard]},
-  { path: 'folder', component: FilesPageComponent},
-  { path: 'folder/:id', component: FilesPageComponent}
+  { path: 'folder', component: FilesPageComponent}
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);

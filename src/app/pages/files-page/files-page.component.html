@@ -24,7 +24,7 @@
 
   <div class="row flex-items-xs-center">
     <div *ngFor='let folder of childFolders | async' class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <a class="card clickable" [routerLink]='["/folder", folder._id]'>
+      <a class="card clickable" [routerLink]='["/folder", {id: folder._id}]'>
         <div class="card-header">
           <clr-icon shape='folder' class='icon-color-info'></clr-icon>
           <span>{{folder.name}}</span>
