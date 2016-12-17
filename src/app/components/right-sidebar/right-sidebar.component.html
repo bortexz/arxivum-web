@@ -1,0 +1,22 @@
+<nav class='sidebar' [ngClass]='{"nav-shown": shown}' *ngIf='fileUploaderService.uploader.queue.length > 0'>
+  <ul class='header header-6'>
+    <li class='header-nav'>
+      <a class='nav-link nav-icon' (click)='shown = !shown' [ngClass]='{"active": shown}'>
+        <clr-icon shape='upload' size='24' >
+
+        </clr-icon>
+        <span
+          class="badge"
+          [ngClass]='badgeClass'>
+          {{fileUploaderService.uploader.queue.length}}
+        </span>
+      </a>
+    </li>
+  </ul>
+  <div class='content'>
+    <div *ngFor='let item of fileUploaderService.uploader.queue' class='list-item'>
+      {{item.file.name}}
+      <progress max="100" [value]="item.progress" data-displayval="0%"></progress>
+    </div>
+  </div>
+</nav>

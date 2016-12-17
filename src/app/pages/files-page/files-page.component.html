@@ -4,7 +4,7 @@
   [ngClass]='{"drop-area-file-over": hasBaseDropZoneOver}'
   (fileOver)='fileOverDragArea($event)'
   (onFileDrop)='uploadFiles()'
-  [uploader]='uploader'>
+  [uploader]='fileUploaderService.uploader'>
 
   <div class='drop-area-layer'>
     <div class='drop-area-border'>
@@ -36,8 +36,16 @@
         </div>
       </a>
     </div>
-    <div *ngIf="(childFolders | async)?.length === 0">
-      Something will be here
+    <div *ngFor='let file of childFiles | async' class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <a class="card clickable" [routerLink]='["/files", file._id]'>
+        <div class="card-header">
+          <clr-icon shape='file' class='icon-color-info'></clr-icon>
+          <span>{{file.name}}</span>
+        </div>
+      </a>
+    </div>
+    <div *ngIf="(childFolders | async)?.length === 0 && (childFiles | async)?.length === 0">
+      Oops! Seems like you got nothing here yet
     </div>
   </div>
 </section>
@@ -47,5 +55,7 @@
     <ax-file-tree></ax-file-tree>
   </section>
 </nav>
+
+<ax-right-sidebar></ax-right-sidebar>
 
 <ax-create-folder-wizard #wizard (onFinished)='wizardCreateFolderFinished($event)'></ax-create-folder-wizard>

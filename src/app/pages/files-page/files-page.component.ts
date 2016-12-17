@@ -17,7 +17,6 @@ export class FilesPageComponent implements OnInit {
   public childFolders: Observable<Array<any>>;
   public folderInfo: any;
   public path: Observable<Array<any>>;
-  public uploader: FileUploader;
 
   @ViewChild('wizard') wizard: CreateFolderWizardComponent;
 
@@ -27,7 +26,8 @@ export class FilesPageComponent implements OnInit {
     private foldersService: FoldersService,
     private route: ActivatedRoute,
     public fileUploaderService: FileUploaderService
-  ) {};
+  ) {
+  };
 
   private reload (params?) {
     params = params || this.route.snapshot.params;
@@ -45,9 +45,6 @@ export class FilesPageComponent implements OnInit {
 
     observable.subscribe(res => {
       this.folderInfo = res;
-      this.uploader = this.fileUploaderService.getNewFileUploader({
-        query: this.folderInfo && this.folderInfo._id ? {folder: this.folderInfo._id} : undefined
-      });
     });
   }
 
@@ -55,6 +52,8 @@ export class FilesPageComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.reload(params);
     });
+
+    this.fileUploaderService.onSuccess.subscribe(() => this.reload());
   }
 
   public wizardCreateFolderFinished (data) {
@@ -72,10 +71,11 @@ export class FilesPageComponent implements OnInit {
   }
 
   public uploadFiles () {
-    this.uploader.uploadAll();
-    this.uploader.onSuccessItem = () => {
-      this.reload();
-    };
+    this.fileUploaderService.uploadAll(
+      this.folderInfo && this.folderInfo._id ?
+      {folder: this.folderInfo._id} :
+      undefined
+    );
   }
 
   public fileOverDragArea(e: any): void {

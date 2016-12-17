@@ -5,24 +5,34 @@ import { FilesService } from '../files/files.service';
 
 import * as querystring from 'querystring';
 
+import { Observable } from 'rxjs/Observable';
+
 @Injectable()
 export class FileUploaderService {
+
+  uploader: FileUploader = new FileUploader({
+    authToken: this.authService.authToken,
+    url: this.filesService.filesUrl
+  });
+
+  onSuccess: Observable<any>;
 
   constructor(
     private authService: AuthenticationService,
     private filesService: FilesService
-  ) { }
-
-  getNewFileUploader (opts: any = {}) {
-    if (typeof opts.query === 'object' && opts.query !== null) {
-      opts.query = querystring.stringify(opts.query);
-    }
-
-    return new FileUploader({
-      authToken: this.authService.authToken,
-      url: this.filesService.filesUrl + (opts.query ? `?${opts.query}` : ''),
-      autoUpload: true
+  ) {
+    this.onSuccess = new Observable(subs => {
+      this.uploader.onSuccessItem = (file) => subs.next(file);
     });
+  }
+
+  uploadAll (query?) {
+    this.uploader.setOptions({
+      url: this.filesService.filesUrl + (query ? `?${querystring.stringify(query)}` : ''),
+      authToken: this.authService.authToken
+    });
+
+    this.uploader.uploadAll();
   }
 
 }

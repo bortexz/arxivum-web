@@ -34,6 +34,7 @@ import { TreeModule } from 'angular2-tree-component';
 import { FileTreeComponent } from './components/file-tree/file-tree.component';
 import { FoldersBreadcrumbComponent } from './components/folders-breadcrumb/folders-breadcrumb.component';
 import { FileUploaderService } from './services/file-uploader/file-uploader.service';
+import { RightSidebarComponent } from './components/right-sidebar/right-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { FileUploaderService } from './services/file-uploader/file-uploader.serv
     FilesPageComponent,
     CreateFolderWizardComponent,
     FileTreeComponent,
-    FoldersBreadcrumbComponent
+    FoldersBreadcrumbComponent,
+    RightSidebarComponent
   ],
   imports: [
     BrowserModule,
