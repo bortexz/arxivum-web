@@ -12,18 +12,20 @@ export class RightSidebarComponent implements OnInit {
 
   constructor(private fileUploaderService: FileUploaderService, private changeDetector: ChangeDetectorRef) {
     const detectChanges = function () {
-      this.badgeClass = {
-        'badge-orange': this.fileUploaderService.uploader.progress < 100,
-        'badge-success': this.fileUploaderService.uploader.progress === 100
-      };
+      this.reloadBadgeClass();
       this.changeDetector.detectChanges();
-    };
-
-    fileUploaderService.uploader.onProgressItem = detectChanges.bind(this);
-    fileUploaderService.uploader.onProgressAll = detectChanges.bind(this);
+    }.bind(this);
+    fileUploaderService.uploader.onProgressItem = detectChanges;
   }
 
   ngOnInit() {
+    this.reloadBadgeClass();
   }
 
+  reloadBadgeClass () {
+    this.badgeClass = {
+      'badge-orange': this.fileUploaderService.uploader.progress < 100,
+      'badge-success': this.fileUploaderService.uploader.progress === 100
+    };
+  }
 }
