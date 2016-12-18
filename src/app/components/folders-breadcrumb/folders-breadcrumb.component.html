@@ -2,8 +2,9 @@
   <li>
     <a routerLink='/folder'> / </a> <!-- Root -->
   </li>
-  <li *ngFor='let folder of path | async'>
+  <li *ngFor='let folder of path | async; let i = index'>
     <clr-icon shape='collapse right'></clr-icon>
-    <a [routerLink]='["/folder", {id: folder._id}]'>{{folder.name}}</a>
+    <a *ngIf='(i + 1) < (path | async)?.length' [routerLink]='["/folder", {id: folder._id}]'>{{folder.name}}</a>
+    <span *ngIf='(i + 1) === (path | async)?.length'>{{folder.name}}</span>
   </li>
 </ul>
