@@ -1,10 +1,12 @@
 <ul>
   <li>
-    <a routerLink='/folder'> / </a> <!-- Root -->
+    <!--TODO: Duplication-->
+    <a *ngIf='0 !== (path | async)?.length' routerLink='/folder'> Arxivum </a> <!-- Root -->
+    <span *ngIf='0 === (path | async)?.length'> Arxivum </span>
   </li>
   <li *ngFor='let folder of path | async; let i = index'>
     <clr-icon shape='collapse right'></clr-icon>
-    <a *ngIf='(i + 1) < (path | async)?.length' [routerLink]='["/folder", {id: folder._id}]'>{{folder.name}}</a>
-    <span *ngIf='(i + 1) === (path | async)?.length'>{{folder.name}}</span>
+    <a *ngIf='i < (path | async)?.length - 1' [routerLink]='["/folder", {id: folder._id}]'>{{folder.name}}</a>
+    <span *ngIf='i ===(path | async)?.length - 1'>{{folder.name}}</span>
   </li>
 </ul>
