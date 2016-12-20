@@ -6,7 +6,12 @@
     </a>
   </section>
   <section class="header-nav">
-    <a routerLink="/folder" *ngIf='authService.loggedIn' routerLinkActive="active" class='nav-link nav-icon'>
+    <a
+      routerLink="/folder"
+      id='root-folder-link'
+      *ngIf='authService.loggedIn'
+      routerLinkActive="active"
+      class='nav-link nav-icon'>
       <clr-icon shape='cloud'></clr-icon>
     </a>
   </section>
@@ -24,7 +29,7 @@
     </clr-dropdown>
 
     <!-- Not authenticated -->
-    <a routerLink='login' *ngIf='!authService.loggedIn' class="nav-link nav-text">
+    <a id='login-link' routerLink='login' *ngIf='!authService.loggedIn' class="nav-link nav-text">
       Login
     </a>
   </section>
