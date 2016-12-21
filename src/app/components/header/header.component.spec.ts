@@ -15,7 +15,7 @@ class MockAuthServiceNotLogged extends AuthenticationService {
   user = null;
 }
 
-fdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let element: any;
