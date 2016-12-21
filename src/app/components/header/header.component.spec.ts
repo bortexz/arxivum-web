@@ -75,11 +75,25 @@ fdescribe('HeaderComponent', () => {
     });
 
     it('Should display cloud icon', () => {
-      expect(element.querySelector('a#root-folder-link')).toBeDefined();
+      expect(element.querySelector('a#header-root-folder-link')).toBeDefined();
     });
 
     it('Should not display login link', () => {
-      expect(element.querySelector('a#login-link')).toBeNull();
+      expect(element.querySelector('a#header-login-link')).toBeNull();
+    });
+
+    it('Should display the email of the current user', () => {
+      expect(element.querySelector('#header-user-email').innerText).toBe(component.authService.user.email);
+    });
+
+    it('Should display the dropdown menu', () => {
+      expect(element.querySelector('clr-dropdown')).toBeDefined();
+    });
+
+    it('Should call logout when press logout from dropdown menu', () => {
+      spyOn(component.authService, 'logout');
+      element.querySelector('#header-user-logout-link').click();
+      expect(component.authService.logout).toHaveBeenCalledTimes(1);
     });
   });
 });

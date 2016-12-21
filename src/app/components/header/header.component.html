@@ -8,7 +8,7 @@
   <section class="header-nav">
     <a
       routerLink="/folder"
-      id='root-folder-link'
+      id='header-root-folder-link'
       *ngIf='authService.loggedIn'
       routerLinkActive="active"
       class='nav-link nav-icon'>
@@ -17,19 +17,30 @@
   </section>
   <section class="header-actions">
     <!-- Authenticated -->
-    <span class='nav-text nav-link' *ngIf="authService.loggedIn">{{authService.user.email}}</span>
+    <span
+      id='header-user-email'
+      class='nav-text nav-link'
+      *ngIf="authService.loggedIn">{{authService.user.email}}</span>
+
     <clr-dropdown *ngIf="authService.loggedIn" class="dropdown bottom-right">
       <button class="nav-icon" clrDropdownToggle>
         <clr-icon shape="user"></clr-icon>
         <clr-icon shape="caret" class="icon-orient-down"></clr-icon>
       </button>
       <div class="dropdown-menu">
-        <a (click)='authService.logout()' clrDropdownItem>Log out</a>
+        <a
+        id='header-user-logout-link'
+        (click)='authService.logout()'
+        clrDropdownItem>Log out</a>
       </div>
     </clr-dropdown>
 
     <!-- Not authenticated -->
-    <a id='login-link' routerLink='login' *ngIf='!authService.loggedIn' class="nav-link nav-text">
+    <a
+      id='header-login-link'
+      routerLink='login'
+      *ngIf='!authService.loggedIn'
+      class="nav-link nav-text">
       Login
     </a>
   </section>
