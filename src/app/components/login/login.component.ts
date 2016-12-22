@@ -9,21 +9,20 @@ import {AuthenticationService} from '../../services/authentication/authenticatio
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   user: string;
   password: string;
 
-  private onLoginSuccess = (result) => {
+  onLoginSuccess = (result) => {
     if (result) {
       this.router.navigate(['/folder']);
     }
   }
 
-  private onLoginError = (err) => {
+  onLoginError = (err) => {
     console.log('Error from the login component');
   }
 
-  constructor(private authentication: AuthenticationService, private router: Router) {}
+  constructor(public authentication: AuthenticationService, public router: Router) {}
 
   ngOnInit() {
   }
