@@ -76,7 +76,7 @@ fdescribe('LoginComponent', () => {
     expect(component.router.navigate).toHaveBeenCalledWith(['/folder']);
   });
 
-  it('Should bind user and password to the inputs', () => {
+  it('Should bind user and password to the inputs', async(() => {
     component.user = 'test';
     component.password = 'test';
 
@@ -85,14 +85,11 @@ fdescribe('LoginComponent', () => {
 
     fixture.detectChanges();
 
-    // user.value = 'test';
-    // password.value = 'test';
-    expect(user.value).toBe(component.user);
-    expect(password.value).toBe(component.password);
-
-    // expect(component.user).toBe(user.value);
-    // expect(component.password).toBe(password.value);
-  });
+    fixture.whenStable().then(() => {
+      expect(user.value).toBe(component.user);
+      expect(password.value).toBe(component.password);
+    });
+  }));
 
   // Handle login error later.
 });
