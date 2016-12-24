@@ -23,9 +23,9 @@
     "@angular/router": "3.3.1",
     "@webcomponents/custom-elements": "^1.0.0-alpha.3",
     "angular2-tree-component": "^2.5.1",
-    "clarity-angular": "^0.7.2",
-    "clarity-icons": "^0.7.2",
-    "clarity-ui": "^0.7.2",
+    "clarity-angular": "^0.8.0",
+    "clarity-icons": "^0.8.0",
+    "clarity-ui": "^0.8.0",
     "core-js": "^2.4.1",
     "mutationobserver-shim": "^0.3.2",
     "ng2-file-upload": "^1.1.4-2",
@@ -55,7 +55,7 @@
     "protractor": "~4.0.13",
     "ts-node": "1.2.1",
     "tslint": "4.0.2",
-    "typescript": "~2.0.4",
+    "typescript": "~2.0.10",
     "webdriver-manager": "10.2.5"
   }
 }

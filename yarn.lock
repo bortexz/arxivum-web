@@ -1063,17 +1063,17 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
-clarity-angular@^0.7.2:
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/clarity-angular/-/clarity-angular-0.7.5.tgz#da95dab23ccca288083b766b298da2cf022f4768"
+clarity-angular@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/clarity-angular/-/clarity-angular-0.8.0.tgz#1f61cb77fbcc14e758f1243f98f28a40603458ef"
 
-clarity-icons@^0.7.2:
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/clarity-icons/-/clarity-icons-0.7.5.tgz#30006ca1c9005c2f7f0189f446438d522a290216"
+clarity-icons@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/clarity-icons/-/clarity-icons-0.8.0.tgz#68c364b37e3383c918850426b72a5f5f30861e70"
 
-clarity-ui@^0.7.2:
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/clarity-ui/-/clarity-ui-0.7.5.tgz#2b03e51e5266c5a56d8330be27bbb8ade4c74540"
+clarity-ui@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/clarity-ui/-/clarity-ui-0.8.0.tgz#c3f52287ab6e0390fb713ab551747fb98180d4a8"
 
 clean-css-promise@^0.1.0:
   version "0.1.1"
@@ -6380,7 +6380,7 @@ typedarray-to-buffer@^3.0.0:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@~2.0.3, typescript@~2.0.4:
+typescript@~2.0.10, typescript@~2.0.3:
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.0.10.tgz#ccdd4ed86fd5550a407101a0814012e1b3fac3dd"
 
