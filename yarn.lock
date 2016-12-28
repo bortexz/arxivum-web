@@ -118,9 +118,9 @@
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/@types/url-join/-/url-join-0.8.1.tgz#c3e356399c37ef0b49b6f97531f0a48d4e876232"
 
-"@types/webtorrent@0.0.28":
-  version "0.0.28"
-  resolved "https://registry.yarnpkg.com/@types/webtorrent/-/webtorrent-0.0.28.tgz#3065eb351ecf2a63a119ace57cb98cb73077e4af"
+"@types/webtorrent@^0.0.29":
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/@types/webtorrent/-/webtorrent-0.0.29.tgz#7c06cf501aefda95524719421d950cfabaca7ffa"
   dependencies:
     "@types/node" "*"
     "@types/parse-torrent" "*"

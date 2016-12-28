@@ -42,7 +42,7 @@
     "@types/node": "^6.0.42",
     "@types/parse-torrent": "0.0.28",
     "@types/url-join": "^0.8.1",
-    "@types/webtorrent": "0.0.28",
+    "@types/webtorrent": "^0.0.29",
     "angular-cli": "^1.0.0-beta.24",
     "codelyzer": "~2.0.0-beta.1",
     "jasmine-core": "2.5.2",

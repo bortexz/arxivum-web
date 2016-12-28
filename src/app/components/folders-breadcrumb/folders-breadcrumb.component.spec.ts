@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs';
 import { FoldersBreadcrumbComponent } from './folders-breadcrumb.component';
 
-describe('FoldersBreadcrumbComponent', () => {
+fdescribe('FoldersBreadcrumbComponent', () => {
   let component: FoldersBreadcrumbComponent;
   let fixture: ComponentFixture<FoldersBreadcrumbComponent>;
   let element: any;

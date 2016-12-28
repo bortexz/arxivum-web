@@ -7,11 +7,13 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import {Observable} from 'rxjs';
 import { HeaderComponent } from './header.component';
 
-class MockAuthServiceLogged extends AuthenticationService {
+class MockAuthServiceLogged {
   user = {email: 'test'};
+  logout() {}
+  get loggedIn () {return true;}
 }
 
-class MockAuthServiceNotLogged extends AuthenticationService {
+class MockAuthServiceNotLogged {
   user = null;
 }
 

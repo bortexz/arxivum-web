@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { FileUploaderService } from '../../services/file-uploader/file-uploader.service';
+import { FileDownloaderService } from '../../services/file-downloader/file-downloader.service';
 
 @Component({
   selector: 'ax-files-page',
@@ -16,18 +17,21 @@ export class FilesPageComponent implements OnInit {
   public childFolders: Observable<Array<any>>;
   public folderInfo: any;
   public path: Observable<Array<any>>;
+  public hasBaseDropZoneOver: boolean = false;
 
   @ViewChild('wizard') wizard: CreateFolderWizardComponent;
-
-  public hasBaseDropZoneOver: boolean = false;
 
   constructor(
     private foldersService: FoldersService,
     private route: ActivatedRoute,
-    public fileUploaderService: FileUploaderService
+    public fileUploaderService: FileUploaderService,
+    public fileDownloaderService: FileDownloaderService
   ) {
   };
 
+  /**
+   * Function that reloads data, in case it has changed.
+   */
   private reload (params?) {
     params = params || this.route.snapshot.params;
     const observable = this.foldersService.getOne(params['id']).share();
@@ -77,7 +81,11 @@ export class FilesPageComponent implements OnInit {
     );
   }
 
-  public fileOverDragArea(e: any): void {
+  public downloadFile (file) {
+    this.fileDownloaderService.download(file);
+  }
+
+  public fileOverDragArea (e: any): void {
     this.hasBaseDropZoneOver = e;
   }
 }

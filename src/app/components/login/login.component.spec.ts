@@ -9,7 +9,7 @@ import { LoginComponent } from './login.component';
 
 import { Observable } from 'rxjs';
 
-class MockAuthService extends AuthenticationService {
+class MockAuthService {
   login (user, password) {
     return Observable.of({
       user,
@@ -18,7 +18,7 @@ class MockAuthService extends AuthenticationService {
   }
 }
 
-fdescribe('LoginComponent', () => {
+describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let element: any;

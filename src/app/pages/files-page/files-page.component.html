@@ -34,19 +34,21 @@
             {{folder.description}}
           </p>
         </div>
-        <div class="card-footer left-aligned">
-            <button class="btn btn-sm btn-link"><clr-icon shape='remove'></clr-icon></button>
-            <button class="btn btn-sm btn-link"><clr-icon shape='edit'></clr-icon></button>
-        </div>
       </a>
     </div>
     <div *ngFor='let file of childFiles | async' class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <a class="card clickable" [routerLink]='["/files", file._id]'>
+      <div class="card">
         <div class="card-header">
           <clr-icon shape='file' class='icon-color-info'></clr-icon>
           <span>{{file.name}}</span>
         </div>
-      </a>
+        <div class="card-footer">
+            <button class="btn btn-sm btn-link" (click)='downloadFile(file);'>
+              <clr-icon shape='download'>
+              </clr-icon>
+            </button>
+        </div>
+      </div>
     </div>
     <div *ngIf="(childFolders | async)?.length === 0 && (childFiles | async)?.length === 0">
       Oops! Seems like you don't have anything here yet

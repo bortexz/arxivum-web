@@ -1,7 +1,7 @@
 <header class='header header-6'>
   <section class="branding">
     <a routerLink="/" class="nav-link">
-      <clr-icon shape="home" class="is-success"></clr-icon>
+      <clr-icon shape="home" class="is-success is-solid"></clr-icon>
       <span class="title">Bertofer's Arxivum</span>
     </a>
   </section>
@@ -12,7 +12,7 @@
       *ngIf='authService.loggedIn'
       routerLinkActive="active"
       class='nav-link nav-icon'>
-      <clr-icon shape='cloud'></clr-icon>
+      <clr-icon shape='cloud' class='is-solid'></clr-icon>
     </a>
   </section>
   <section class="header-actions">
@@ -24,7 +24,7 @@
 
     <clr-dropdown *ngIf="authService.loggedIn" class="dropdown bottom-right">
       <button class="nav-icon" clrDropdownToggle>
-        <clr-icon shape="user"></clr-icon>
+        <clr-icon shape="user" class='is-solid'></clr-icon>
         <clr-icon shape="caret down"></clr-icon>
       </button>
       <div class="dropdown-menu">

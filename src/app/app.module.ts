@@ -34,6 +34,8 @@ import { TreeModule } from 'angular2-tree-component';
 import { FileTreeComponent } from './components/file-tree/file-tree.component';
 import { FoldersBreadcrumbComponent } from './components/folders-breadcrumb/folders-breadcrumb.component';
 import { FileUploaderService } from './services/file-uploader/file-uploader.service';
+import { FileDownloaderService } from './services/file-downloader/file-downloader.service';
+
 import { RightSidebarComponent } from './components/right-sidebar/right-sidebar.component';
 
 @NgModule({
@@ -64,7 +66,8 @@ import { RightSidebarComponent } from './components/right-sidebar/right-sidebar.
     FilesService,
     LoginPageGuard,
     ArxivumHttpProvider,
-    FileUploaderService
+    FileUploaderService,
+    FileDownloaderService
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
