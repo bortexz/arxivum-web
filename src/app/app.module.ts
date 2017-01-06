@@ -37,6 +37,7 @@ import { FileUploaderService } from './services/file-uploader/file-uploader.serv
 import { FileDownloaderService } from './services/file-downloader/file-downloader.service';
 
 import { RightSidebarComponent } from './components/right-sidebar/right-sidebar.component';
+import { FilesizePipe } from './utils/file-size/filesize.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { RightSidebarComponent } from './components/right-sidebar/right-sidebar.
     CreateFolderWizardComponent,
     FileTreeComponent,
     FoldersBreadcrumbComponent,
-    RightSidebarComponent
+    RightSidebarComponent,
+    FilesizePipe
   ],
   imports: [
     BrowserModule,

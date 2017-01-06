@@ -1,22 +1,47 @@
-<nav class='sidebar' [ngClass]='{"nav-shown": shown}' *ngIf='fileUploaderService.uploader.queue.length > 0'>
+<nav class='sidebar' [ngClass]='{"nav-shown": shown}' *ngIf='shouldDisplay()'>
   <ul class='header header-6'>
-    <li class='header-nav'>
-      <a class='nav-link nav-icon' (click)='shown = !shown' [ngClass]='{"active": shown}'>
+    <li class='header-nav' *ngIf='fileUploaderService.uploader.queue.length > 0'>
+      <a class='nav-link nav-icon' (click)='toggle("uploader")' [ngClass]='{"active": shown === "uploader"}'>
         <clr-icon shape='upload' size='24' >
 
         </clr-icon>
         <span
           class="badge"
-          [ngClass]='badgeClass'>
+          [ngClass]='uploaderBadge'>
           {{fileUploaderService.uploader.queue.length}}
+        </span>
+      </a>
+    </li>
+    <li class='header-nav' *ngIf='fileDownloaderService.downloadingFilesArray.length > 0'>
+      <a class='nav-link nav-icon' (click)='toggle("downloader")' [ngClass]='{"active": shown === "downloader"}'>
+        <clr-icon shape='download' size='24' >
+
+        </clr-icon>
+        <span
+          class="badge"
+          [ngClass]='downloaderBadge'>
+          {{fileDownloaderService.downloadingFilesArray.length}}
         </span>
       </a>
     </li>
   </ul>
   <div class='content'>
-    <div *ngFor='let item of fileUploaderService.uploader.queue' class='list-item'>
-      {{item.file.name}}
-      <progress max="100" [value]="item.progress" data-displayval="0%"></progress>
+    <div id='uploader-content' *ngIf='this.shown === "uploader"'>
+      <h3>Uploader</h3>
+      <div *ngFor='let item of fileUploaderService.uploader.queue' class='list-item'>
+        <span>{{item.file.name}}</span>
+        <progress max="100" [value]="item.progress" data-displayval="0%"></progress>
+      </div>
+    </div>
+    <div id='downloader-content' *ngIf='this.shown === "downloader"'>
+      <h3>Downloader</h3>
+      <div *ngFor='let file of fileDownloaderService.downloadingFilesArray' class='list-item'>
+        <span>{{file.name}}</span>
+        <progress max="100" [value]="(file.progress | async) * 100" data-displayval="0%"></progress>
+        <div class='list-item-actions'>
+          <button class="btn btn-danger-outline btn-sm" (click)='fileDownloaderService.remove(file)'>Remove</button>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

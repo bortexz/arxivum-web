@@ -18,12 +18,32 @@ nav {
     box-shadow: -2px 0px 5px -3px black;
 
     .list-item {
-      height: 75px;
+      height: 120px;
       width: 100%;
       border-bottom: 1px solid rgb(204, 204, 204);
       padding: 20px;
 
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      // flex-shrink: 1;
+
+      span {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       progress {
+        width: 100%;
+      }
+
+      .list-item-actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
         width: 100%;
       }
     }
@@ -31,11 +51,15 @@ nav {
 
   ul {
     width: 60px;
-    background: #002538;
+
     list-style-type: none;
+
+    flex-direction: column;
 
     margin-top: 80px;
     li {
+      display: block;
+      background: #002538;
       a {
         display: flex;
         justify-content: center;

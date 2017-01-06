@@ -56,10 +56,27 @@ section {
   display: block;
 }
 
-// Card footer align items left
-.card-footer {
-  display: flex;
 
-  flex-direction: row;
-  justify-content: left;
+// Table styles
+.row-action {
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.row-actions {
+  text-align: right;
+}
+
+.folder-icon {
+  color: rgb(255, 215, 0);
+}
+
+.selected {
+  background: rgb(230, 230, 230);
+}
+
+// File size
+.file-size {
+  font-size: 0.8em;
+  color: rgb(169, 169, 169);
 }

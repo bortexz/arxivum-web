@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { CreateFolderWizardComponent } from '../../wizards/create-folder-wizard/create-folder-wizard.component';
 import { FoldersService } from '../../services/folders/folders.service';
 import { ActivatedRoute } from '@angular/router';
@@ -19,11 +20,13 @@ export class FilesPageComponent implements OnInit {
   public path: Observable<Array<any>>;
   public hasBaseDropZoneOver: boolean = false;
 
+  public selected = null;
   @ViewChild('wizard') wizard: CreateFolderWizardComponent;
 
   constructor(
     private foldersService: FoldersService,
     private route: ActivatedRoute,
+    private router: Router,
     public fileUploaderService: FileUploaderService,
     public fileDownloaderService: FileDownloaderService
   ) {
@@ -37,7 +40,10 @@ export class FilesPageComponent implements OnInit {
     const observable = this.foldersService.getOne(params['id']).share();
 
     this.childFolders = observable.map(res => res.childFolders);
-    this.childFiles = observable.map(res => res.files);
+
+    this.childFiles = observable
+      .map(res => res.files);
+
     this.path = observable.map(res => {
       let path = [...res.ancestors];
       if (res._id) {
@@ -79,6 +85,17 @@ export class FilesPageComponent implements OnInit {
       {folder: this.folderInfo._id} :
       undefined
     );
+  }
+
+  public select (item, $event) {
+    this.selected = item;
+    if ($event) {
+      $event.stopPropagation();
+    }
+  }
+
+  public navigate (item) {
+    this.router.navigate(['/folder', {id: item._id}]);
   }
 
   public downloadFile (file) {

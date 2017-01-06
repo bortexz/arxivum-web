@@ -4,7 +4,8 @@
   [ngClass]='{"drop-area-file-over": hasBaseDropZoneOver}'
   (fileOver)='fileOverDragArea($event)'
   (onFileDrop)='uploadFiles()'
-  [uploader]='fileUploaderService.uploader'>
+  [uploader]='fileUploaderService.uploader'
+  (click)='select(null, $event)'>
 
   <div class='drop-area-layer'>
     <div class='drop-area-border'>
@@ -18,42 +19,51 @@
     </div>
     <div class="col-xs-12 col-md-2 flex-items-xs-right">
       <button class="btn btn-primary" (click)='wizard.open()'>New folder</button>
-      <!--<button class="btn btn-outline">Upload file</button>-->
     </div>
   </div>
 
-  <div class="row flex-items-xs-center">
-    <div *ngFor='let folder of childFolders | async' class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <a class="card clickable" [routerLink]='["/folder", {id: folder._id}] '>
-        <div class="card-header">
-          <clr-icon shape='folder' class='icon-color-info'></clr-icon>
-          <span>{{folder.name}}</span>
-        </div>
-        <div class="card-block" *ngIf='folder.description'>
-          <p class="card-text">
-            {{folder.description}}
-          </p>
-        </div>
-      </a>
-    </div>
-    <div *ngFor='let file of childFiles | async' class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <div class="card">
-        <div class="card-header">
-          <clr-icon shape='file' class='icon-color-info'></clr-icon>
-          <span>{{file.name}}</span>
-        </div>
-        <div class="card-footer">
-            <button class="btn btn-sm btn-link" (click)='downloadFile(file);'>
-              <clr-icon shape='download'>
-              </clr-icon>
-            </button>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="(childFolders | async)?.length === 0 && (childFiles | async)?.length === 0">
-      Oops! Seems like you don't have anything here yet
-    </div>
-  </div>
+  <table class='table'>
+    <tbody>
+      <tr
+        *ngFor='let folder of childFolders | async'
+        class='folder-row'
+        [ngClass]="{selected: folder === selected}"
+        (click)='select(folder, $event)'
+        (dblclick)='navigate(folder)'>
+        <td class='left'>
+          <!--<a [routerLink]='["/folder", {id: folder._id}] '>-->
+            <clr-icon shape='folder' class='folder-icon is-solid'></clr-icon>
+            <span>{{folder.name}}</span>
+          <!--</a>-->
+        </td>
+        <td class='row-actions'>
+        </td>
+      </tr>
+      <tr
+        *ngFor='let file of childFiles | async'
+        class='file-row'
+        [ngClass]="{selected: file === selected}"
+        (click)='select(file, $event)'
+        (dblclick)='downloadFile(file)'>
+        <td class='left'>
+          <clr-icon shape='file' class='file-icon is-info is-solid'></clr-icon>
+          <span>{{file.name}} <span class='file-size'>{{file.size | filesize}}</span></span>
+        </td>
+        <td class='row-actions'>
+          <span *ngIf='fileDownloaderService.downloadingFiles[file._id]'> {{fileDownloaderService.downloadingFiles[file._id].progress | async | percent:'1.2-2'}} </span>
+          <a class="row-action" (click)='downloadFile(file);'>
+            <clr-icon shape='download'>
+            </clr-icon>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td *ngIf="(childFolders | async)?.length === 0 && (childFiles | async)?.length === 0">
+          Oops! Seems like you don't have anything here yet
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </section>
 
 <nav class="sidenav">

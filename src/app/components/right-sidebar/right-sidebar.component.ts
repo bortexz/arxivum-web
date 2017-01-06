@@ -1,3 +1,4 @@
+import { FileDownloaderService } from '../../services/file-downloader/file-downloader.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FileUploaderService } from '../../services/file-uploader/file-uploader.service';
 
@@ -7,10 +8,14 @@ import { FileUploaderService } from '../../services/file-uploader/file-uploader.
   styleUrls: ['./right-sidebar.component.scss']
 })
 export class RightSidebarComponent implements OnInit {
-  shown: Boolean = false;
-  badgeClass: any;
+  shown: string = null;
+  uploaderBadge: any;
+  downloaderBadge: any;
 
-  constructor(private fileUploaderService: FileUploaderService, private changeDetector: ChangeDetectorRef) {
+  constructor(
+    public fileUploaderService: FileUploaderService,
+    private changeDetector: ChangeDetectorRef,
+    public fileDownloaderService: FileDownloaderService) {
     const detectChanges = function () {
       this.reloadBadgeClass();
       this.changeDetector.detectChanges();
@@ -22,10 +27,28 @@ export class RightSidebarComponent implements OnInit {
     this.reloadBadgeClass();
   }
 
+  toggle(panel) {
+    if (!this.shown) return this.shown = panel;
+
+    if (this.shown === panel) {
+      return this.shown = null;
+    } else return this.shown = panel;
+  }
+
+  shouldDisplay () {
+    return this.fileUploaderService.uploader.queue.length > 0
+      || this.fileDownloaderService.downloadingFilesArray.length > 0;
+  }
+
   reloadBadgeClass () {
-    this.badgeClass = {
+    this.uploaderBadge = {
       'badge-orange': this.fileUploaderService.uploader.progress < 100,
       'badge-success': this.fileUploaderService.uploader.progress === 100
+    };
+
+    this.downloaderBadge = {
+      'badge-orange': this.fileDownloaderService.totalProgress < 100,
+      'badge-success': this.fileDownloaderService.totalProgress >= 100
     };
   }
 }
