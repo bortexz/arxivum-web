@@ -37,9 +37,25 @@
       <h3>Downloader</h3>
       <div *ngFor='let file of fileDownloaderService.downloadingFilesArray' class='list-item'>
         <span>{{file.name}}</span>
-        <progress max="100" [value]="(file.progress | async) * 100" data-displayval="0%"></progress>
+        <progress max="100" *ngIf='file.progress' [value]="(file.progress | async) * 100" data-displayval="0%"></progress>
         <div class='list-item-actions'>
-          <button class="btn btn-danger-outline btn-sm" (click)='fileDownloaderService.remove(file)'>Remove</button>
+          <button
+            class="btn btn-success-outline btn-sm"
+            (click)='fileDownloaderService.resume(file)'
+            *ngIf='!file.torrent'>
+            Resume
+          </button>
+          <button
+            class="btn btn-info-outline btn-sm"
+            (click)='fileDownloaderService.pause(file)'
+            *ngIf='file.torrent'>
+            Pause
+          </button>
+          <button
+            class="btn btn-danger-outline btn-sm"
+            (click)='fileDownloaderService.remove(file)'>
+            Remove
+          </button>
         </div>
       </div>
     </div>

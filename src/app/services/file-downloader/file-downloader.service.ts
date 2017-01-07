@@ -1,9 +1,19 @@
+import { IFile } from '../files/files.service';
 import { Injectable, NgZone } from '@angular/core';
 import * as WTClient from 'webtorrent';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 
 const urljoin = require('url-join');
+
+export interface IDownloadingFile {
+  id: string;
+  name: string;
+  torrent: any;
+  torrent_info: any;
+  progress: Observable<Number>;
+  download_speed: Observable<() => number>;
+}
 
 @Injectable()
 export class FileDownloaderService {
@@ -33,17 +43,20 @@ export class FileDownloaderService {
 
   constructor(public zone: NgZone) {}
 
-  download (file) {
-    if (!file.torrent) return;
-    if (file.downloading) return; // Already downloading
+  download (file: IFile) {
+    if (!file.torrent ||
+       (this.downloadingFiles[file._id] && this.downloadingFiles[file._id].torrent)) {
+      return;
+    }
 
     this.client.add(Buffer.from(file.torrent.data), (torrent) => {
       this.zone.run(() => {
         const interval = Observable.interval(500);
-        const downloadingFile = {
-          _id: file._id,
+        const downloadingFile: IDownloadingFile = {
+          id: file._id,
           name: file.name,
           torrent,
+          torrent_info: file.torrent,
           progress: interval.map(() => {
             return torrent.progress;
           }),
@@ -57,10 +70,34 @@ export class FileDownloaderService {
     });
   }
 
-  remove (file) {
+  remove (file: IDownloadingFile) {
     file.torrent.destroy(() => {
       this.zone.run(() => {
-        delete this.downloadingFiles[file._id];
+        delete this.downloadingFiles[file.id];
+      });
+    });
+  }
+
+  pause (file: IDownloadingFile) {
+    file.torrent.destroy(() => {
+      this.zone.run(() => {
+        delete this.downloadingFiles[file.id].torrent;
+      });
+    });
+  }
+
+  // Bit of duplication here with download, see how to abstract
+  resume (file: IDownloadingFile) {
+    this.client.add(Buffer.from(file.torrent_info.data), (torrent) => {
+      this.zone.run(() => {
+        const interval = Observable.interval(500);
+        file.torrent = torrent;
+        file.progress =  interval.map(() => {
+          return torrent.progress;
+        });
+        file.download_speed =  interval.map(() => {
+          return torrent.downloadSpeed;
+        });
       });
     });
   }

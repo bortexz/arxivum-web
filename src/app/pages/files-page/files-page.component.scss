@@ -63,6 +63,11 @@ section {
   margin-right: 20px;
 }
 
+.admin-action-icon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
 .row-actions {
   text-align: right;
 }
@@ -72,10 +77,10 @@ section {
 }
 
 .selected {
-  background: rgb(230, 230, 230);
+  background: rgb(250, 250, 250);
 }
 
-// File size
+// File size text
 .file-size {
   font-size: 0.8em;
   color: rgb(169, 169, 169);

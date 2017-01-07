@@ -1,3 +1,4 @@
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateFolderWizardComponent } from '../../wizards/create-folder-wizard/create-folder-wizard.component';
@@ -28,7 +29,8 @@ export class FilesPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public fileUploaderService: FileUploaderService,
-    public fileDownloaderService: FileDownloaderService
+    public fileDownloaderService: FileDownloaderService,
+    public authService: AuthenticationService
   ) {
   };
 
