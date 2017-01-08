@@ -4,6 +4,8 @@ import * as WTClient from 'webtorrent';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 
+const values = require('ramda/src/values');
+
 const urljoin = require('url-join');
 
 export interface IDownloadingFile {
@@ -27,9 +29,9 @@ export class FileDownloaderService {
   downloadingFiles: any = {};
 
   // Convenience getter to iterate in ngFor
-  // Wait for object.values in Typescript, no map required
+  // Wait for object.values in Typescript
   get downloadingFilesArray () {
-    return Object.keys(this.downloadingFiles).map(key => this.downloadingFiles[key]);
+    return values(this.downloadingFiles);
   }
 
   get totalProgress () {
@@ -71,11 +73,15 @@ export class FileDownloaderService {
   }
 
   remove (file: IDownloadingFile) {
-    file.torrent.destroy(() => {
-      this.zone.run(() => {
-        delete this.downloadingFiles[file.id];
+    if (!file.torrent) {
+      delete this.downloadingFiles[file.id];
+    } else {
+      file.torrent.destroy(() => {
+        this.zone.run(() => {
+          delete this.downloadingFiles[file.id];
+        });
       });
-    });
+    }
   }
 
   pause (file: IDownloadingFile) {
