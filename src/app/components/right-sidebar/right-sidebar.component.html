@@ -39,7 +39,8 @@
         <span>{{file.name}}</span>
         <progress max="100" *ngIf='file.progress' [value]="(file.progress | async) * 100" data-displayval="0%"></progress>
         <div class='list-item-actions'>
-          <button
+          <!-- https://github.com/feross/webtorrent/issues/580 -->
+          <!--<button
             class="btn btn-success-outline btn-sm"
             (click)='fileDownloaderService.resume(file)'
             *ngIf='!file.torrent'>
@@ -50,7 +51,7 @@
             (click)='fileDownloaderService.pause(file)'
             *ngIf='file.torrent'>
             Pause
-          </button>
+          </button>-->
           <button
             class="btn btn-danger-outline btn-sm"
             (click)='fileDownloaderService.remove(file)'>
