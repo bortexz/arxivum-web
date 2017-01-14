@@ -1,6 +1,6 @@
-<form (ngSubmit)="onSubmit()">
+<form (ngSubmit)="store.dispatch(authActions.login(email, password))">
 
-  <input type='text' name='user' [(ngModel)]="user">
+  <input type='text' name='user' [(ngModel)]="email">
 
   <input type='password' name='password' [(ngModel)]="password">
 

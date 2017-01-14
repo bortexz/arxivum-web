@@ -83,6 +83,18 @@
   dependencies:
     tsickle "^0.1.7"
 
+"@ngrx/core@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/core/-/core-1.2.0.tgz#882b46abafa2e0e6d887cb71a1b2c2fa3e6d0dc6"
+
+"@ngrx/effects@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-2.0.0.tgz#db4c3e1b69030229cb6b908477115b3479e4c4e0"
+
+"@ngrx/store@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-2.2.1.tgz#316ec1e43aa5a0166e5e6e1aa2c34a4049386510"
+
 "@ngtools/webpack@^1.0.0":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-1.2.1.tgz#b32a2cda4aabb14518b3a16840b30d6a0e2f131e"
@@ -4150,6 +4162,10 @@ ng2-file-upload@^1.1.4-2:
   version "1.1.4-2"
   resolved "https://registry.yarnpkg.com/ng2-file-upload/-/ng2-file-upload-1.1.4-2.tgz#61d8e74f726eeeb2514136347f220e1fd45059e3"
 
+ngrx-store-localstorage@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/ngrx-store-localstorage/-/ngrx-store-localstorage-0.1.5.tgz#d95342e3169f2e4f03b60f8693f89ed5fb748cf1"
+
 no-case@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.0.tgz#ca2825ccb76b18e6f79d573dcfbf1eace33dd164"
@@ -5512,7 +5528,7 @@ rxjs@5.0.0-beta.12:
   dependencies:
     symbol-observable "^1.0.1"
 
-rxjs@5.0.1, rxjs@^5.0.1:
+rxjs@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.0.1.tgz#3a69bdf9f0ca0a986303370d4708f72bdfac8356"
   dependencies:

@@ -1,11 +1,16 @@
+import { AppState } from '../../app.reducers';
 import { Injectable } from '@angular/core';
-import { Http, ConnectionBackend, RequestOptions, RequestOptionsArgs, Request, Response, Headers } from '@angular/http';
+import {
+  ConnectionBackend,
+  Headers,
+  Http,
+  Request,
+  RequestOptions,
+  RequestOptionsArgs,
+  Response
+} from '@angular/http';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/finally';
-import 'rxjs/add/observable/throw';
-
-import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 /**
  * HTTP service that adds the Authorization header automatically from localStorage
@@ -13,37 +18,33 @@ import { AuthenticationService } from '../../services/authentication/authenticat
  */
 @Injectable()
 export class ArxivumHttp extends Http {
-  constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private authService: AuthenticationService) {
-    super(backend, defaultOptions);
-  }
+  authToken: string;
 
-  private onAuthError = (err) => {
-    if (this.authService) {
-      this.authService.logout();
-    }
+  constructor(
+    private backend: ConnectionBackend,
+    private defaultOptions: RequestOptions,
+    private store: Store<AppState>
+  ) {
+    super(backend, defaultOptions);
+    store.select(state => state.authenticated)
+      .subscribe(auth => {
+        this.authToken = auth ? auth.token : null;
+      });
   }
 
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-    const token = this.authService.authToken;
-
-    if (token) {
+    if (this.authToken) {
       if (url instanceof Request) {
-        url.headers.append('Authorization', token);
+        url.headers.append('Authorization', `Bearer ${this.authToken}`);
       } else if (!options || !options.headers) {
         if (!options) {
           options = new RequestOptions();
         }
         options.headers = new Headers();
-        options.headers.append('Authorization', token);
+        options.headers.append('Authorization', `Bearer ${this.authToken}`);
       }
     }
 
-    return super.request(url, options)
-      .catch((err) => {
-        if (err.status === 401) {
-          this.onAuthError(err);
-        }
-        return Observable.throw(err);
-      });
+    return super.request(url, options);
   }
 }

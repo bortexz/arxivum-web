@@ -1,4 +1,4 @@
-import { IFile } from '../files/files.service';
+import { IFile } from '../files/files.interfaces';
 import { Injectable, NgZone } from '@angular/core';
 import * as WTClient from 'webtorrent';
 import { environment } from '../../../environments/environment';
@@ -84,27 +84,27 @@ export class FileDownloaderService {
     }
   }
 
-  pause (file: IDownloadingFile) {
-    file.torrent.destroy(() => {
-      this.zone.run(() => {
-        delete this.downloadingFiles[file.id].torrent;
-      });
-    });
-  }
+  // pause (file: IDownloadingFile) {
+  //   file.torrent.destroy(() => {
+  //     this.zone.run(() => {
+  //       delete this.downloadingFiles[file.id].torrent;
+  //     });
+  //   });
+  // }
 
-  // Bit of duplication here with download, see how to abstract
-  resume (file: IDownloadingFile) {
-    this.client.add(Buffer.from(file.torrent_info.data), (torrent) => {
-      this.zone.run(() => {
-        const interval = Observable.interval(500);
-        file.torrent = torrent;
-        file.progress =  interval.map(() => {
-          return torrent.progress;
-        });
-        file.download_speed =  interval.map(() => {
-          return torrent.downloadSpeed;
-        });
-      });
-    });
-  }
+  // // Bit of duplication here with download, see how to abstract
+  // resume (file: IDownloadingFile) {
+  //   this.client.add(Buffer.from(file.torrent_info.data), (torrent) => {
+  //     this.zone.run(() => {
+  //       const interval = Observable.interval(500);
+  //       file.torrent = torrent;
+  //       file.progress =  interval.map(() => {
+  //         return torrent.progress;
+  //       });
+  //       file.download_speed =  interval.map(() => {
+  //         return torrent.downloadSpeed;
+  //       });
+  //     });
+  //   });
+  // }
 }

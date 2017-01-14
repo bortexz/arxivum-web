@@ -9,7 +9,7 @@
     <a
       routerLink="/folder"
       id='header-root-folder-link'
-      *ngIf='authService.loggedIn'
+      *ngIf='authenticated$ | async'
       routerLinkActive="active"
       class='nav-link nav-icon'>
       <clr-icon shape='cloud' class='is-solid'></clr-icon>
@@ -20,9 +20,9 @@
     <span
       id='header-user-email'
       class='nav-text nav-link'
-      *ngIf="authService.loggedIn">{{authService.user.email}}</span>
+      *ngIf='authenticated$ | async'>{{(authenticated$ | async).email}}</span>
 
-    <clr-dropdown *ngIf="authService.loggedIn" class="dropdown bottom-right">
+    <clr-dropdown *ngIf='authenticated$ | async' class="dropdown bottom-right">
       <button class="nav-icon" clrDropdownToggle>
         <clr-icon shape="user" class='is-solid'></clr-icon>
         <clr-icon shape="caret down"></clr-icon>
@@ -30,7 +30,7 @@
       <div class="dropdown-menu">
         <a
         id='header-user-logout-link'
-        (click)='authService.logout()'
+        (click)='store.dispatch(authActions.logout())'
         clrDropdownItem>Log out</a>
       </div>
     </clr-dropdown>
@@ -39,7 +39,7 @@
     <a
       id='header-login-link'
       routerLink='login'
-      *ngIf='!authService.loggedIn'
+      *ngIf='!(authenticated$ | async)'
       class="nav-link nav-text">
       Login
     </a>

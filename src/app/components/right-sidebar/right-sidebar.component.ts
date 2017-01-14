@@ -1,6 +1,6 @@
 import { FileDownloaderService } from '../../services/file-downloader/file-downloader.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FileUploaderService } from '../../services/file-uploader/file-uploader.service';
+import { UploaderService } from '../../services/uploader/uploader.service';
 
 @Component({
   selector: 'ax-right-sidebar',
@@ -13,14 +13,14 @@ export class RightSidebarComponent implements OnInit {
   downloaderBadge: any;
 
   constructor(
-    public fileUploaderService: FileUploaderService,
+    public uploaderService: UploaderService,
     private changeDetector: ChangeDetectorRef,
     public fileDownloaderService: FileDownloaderService) {
     const detectChanges = function () {
       this.reloadBadgeClass();
       this.changeDetector.detectChanges();
     }.bind(this);
-    fileUploaderService.uploader.onProgressItem = detectChanges;
+    // fileUploaderService.uploader.onProgressItem = detectChanges;
   }
 
   ngOnInit() {
@@ -36,19 +36,19 @@ export class RightSidebarComponent implements OnInit {
   }
 
   shouldDisplay () {
-    return this.fileUploaderService.uploader.queue.length > 0
-      || this.fileDownloaderService.downloadingFilesArray.length > 0;
+    // return this.fileUploaderService.uploader.queue.length > 0
+    //   || this.fileDownloaderService.downloadingFilesArray.length > 0;
   }
 
   reloadBadgeClass () {
-    this.uploaderBadge = {
-      'badge-orange': this.fileUploaderService.uploader.progress < 100,
-      'badge-success': this.fileUploaderService.uploader.progress === 100
-    };
+    // this.uploaderBadge = {
+    //   'badge-orange': this.fileUploaderService.uploader.progress < 100,
+    //   'badge-success': this.fileUploaderService.uploader.progress === 100
+    // };
 
-    this.downloaderBadge = {
-      'badge-orange': this.fileDownloaderService.totalProgress < 100,
-      'badge-success': this.fileDownloaderService.totalProgress >= 100
-    };
+    // this.downloaderBadge = {
+    //   'badge-orange': this.fileDownloaderService.totalProgress < 100,
+    //   'badge-success': this.fileDownloaderService.totalProgress >= 100
+    // };
   }
 }

@@ -1,15 +1,13 @@
-import { Injectable } from '@angular/core';
-
-// AuthService uses normal Http service to avoid circular dependency,
-// and because it doesn't need to check for 401 error
-import {Http} from '@angular/http';
-const urljoin = require('url-join');
-import 'rxjs/add/operator/map'; // map for type Observable<Response>
-import { Router } from '@angular/router';
-
+import { Store } from '@ngrx/store';
+import 'rxjs/src/add/operator/map';
 import { environment } from '../../../environments/environment';
+import { AuthenticationState } from './authentication.reducer';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
-import { Observable } from 'rxjs';
+const urljoin = require('url-join');
 
 /**
  * AuthenticationService, contains login and logout function, as well as
@@ -23,52 +21,17 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthenticationService {
-  public user = null;
+  private user: Observable<AuthenticationState>;
   private loginUrl = urljoin(environment.api_url, 'authenticate');
 
-  constructor(private http: Http, private router: Router) {
-    try {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user) {
-        this.user = user;
-      }
-    } catch (e) {
-      // There is no user
-    }
+  constructor(
+    private http: Http
+  ) {
   }
 
   login(email, password) {
     return this.http
-      .post(
-        this.loginUrl,
-        { email, password }
-      )
-      .map(res => res.json())
-      .map((res) => {
-        if (res.token) {
-          localStorage.setItem('user', JSON.stringify(res));
-          this.user = res;
-        }
-        return res;
-      });
-  }
-
-  // Removes token and redirects to login page
-  logout() {
-    localStorage.removeItem('user');
-    this.user = null;
-    this.router.navigate(['/login']); // have another home with no login required?
-  }
-
-  get authToken () {
-    return this.user ? `Bearer ${this.user.token}` : undefined;
-  }
-
-  get loggedIn() {
-    return !!this.user;
-  }
-
-  get admin() {
-    return this.user && this.user.admin;
+      .post(this.loginUrl, { email, password })
+      .map(res => res.json());
   }
 }

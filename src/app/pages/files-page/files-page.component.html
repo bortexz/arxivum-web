@@ -4,7 +4,7 @@
   [ngClass]='{"drop-area-file-over": hasBaseDropZoneOver}'
   (fileOver)='fileOverDragArea($event)'
   (onFileDrop)='uploadFiles()'
-  [uploader]='fileUploaderService.uploader'
+  [uploader]='uploaderService.uploader'
   (click)='select(null, $event)'>
 
   <div class='drop-area-layer'>
@@ -15,7 +15,7 @@
 
   <div class='row flex-items-xs-between files-header'>
     <div class='col-xs-12 col-md-10 row flex-items-xs-left flex-xs-middle'>
-      <ax-folders-breadcrumb [path]='path'></ax-folders-breadcrumb>
+      <ax-folders-breadcrumb [path]='(currentFolder$ | async)?.path'></ax-folders-breadcrumb>
     </div>
     <div class="col-xs-12 col-md-2 flex-items-xs-right">
       <button class="btn btn-primary" (click)='wizard.open()'>New folder</button>
@@ -25,7 +25,7 @@
   <table class='table'>
     <tbody>
       <tr
-        *ngFor='let folder of childFolders | async'
+        *ngFor='let folder of (currentFolder$ | async)?.folders'
         class='folder-row'
         [ngClass]="{selected: folder === selected}"
         (click)='select(folder, $event)'
@@ -40,7 +40,7 @@
         </td>
       </tr>
       <tr
-        *ngFor='let file of childFiles | async'
+        *ngFor='let file of (currentFolder$ | async)?.files'
         class='file-row'
         [ngClass]="{selected: file === selected}"
         (click)='select(file, $event)'
@@ -48,8 +48,16 @@
         <td class='left'>
           <clr-icon shape='file' class='file-icon is-info is-solid'></clr-icon>
           <span>{{file.name}} <span class='file-size'>{{file.size | filesize}}</span></span>
-          <a (click)='return'><clr-icon shape='edit' class='is-info admin-action-icon' *ngIf='authService.admin && this.selected === file'></clr-icon></a>
-          <a (click)='return'><clr-icon shape='remove' class='is-danger admin-action-icon' *ngIf='authService.admin && this.selected === file'></clr-icon></a>
+          <a (click)='return'>
+            <clr-icon shape='edit'
+              class='is-info admin-action-icon'
+              *ngIf='(authenticated$ | async)?.admin && this.selected === file'></clr-icon>
+          </a>
+          <a (click)='return'>
+            <clr-icon shape='remove'
+              class='is-danger admin-action-icon'
+              *ngIf='(authenticated$ | async)?.admin && this.selected === file'></clr-icon>
+          </a>
         </td>
         <td class='row-actions'>
           <span *ngIf='fileDownloaderService.downloadingFiles[file._id]'> {{fileDownloaderService.downloadingFiles[file._id].progress | async | percent:'1.0-0'}} </span>

@@ -1,6 +1,6 @@
 <nav class='sidebar' [ngClass]='{"nav-shown": shown}' *ngIf='shouldDisplay()'>
   <ul class='header header-6'>
-    <li class='header-nav' *ngIf='fileUploaderService.uploader.queue.length > 0'>
+    <li class='header-nav' *ngIf='uploaderService.uploader.queue.length > 0'>
       <a class='nav-link nav-icon' (click)='toggle("uploader")' [ngClass]='{"active": shown === "uploader"}'>
         <clr-icon shape='upload' size='24' >
 
@@ -8,7 +8,7 @@
         <span
           class="badge"
           [ngClass]='uploaderBadge'>
-          {{fileUploaderService.uploader.queue.length}}
+          <!--{{fileUploaderService.uploader.queue.length}}-->
         </span>
       </a>
     </li>
@@ -28,7 +28,7 @@
   <div class='content'>
     <div id='uploader-content' *ngIf='this.shown === "uploader"'>
       <h3>Uploader</h3>
-      <div *ngFor='let item of fileUploaderService.uploader.queue' class='list-item'>
+      <div *ngFor='let item of uploaderService.uploader.queue' class='list-item'>
         <span>{{item.file.name}}</span>
         <progress max="100" [value]="item.progress" data-displayval="0%"></progress>
       </div>

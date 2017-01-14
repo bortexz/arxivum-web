@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
  * The logic is the following: If we ARE authenticated, then go to /home
  */
 @Injectable()
-export class LoginPageGuard implements CanActivate {
+export class FilesPageGuard implements CanActivate {
   authenticated: AuthenticationState;
 
   constructor(
@@ -19,12 +19,12 @@ export class LoginPageGuard implements CanActivate {
     private store: Store<AppState>
   ) {
     this.store.select(state => state.authenticated)
-      .subscribe(auth => this.authenticated = auth)
+      .subscribe(auth => this.authenticated = auth);
   }
 
   canActivate() {
-    if (this.authenticated) {
-      this.router.navigate(['/folder']);
+    if (!this.authenticated) {
+      this.router.navigate(['/login']);
       return false;
     }
     return true;

@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { FileUploaderService } from './file-uploader.service';
+import { UploaderService } from './uploader.service';
 
-describe('FileUploaderService', () => {
+describe('UploaderService', () => {
   // beforeEach(() => {
   //   TestBed.configureTestingModule({
-  //     providers: [FileUploaderService]
+  //     providers: [UploaderService]
   //   });
   // });
 
-  // it('should ...', inject([FileUploaderService], (service: FileUploaderService) => {
+  // it('should ...', inject([UploaderService], (service: UploaderService) => {
   //   expect(service).toBeTruthy();
   // }));
 });
