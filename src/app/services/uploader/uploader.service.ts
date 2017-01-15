@@ -43,6 +43,12 @@ export class UploaderService {
         this.uploaderActions.uploadFilesOnProgressItem(item)
       );
     };
+
+    this.uploader.onProgressAll = (progress) => {
+      this.store.dispatch(
+        this.uploaderActions.uploadFilesOnProgressAll(progress)
+      );
+    };
   }
 
 }

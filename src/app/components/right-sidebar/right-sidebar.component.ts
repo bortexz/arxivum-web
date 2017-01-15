@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs/Rx';
+import { AppState } from '../../app.reducers';
+import { Store } from '@ngrx/store';
 import { FileDownloaderService } from '../../services/file-downloader/file-downloader.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UploaderService } from '../../services/uploader/uploader.service';
@@ -12,19 +15,32 @@ export class RightSidebarComponent implements OnInit {
   uploaderBadge: any;
   downloaderBadge: any;
 
+  uploading$ = this.store.select(state => state.uploading);
+  downloading$ = Observable.of(42);
+
+  shouldDisplay$ = Observable
+    .combineLatest(this.uploading$, this.downloading$)
+    .map(([uploading, downloading]) => {
+      if (uploading && uploading.files.length > 0) return true;
+      return false;
+    });
+
+  uploaderBadge$ = this.uploading$
+    .map(uploading => uploading.progress)
+    .map(progress => progress === 100 ? 'badge-success' : 'badge-orange');
+
   constructor(
-    public uploaderService: UploaderService,
     private changeDetector: ChangeDetectorRef,
-    public fileDownloaderService: FileDownloaderService) {
-    const detectChanges = function () {
-      this.reloadBadgeClass();
-      this.changeDetector.detectChanges();
-    }.bind(this);
-    // fileUploaderService.uploader.onProgressItem = detectChanges;
+    private store: Store<AppState>,
+    public fileDownloaderService: FileDownloaderService
+  ) {
+
   }
 
   ngOnInit() {
     this.reloadBadgeClass();
+
+    this.uploading$.subscribe(() => this.changeDetector.detectChanges());
   }
 
   toggle(panel) {
@@ -33,11 +49,6 @@ export class RightSidebarComponent implements OnInit {
     if (this.shown === panel) {
       return this.shown = null;
     } else return this.shown = panel;
-  }
-
-  shouldDisplay () {
-    // return this.fileUploaderService.uploader.queue.length > 0
-    //   || this.fileDownloaderService.downloadingFilesArray.length > 0;
   }
 
   reloadBadgeClass () {

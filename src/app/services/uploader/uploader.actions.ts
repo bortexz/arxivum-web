@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 export class UploaderActions {
   static UPLOAD_FILES = '[Uploader] Upload files';
   static UPLOAD_FILES_UPDATE_QUEUE = '[Uploader] Upload files update queue';
-  static UPLOAD_FILES_ON_PROGRESS_ITEM = '[Uploader] Upload files on progress';
+  static UPLOAD_FILES_ON_PROGRESS_ITEM = '[Uploader] Upload files on progress item';
+  static UPLOAD_FILES_ON_PROGRESS_ALL = '[Uploader] Upload files on progress all';
   static UPLOAD_FILES_ON_SUCCESS_ITEM = '[Uploader] Upload files on success item';
 
   uploadFiles () {
@@ -24,6 +25,13 @@ export class UploaderActions {
     return {
       type: UploaderActions.UPLOAD_FILES_ON_PROGRESS_ITEM,
       payload: { item }
+    };
+  }
+
+  uploadFilesOnProgressAll (progress) {
+    return {
+      type: UploaderActions.UPLOAD_FILES_ON_PROGRESS_ALL,
+      payload: { progress }
     };
   }
 
