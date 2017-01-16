@@ -23,6 +23,7 @@ export function downloaderReducer (state, action) {
       };
     case DownloaderActions.DOWNLOAD_FILE_PROGRESS_ITEM:
       // Search by id, add progress and download_speed
+    case DownloaderActions.DOWNLOAD_FILE_COMPLETED:
 
   }
   return state;

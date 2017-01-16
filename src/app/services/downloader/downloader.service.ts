@@ -1,3 +1,4 @@
+import { IDownloadingFile } from '../file-downloader/file-downloader.service';
 import { IFile } from '../files/files.interfaces';
 import { Injectable, NgZone } from '@angular/core';
 import * as WTClient from 'webtorrent';
@@ -7,15 +8,6 @@ import { Observable } from 'rxjs';
 const values = require('ramda/src/values');
 
 const urljoin = require('url-join');
-
-export interface IDownloadingFile {
-  id: string;
-  name: string;
-  torrent: any;
-  torrent_info: any;
-  progress: number;
-  download_speed: number;
-}
 
 @Injectable()
 export class DownloaderService {
@@ -40,7 +32,7 @@ export class DownloaderService {
       this.client.add(Buffer.from(file.torrent.data), (torrent) => {
         // this.zone.run(() => {
           const downloadingFile: IDownloadingFile = {
-            id: file._id,
+            _id: file._id,
             name: file.name,
             torrent,
             torrent_info: file.torrent,
