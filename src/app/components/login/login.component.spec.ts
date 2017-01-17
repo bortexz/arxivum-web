@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { AuthenticationService } from '../../core/authentication/authentication.service';
 import { LoginComponent } from './login.component';
 
 import { Observable } from 'rxjs';

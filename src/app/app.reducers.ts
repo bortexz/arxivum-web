@@ -1,7 +1,7 @@
-import { downloaderReducer, DownloaderState } from './services/downloader/downloader.reducer';
-import { uploaderReducer, UploaderState } from './services/uploader/uploader.reducer';
-import { CurrentFolderState, foldersReducer } from './services/folders/folders.reducer';
-import { AuthenticationState, authReducer } from './services/authentication/authentication.reducer';
+import { downloaderReducer, DownloaderState } from './core/downloader/downloader.reducer';
+import { uploaderReducer, UploaderState } from './core/uploader/uploader.reducer';
+import { CurrentFolderState, foldersReducer } from './core/folders/folders.reducer';
+import { AuthenticationState, authReducer } from './core/authentication/authentication.reducer';
 import { compose } from '@ngrx/core/compose';
 import { combineReducers } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';

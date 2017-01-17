@@ -1,20 +1,20 @@
-import { IDownloadingFile } from '../../services/downloader/downloader.reducer';
-import { DownloaderActions } from '../../services/downloader/downloader.actions';
-import { UploaderActions } from '../../services/uploader/uploader.actions';
-import { FoldersActions } from '../../services/folders/folders.actions';
+import { IDownloadingFile } from '../../core/downloader/downloader.reducer';
+import { DownloaderActions } from '../../core/downloader/downloader.actions';
+import { UploaderActions } from '../../core/uploader/uploader.actions';
+import { FoldersActions } from '../../core/folders/folders.actions';
 import { AppState } from '../../app.reducers';
 
 import { Store } from '@ngrx/store';
-import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { AuthenticationService } from '../../core/authentication/authentication.service';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateFolderWizardComponent } from '../../components/create-folder-wizard/create-folder-wizard.component';
-import { FoldersService } from '../../services/folders/folders.service';
+import { FoldersService } from '../../core/folders/folders.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { UploaderService } from '../../services/uploader/uploader.service';
-import { DownloaderService } from '../../services/downloader/downloader.service';
+import { UploaderService } from '../../core/uploader/uploader.service';
+import { DownloaderService } from '../../core/downloader/downloader.service';
 
 @Component({
   selector: 'ax-files-page',

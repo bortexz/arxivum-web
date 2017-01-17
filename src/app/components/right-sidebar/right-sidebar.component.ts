@@ -1,11 +1,11 @@
-import { DownloaderActions } from '../../services/downloader/downloader.actions';
-import { IDownloadingFile } from '../../services/downloader/downloader.reducer';
+import { DownloaderActions } from '../../core/downloader/downloader.actions';
+import { IDownloadingFile } from '../../core/downloader/downloader.reducer';
 import { Observable } from 'rxjs/Rx';
 import { AppState } from '../../app.reducers';
 import { Store } from '@ngrx/store';
-import { DownloaderService } from '../../services/downloader/downloader.service';
+import { DownloaderService } from '../../core/downloader/downloader.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { UploaderService } from '../../services/uploader/uploader.service';
+import { UploaderService } from '../../core/uploader/uploader.service';
 
 @Component({
   selector: 'ax-right-sidebar',

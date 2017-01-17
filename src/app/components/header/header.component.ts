@@ -1,10 +1,10 @@
 import { AppState } from '../../app.reducers';
-import { AuthenticationActions } from '../../services/authentication/authentication.actions';
+import { AuthenticationActions } from '../../core/authentication/authentication.actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AuthenticationState } from '../../services/authentication/authentication.reducer';
+import { AuthenticationState } from '../../core/authentication/authentication.reducer';
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { AuthenticationService } from '../../core/authentication/authentication.service';
 
 @Component({
   selector: 'ax-header',

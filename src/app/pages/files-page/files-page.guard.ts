@@ -1,6 +1,6 @@
 import { AppState } from '../../app.reducers';
-import { AuthenticationState } from '../../services/authentication/authentication.reducer';
-import { UsersService } from '../../services/users/users.service';
+import { AuthenticationState } from '../../core/authentication/authentication.reducer';
+import { UsersService } from '../../core/users/users.service';
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Router } from '@angular/router';

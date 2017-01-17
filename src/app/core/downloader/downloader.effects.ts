@@ -26,7 +26,7 @@ export class DownloaderEffects {
   @Effect()
   totalProgress$ = this.actions$
     .ofType(DownloaderActions.DOWNLOAD_FILE_PROGRESS_ITEM)
-    // .sample(Observable.interval(500))
+    .sample(Observable.interval(100))
     .map(() => Math.round(this.downloaderService.client['progress'] * 100))
     .map(totalProgress =>
       this.downloaderActions.downloadFileProgressAll(totalProgress));
