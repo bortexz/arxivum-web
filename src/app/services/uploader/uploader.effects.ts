@@ -8,12 +8,6 @@ import { UploaderService } from './uploader.service';
 import { Injectable } from '@angular/core';
 
 import * as querystring from 'querystring';
-// this.uploader.setOptions({
-//       url: this.filesService.filesUrl + (query ? `?${querystring.stringify(query)}` : ''),
-//       authToken: this.authToken
-//     });
-
-//     // this.uploader.uploadAll();
 
 @Injectable()
 export class UploaderEffects {
@@ -31,7 +25,7 @@ export class UploaderEffects {
     .withLatestFrom(this.authenticated$, (query, auth) => ({query, auth}))
     .do(({query, auth}) => {
       this.uploaderService.uploader.setOptions({
-        url: this.filesService.filesUrl + (query ? `?${querystring.stringify(query)}` : ''),
+        url: this.filesService.filesUrl + (query && query.folder ? `?${querystring.stringify(query)}` : ''),
         authToken: auth ? `Bearer ${auth.token}` : null
       });
 

@@ -10,12 +10,17 @@ export interface IUploadingFile {
 }
 
 export interface UploaderState {
-  files: IUploadingFile[]; // ng2-uploader items
+  files: IUploadingFile[];
   progress: number;
 };
 
+const initialState: UploaderState = {
+  files: [],
+  progress: 0
+};
+
 export function uploaderReducer (state = null, action) {
-  let files;
+  let files = state ? state.files : [];
   switch (action.type) {
     case UploaderActions.UPLOAD_FILES:
       return state;
@@ -35,7 +40,7 @@ export function uploaderReducer (state = null, action) {
 
 
     case UploaderActions.UPLOAD_FILES_ON_PROGRESS_ITEM:
-      files = state.files.map(item => {
+      files.map(item => {
         if (item.file === action.payload.item.file) {
           item.progress = action.payload.item.progress;
         }
@@ -48,12 +53,13 @@ export function uploaderReducer (state = null, action) {
 
     case UploaderActions.UPLOAD_FILES_ON_PROGRESS_ALL:
       return {
-        files: state.files,
+        files,
         progress: action.payload.progress
       };
 
     case UploaderActions.UPLOAD_FILES_ON_SUCCESS_ITEM:
       return state;
+
   }
   return state;
 }

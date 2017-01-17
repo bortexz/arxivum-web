@@ -1,10 +1,12 @@
+import { IDownloadingFile } from '../../services/downloader/downloader.reducer';
+import { DownloaderActions } from '../../services/downloader/downloader.actions';
 import { UploaderActions } from '../../services/uploader/uploader.actions';
 import { FoldersActions } from '../../services/folders/folders.actions';
 import { AppState } from '../../app.reducers';
 
 import { Store } from '@ngrx/store';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateFolderWizardComponent } from '../../components/create-folder-wizard/create-folder-wizard.component';
 import { FoldersService } from '../../services/folders/folders.service';
@@ -12,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { UploaderService } from '../../services/uploader/uploader.service';
-import { FileDownloaderService } from '../../services/file-downloader/file-downloader.service';
+import { DownloaderService } from '../../services/downloader/downloader.service';
 
 @Component({
   selector: 'ax-files-page',
@@ -23,28 +25,32 @@ export class FilesPageComponent implements OnInit {
 
   private currentFolder$ = this.store.select(state => state.currentFolder);
   private authenticated$ = this.store.select(state => state.authenticated);
+  private downloading$ = this.store.select(state => state.downloading);
 
   private hasBaseDropZoneOver: boolean = false;
 
-  public selected = null;
+  private selected = null;
   @ViewChild('wizard') wizard: CreateFolderWizardComponent;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     public uploaderService: UploaderService,
-    public fileDownloaderService: FileDownloaderService,
+    public downloaderService: DownloaderService,
     private store: Store<AppState>,
     private foldersActions: FoldersActions,
-    private uploaderActions: UploaderActions
+    private uploaderActions: UploaderActions,
+    private downloaderActions: DownloaderActions,
+    private changeDetector: ChangeDetectorRef
   ) {
-
   };
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.store.dispatch(this.foldersActions.getFolder(params['id']));
     });
+
+    this.downloading$.subscribe(() => this.changeDetector.detectChanges());
   }
 
   public wizardCreateFolderFinished (data) {
@@ -54,8 +60,12 @@ export class FilesPageComponent implements OnInit {
     this.store.dispatch(this.foldersActions.createFolder(data.folder));
   }
 
-  public uploadFiles () {
-    this.store.dispatch(this.uploaderActions.uploadFiles());
+  public fileDownloading (id): Observable<IDownloadingFile> {
+    return this.downloading$
+      .map(downloading => downloading.files)
+      .map(files => files.find(elem => elem._id === id))
+      .filter(file => !!file);
+
   }
 
   public select (item, $event) {
@@ -67,10 +77,6 @@ export class FilesPageComponent implements OnInit {
 
   public navigate (item) {
     this.router.navigate(['/folder', {id: item._id}]);
-  }
-
-  public downloadFile (file) {
-    this.fileDownloaderService.download(file);
   }
 
   public fileOverDragArea (e: any): void {

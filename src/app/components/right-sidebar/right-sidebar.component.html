@@ -12,15 +12,15 @@
         </span>
       </a>
     </li>
-    <li class='header-nav' *ngIf='fileDownloaderService.downloadingFilesArray.length > 0'>
+    <li class='header-nav' *ngIf='(downloading$ | async)?.files.length > 0'>
       <a class='nav-link nav-icon' (click)='toggle("downloader")' [ngClass]='{"active": shown === "downloader"}'>
         <clr-icon shape='download' size='24' >
 
         </clr-icon>
         <span
           class="badge"
-          [ngClass]='downloaderBadge'>
-          {{ fileDownloaderService.downloadingFilesArray.length }}
+          [ngClass]='downloaderBadge$ | async'>
+          {{ (downloading$ | async)?.files.length }}
         </span>
       </a>
     </li>
@@ -31,14 +31,15 @@
       <div *ngFor='let item of (uploading$ | async)?.files' class='list-item'>
         <span>{{ item.file.name }}</span>
         <progress max="100" [value]="item.progress" data-displayval="0%"></progress>
-        {{ item.progress }}
+        {{ item.progress }} %
       </div>
     </div>
     <div id='downloader-content' *ngIf='this.shown === "downloader"'>
       <h3>Downloader</h3>
-      <div *ngFor='let file of fileDownloaderService.downloadingFilesArray' class='list-item'>
+      <div *ngFor='let file of (downloading$ | async)?.files' class='list-item'>
         <span>{{file.name}}</span>
-        <progress max="100" *ngIf='file.progress' [value]="(file.progress | async) * 100" data-displayval="0%"></progress>
+        <progress max="100" *ngIf='file.progress' [value]="file.progress" data-displayval="0%"></progress>
+        {{ file.progress }} %
         <div class='list-item-actions'>
           <!-- https://github.com/feross/webtorrent/issues/580 -->
           <!--<button
@@ -55,7 +56,7 @@
           </button>-->
           <button
             class="btn btn-danger-outline btn-sm"
-            (click)='fileDownloaderService.remove(file)'>
+            (click)='this.store.dispatch(downloaderActions.removeItem(file))'>
             Remove
           </button>
         </div>

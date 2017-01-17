@@ -10,6 +10,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DownloaderEffects {
 
+  downloadItemComplete$ = this.actions$
+    .ofType(DownloaderActions.DOWNLOAD_FILE_COMPLETED);
+
   @Effect()
   downloadFile$ = this.actions$
     .ofType(DownloaderActions.DOWNLOAD_FILE)
@@ -18,31 +21,22 @@ export class DownloaderEffects {
       return Observable
         .fromPromise(this.downloaderService.download(file));
     })
-    .map(this.downloaderActions.downloadFileAdded) // Fire add file Action. Move next line to the other Action.
+    .map((file) => this.downloaderActions.downloadFileAdded(file));
 
+  @Effect()
+  totalProgress$ = this.actions$
+    .ofType(DownloaderActions.DOWNLOAD_FILE_PROGRESS_ITEM)
+    // .sample(Observable.interval(500))
+    .map(() => Math.round(this.downloaderService.client['progress'] * 100))
+    .map(totalProgress =>
+      this.downloaderActions.downloadFileProgressAll(totalProgress));
 
   @Effect({ dispatch: false })
-  downloadFileAdded$ = this.actions$
-    .ofType(DownloaderActions.DOWNLOAD_FILE_ADDED)
-    .map(action => action.payload.file)
-    .flatMap(downloadingFile => {
-      return Observable
-        .interval(500)
-        .map(() => ({
-          _id: downloadingFile._id,
-          progress: downloadingFile.torrent.progress,
-          download_speed: downloadingFile.torrent.downloadSpeed
-        }))
-        .takeWhile(({progress}) => progress < 100)
-        .map(({ _id, progress, download_speed }) => {
-          this.store.dispatch(
-            this.downloaderActions.downloadFileProgressItem(_id, progress, download_speed)
-          );
-          return { _id, progress, download_speed };
-        });
-    })
-    .last()
-    .map(({_id}) => this.downloaderActions.downloadFileCompleted(_id));
+  onItemRemoved$ = this.actions$
+    .ofType(DownloaderActions.REMOVE_ITEM)
+    .do((action) => {
+      this.downloaderService.remove(action.payload.file);
+    });
 
   constructor (
     private actions$: Actions,

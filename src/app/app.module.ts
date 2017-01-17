@@ -1,3 +1,6 @@
+import { DownloaderEffects } from './services/downloader/downloader.effects';
+import { DownloaderActions } from './services/downloader/downloader.actions';
+import { AppEffects } from './app.effects';
 import { UploaderActions } from './services/uploader/uploader.actions';
 import { UploaderEffects } from './services/uploader/uploader.effects';
 import { FoldersEffects } from './services/folders/folders.effects';
@@ -19,7 +22,7 @@ import { LoginPageGuard } from './pages/login-page/login-page.guard';
 import { AuthenticationActions } from './services/authentication/authentication.actions';
 import { AuthenticationEffects } from './services/authentication/authentication.effects';
 import { AuthenticationService } from './services/authentication/authentication.service';
-import { FileDownloaderService } from './services/file-downloader/file-downloader.service';
+import { DownloaderService } from './services/downloader/downloader.service';
 import { UploaderService } from './services/uploader/uploader.service';
 import { FilesService } from './services/files/files.service';
 import { FoldersService } from './services/folders/folders.service';
@@ -60,9 +63,11 @@ import { FileUploadModule } from 'ng2-file-upload';
     // Store
     StoreModule.provideStore(reducers),
     // Effects
+    EffectsModule.run(AppEffects),
     EffectsModule.run(AuthenticationEffects),
     EffectsModule.run(FoldersEffects),
-    EffectsModule.run(UploaderEffects)
+    EffectsModule.run(UploaderEffects),
+    EffectsModule.run(DownloaderEffects)
   ],
   providers: [
     AuthenticationService,
@@ -72,11 +77,12 @@ import { FileUploadModule } from 'ng2-file-upload';
     LoginPageGuard,
     ArxivumHttpProvider,
     UploaderService,
-    FileDownloaderService,
+    DownloaderService,
     AuthenticationActions,
     FilesPageGuard,
     FoldersActions,
-    UploaderActions
+    UploaderActions,
+    DownloaderActions
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

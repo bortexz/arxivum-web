@@ -1,7 +1,9 @@
+import { DownloaderActions } from '../../services/downloader/downloader.actions';
+import { IDownloadingFile } from '../../services/downloader/downloader.reducer';
 import { Observable } from 'rxjs/Rx';
 import { AppState } from '../../app.reducers';
 import { Store } from '@ngrx/store';
-import { FileDownloaderService } from '../../services/file-downloader/file-downloader.service';
+import { DownloaderService } from '../../services/downloader/downloader.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UploaderService } from '../../services/uploader/uploader.service';
 
@@ -12,16 +14,15 @@ import { UploaderService } from '../../services/uploader/uploader.service';
 })
 export class RightSidebarComponent implements OnInit {
   shown: string = null;
-  uploaderBadge: any;
-  downloaderBadge: any;
 
   uploading$ = this.store.select(state => state.uploading);
-  downloading$ = Observable.of(42);
+  downloading$ = this.store.select(state => state.downloading);
 
   shouldDisplay$ = Observable
     .combineLatest(this.uploading$, this.downloading$)
     .map(([uploading, downloading]) => {
       if (uploading && uploading.files.length > 0) return true;
+      if (downloading && downloading.files.length > 0) return true;
       return false;
     });
 
@@ -29,18 +30,27 @@ export class RightSidebarComponent implements OnInit {
     .map(uploading => uploading.progress)
     .map(progress => progress === 100 ? 'badge-success' : 'badge-orange');
 
+  downloaderBadge$ = this.downloading$
+    .map(downloading => {
+      return ((downloading.progress === 100) ||
+        (downloading.progress === 0)) &&
+        downloading.files.length > 0 ?
+        'badge-success' :
+        'badge-orange';
+    });
+
   constructor(
     private changeDetector: ChangeDetectorRef,
     private store: Store<AppState>,
-    public fileDownloaderService: FileDownloaderService
+    private downloaderService: DownloaderService,
+    private downloaderActions: DownloaderActions
   ) {
 
   }
 
   ngOnInit() {
-    this.reloadBadgeClass();
-
     this.uploading$.subscribe(() => this.changeDetector.detectChanges());
+    this.downloading$.subscribe(() => this.changeDetector.detectChanges());
   }
 
   toggle(panel) {
@@ -49,17 +59,5 @@ export class RightSidebarComponent implements OnInit {
     if (this.shown === panel) {
       return this.shown = null;
     } else return this.shown = panel;
-  }
-
-  reloadBadgeClass () {
-    // this.uploaderBadge = {
-    //   'badge-orange': this.fileUploaderService.uploader.progress < 100,
-    //   'badge-success': this.fileUploaderService.uploader.progress === 100
-    // };
-
-    // this.downloaderBadge = {
-    //   'badge-orange': this.fileDownloaderService.totalProgress < 100,
-    //   'badge-success': this.fileDownloaderService.totalProgress >= 100
-    // };
   }
 }

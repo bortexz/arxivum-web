@@ -3,7 +3,7 @@
   ng2FileDrop
   [ngClass]='{"drop-area-file-over": hasBaseDropZoneOver}'
   (fileOver)='fileOverDragArea($event)'
-  (onFileDrop)='uploadFiles()'
+  (onFileDrop)='store.dispatch(uploaderActions.uploadFiles())'
   [uploader]='uploaderService.uploader'
   (click)='select(null, $event)'>
 
@@ -44,7 +44,7 @@
         class='file-row'
         [ngClass]="{selected: file === selected}"
         (click)='select(file, $event)'
-        (dblclick)='downloadFile(file)'>
+        (dblclick)='store.dispatch(downloaderActions.downloadFile(file))'>
         <td class='left'>
           <clr-icon shape='file' class='file-icon is-info is-solid'></clr-icon>
           <span>{{file.name}} <span class='file-size'>{{file.size | filesize}}</span></span>
@@ -60,7 +60,9 @@
           </a>
         </td>
         <td class='row-actions'>
-          <span *ngIf='fileDownloaderService.downloadingFiles[file._id]'> {{fileDownloaderService.downloadingFiles[file._id].progress | async | percent:'1.0-0'}} </span>
+          <span *ngIf='fileDownloading(file._id) | async'>
+            {{ (fileDownloading(file._id) | async)?.progress }} %
+          </span>
           <a class="row-action" (click)='downloadFile(file);'>
             <clr-icon shape='download'>
             </clr-icon>
