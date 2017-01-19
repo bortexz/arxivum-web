@@ -1,9 +1,10 @@
 :host {
-  all: inherit;
+
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
   width: 100%;
+
   .content-area {
     text-align: center;
     padding: 0px;
@@ -19,6 +20,23 @@
   .sidenav-content {
     padding: 10px;
   }
+}
+
+.subnav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  #subnav-left {
+    input {
+      min-width: 100%;
+    }
+  }
+
+  #subnav-right {
+
+  }
+
 }
 
 section {

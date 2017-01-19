@@ -1,27 +1,26 @@
-import { IDownloadingFile } from '../../core/downloader/downloader.reducer';
-import { DownloaderActions } from '../../core/downloader/downloader.actions';
-import { UploaderActions } from '../../core/uploader/uploader.actions';
-import { FoldersActions } from '../../core/folders/folders.actions';
 import { AppState } from '../../app.reducers';
-
-import { Store } from '@ngrx/store';
-import { AuthenticationService } from '../../core/authentication/authentication.service';
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { CreateFolderWizardComponent } from '../../components/create-folder-wizard/create-folder-wizard.component';
-import { FoldersService } from '../../core/folders/folders.service';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-
-import { UploaderService } from '../../core/uploader/uploader.service';
+import { DownloaderActions } from '../../core/downloader/downloader.actions';
+import { IDownloadingFile } from '../../core/downloader/downloader.reducer';
 import { DownloaderService } from '../../core/downloader/downloader.service';
+import { FoldersActions } from '../../core/folders/folders.actions';
+import { UploaderActions } from '../../core/uploader/uploader.actions';
+import { UploaderService } from '../../core/uploader/uploader.service';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
+
+
 
 @Component({
   selector: 'ax-files-page',
   templateUrl: './files-page.component.html',
   styleUrls: ['./files-page.component.scss']
 })
-export class FilesPageComponent implements OnInit {
+export class FilesPageComponent implements OnInit, AfterViewInit {
 
   private currentFolder$ = this.store.select(state => state.currentFolder);
   private authenticated$ = this.store.select(state => state.authenticated);
@@ -30,7 +29,10 @@ export class FilesPageComponent implements OnInit {
   private hasBaseDropZoneOver: boolean = false;
 
   private selected = null;
+
   @ViewChild('wizard') wizard: CreateFolderWizardComponent;
+  @ViewChild('sidenav') sidenav;
+  sidenavWidth$: Subject<number> = new Subject();
 
   constructor(
     private route: ActivatedRoute,
@@ -51,6 +53,10 @@ export class FilesPageComponent implements OnInit {
     });
 
     this.downloading$.subscribe(() => this.changeDetector.detectChanges());
+  }
+
+  ngAfterViewInit() {
+    this.sidenavWidth$.next(this.sidenav.nativeElement.offsetWidth);
   }
 
   public wizardCreateFolderFinished (data) {

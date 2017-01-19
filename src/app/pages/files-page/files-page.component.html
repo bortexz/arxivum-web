@@ -1,4 +1,10 @@
 <nav class="subnav">
+  <div id='subnav-left' [style.minWidth]='(sidenavWidth$ | async) + "px"'>
+    <input type='text' placeholder='Search...'>
+  </div>
+  <div id='subnav-right'>
+
+  </div>
   <ul class="nav">
     <li>
       <div class='col-xs-12 col-md-10 row flex-items-xs-left flex-xs-middle'>
@@ -85,7 +91,7 @@
     </table>
   </section>
 
-  <nav class="sidenav">
+  <nav class="sidenav" #sidenav (window:resize)='sidenavWidth$.next(sidenav.offsetWidth)'>
     <section class="sidenav-content">
       <ax-file-tree></ax-file-tree>
     </section>
