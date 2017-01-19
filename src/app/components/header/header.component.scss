@@ -1,0 +1,11 @@
+.subnav {
+  display: flex;
+  height: 100%;
+  flex: 1 1 auto;
+
+  .left {
+    max-width: 312px;
+    min-width: 216px;
+    width: 18%;
+  }
+}

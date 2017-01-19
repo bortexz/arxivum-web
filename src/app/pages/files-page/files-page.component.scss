@@ -2,6 +2,13 @@
   all: inherit;
   .content-area {
     text-align: center;
+    padding: 0px;
+
+    table {
+      margin: 0px;
+      border: none;
+      border-radius: 0px;
+    }
   }
 
   .sidenav-content {
