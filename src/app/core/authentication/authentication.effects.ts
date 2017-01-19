@@ -39,9 +39,9 @@ export class AuthenticationEffects {
     .map(action => action.payload.error)
     .map(error => {
       if (error.status === 401) {
-        return Observable.of(AuthenticationActions.LOGOUT);
+        return this.authActions.logout();
       }
-      return Observable.of(error);
+      // return Observable.of(error);
     });
 
   constructor(

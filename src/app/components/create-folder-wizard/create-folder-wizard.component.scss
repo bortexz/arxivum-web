@@ -1,3 +1,7 @@
 .form-block {
   text-align: left;
 }
+
+:host {
+  height: 0px;
+}

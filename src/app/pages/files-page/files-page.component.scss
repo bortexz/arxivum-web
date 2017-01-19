@@ -1,8 +1,13 @@
 :host {
   all: inherit;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: 100%;
   .content-area {
     text-align: center;
     padding: 0px;
+    overflow: auto;
 
     table {
       margin: 0px;
@@ -18,6 +23,13 @@
 
 section {
   position: relative;
+}
+
+.files-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 100%;
 }
 
 /* Header including breadcrumb and new folder button */
