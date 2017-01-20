@@ -4,19 +4,15 @@
   </div>
   <div id='subnav-right'>
 
+    <div class='col-xs-12 col-md-10 row flex-items-xs-left flex-xs-middle'>
+      <ax-folders-breadcrumb [path]='(currentFolder$ | async)?.path'></ax-folders-breadcrumb>
+    </div>
+
+    <div class="col-xs-12 col-md-2 flex-items-xs-right">
+      <button class="btn btn-outline-primary btn-sm" (click)='wizard.open()'>+ New folder</button>
+    </div>
+
   </div>
-  <ul class="nav">
-    <li>
-      <div class='col-xs-12 col-md-10 row flex-items-xs-left flex-xs-middle'>
-        <ax-folders-breadcrumb [path]='(currentFolder$ | async)?.path'></ax-folders-breadcrumb>
-      </div>
-    </li>
-    <li>
-      <div class="col-xs-12 col-md-2 flex-items-xs-right">
-        <button class="btn btn-primary" (click)='wizard.open()'>New folder</button>
-      </div>
-    </li>
-  </ul>
 </nav>
 
 <div class='files-container'>
@@ -98,7 +94,6 @@
   </nav>
 
   <ax-right-sidebar></ax-right-sidebar>
+
+  <ax-create-folder-wizard #wizard (onFinished)='wizardCreateFolderFinished($event)'></ax-create-folder-wizard>
 </div>
-
-<ax-create-folder-wizard #wizard (onFinished)='wizardCreateFolderFinished($event)'></ax-create-folder-wizard>
-

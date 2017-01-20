@@ -1,24 +1,37 @@
 :host {
-
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: stretch;
   width: 100%;
+
+  align-content: flex-start;
+  flex-shrink: 1;
+
+
+  .files-container {
+    height: calc(100% - 36px);
+  }
 
   .content-area {
     text-align: center;
     padding: 0px;
     overflow: auto;
 
+    // background-image: url('assets/files-background.jpg');
+    background-repeat: repeat;
+
     table {
       margin: 0px;
       border: none;
       border-radius: 0px;
+
+      overflow: auto;
     }
   }
 
   .sidenav-content {
     padding: 10px;
+    margin-bottom: 0px;
   }
 }
 
@@ -28,26 +41,26 @@
   justify-content: flex-start;
 
   #subnav-left {
+    padding: 5px 20px;
     input {
       min-width: 100%;
     }
   }
 
   #subnav-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
+    width: 100%;
   }
 
-}
-
-section {
-  position: relative;
 }
 
 .files-container {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  height: 100%;
 }
 
 /* Header including breadcrumb and new folder button */
