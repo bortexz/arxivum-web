@@ -17,7 +17,7 @@
     padding: 0px;
     overflow: auto;
 
-    // background-image: url('assets/files-background.jpg');
+    background-image: url("assets/files-background.jpg");
     background-repeat: repeat;
 
     table {
@@ -26,6 +26,11 @@
       border-radius: 0px;
 
       overflow: auto;
+
+      tr {
+        height: 36px;
+        // box-sizing: border-box;
+      }
     }
   }
 
