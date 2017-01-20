@@ -28,8 +28,13 @@
       overflow: auto;
 
       tr {
-        height: 36px;
-        // box-sizing: border-box;
+        line-height: 13px;
+        td {
+          padding-bottom: 10px;
+          box-sizing: content-box;
+          border-bottom: 1px solid #eee;
+          border-top: none;
+        }
       }
     }
   }
