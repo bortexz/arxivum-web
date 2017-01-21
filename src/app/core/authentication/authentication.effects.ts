@@ -21,8 +21,11 @@ export class AuthenticationEffects {
       this.router.navigate(['folder']);
     })
     .catch(error => {
-      this.store.dispatch(this.authActions.loginError(error));
-      return Observable.of(error);
+      let action = this.authActions.loginError(error);
+      // ngrx/effects is not yet supporting dispatch actions from errors.
+      // see:
+      this.store.dispatch(action);
+      return Observable.of(action);
     });
 
   @Effect({dispatch: false})
