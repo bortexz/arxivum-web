@@ -1,3 +1,5 @@
+import { AppState } from '../../app.reducers';
+import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -9,12 +11,6 @@ import { AuthenticationActions } from './authentication.actions';
 @Injectable()
 export class AuthenticationEffects {
 
-  // @Effect({dispatch: false})
-  // global$ = this.actions$
-  //   .do(action => {
-  //     console.log(action);
-  //   });
-
   @Effect()
   login$ = this.actions$
     .ofType(AuthenticationActions.LOGIN)
@@ -24,7 +20,10 @@ export class AuthenticationEffects {
     .do(() => {
       this.router.navigate(['folder']);
     })
-    .catch(error => Observable.of(this.authActions.loginError(error)));
+    .catch(error => {
+      this.store.dispatch(this.authActions.loginError(error));
+      return Observable.of(error);
+    });
 
   @Effect({dispatch: false})
   logout$ = this.actions$
@@ -48,6 +47,7 @@ export class AuthenticationEffects {
     private actions$: Actions,
     private authService: AuthenticationService,
     private router: Router,
-    private authActions: AuthenticationActions
+    private authActions: AuthenticationActions,
+    private store: Store<AppState>
   ) { }
 }

@@ -1,0 +1,29 @@
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+
+  width: 400px;
+  height: 250px;
+
+  border: 1px solid #eee;
+  background: white;
+  padding: 30px;
+
+  .form-group {
+    padding-left: 100px;
+
+    label {
+      width: auto;
+    }
+
+    input {
+      flex-grow: 1;
+      &[type='submit'] {
+        width: 50%;
+      }
+    }
+  }
+
+}
