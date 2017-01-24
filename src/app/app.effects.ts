@@ -1,9 +1,6 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 const debug = require('debug')('arxivum:action-logger');
-/**
- *
- */
 
 @Injectable()
 export class AppEffects {

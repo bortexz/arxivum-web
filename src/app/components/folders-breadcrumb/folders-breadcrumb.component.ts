@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -9,8 +10,15 @@ import { Observable } from 'rxjs';
 export class FoldersBreadcrumbComponent implements OnInit {
   @Input('path') path: Observable<Array<any>>;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {}
 
+  navigateTo (folder) {
+    let args: any[] = ['folder'];
+    if (folder._id) args.push({ id: folder._id});
+    this.router.navigate(args);
+  }
 }

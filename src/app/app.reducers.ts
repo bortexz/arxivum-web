@@ -6,6 +6,8 @@ import { compose } from '@ngrx/core/compose';
 import { combineReducers } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
+const debug = require('debug')('arxivum:state-logger');
+
 export interface AppState {
     authenticated: AuthenticationState;
     currentFolder: CurrentFolderState;
@@ -16,10 +18,14 @@ export interface AppState {
 // Take into account
 // https://github.com/ngrx/store/issues/190
 export function reducers (state, action) {
-  return compose(localStorageSync(['authenticated'], true), combineReducers)({
+  const newState = compose(localStorageSync(['authenticated'], true), combineReducers)({
     authenticated: authReducer,
     currentFolder: foldersReducer,
     uploading: uploaderReducer,
     downloading: downloaderReducer
   })(state, action);
+
+  debug(newState);
+
+  return newState;
 };

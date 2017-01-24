@@ -25,6 +25,9 @@ export function foldersReducer (state = initialState, action) {
         path.push({_id: _id, name: name});
       }
 
+      // Add arxivum as first item in path
+      path.unshift({name: 'Arxivum'});
+
       return {files, folders, path, _id, name};
     }
     case FoldersActions.GET_FOLDER_ERROR:

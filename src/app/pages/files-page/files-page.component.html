@@ -3,15 +3,13 @@
     <input type='text' placeholder='Search...'>
   </div>
   <div id='subnav-right'>
-
-    <div class='col-xs-12 col-md-10 row flex-items-xs-left flex-xs-middle'>
+    <div class='flex-xs-middle' [style.max-width]='(breadcrumbSize$ | async) + "px"'>
       <ax-folders-breadcrumb [path]='(currentFolder$ | async)?.path'></ax-folders-breadcrumb>
     </div>
 
-    <div class="col-xs-12 col-md-2 flex-items-xs-right">
+    <div class='flex-xs-middle' #subnavRightButtons>
       <button class="btn btn-outline-primary btn-sm" (click)='wizard.open()'>+ New folder</button>
     </div>
-
   </div>
 </nav>
 
@@ -38,7 +36,7 @@
           class='folder-row'
           [ngClass]="{selected: folder === selected}"
           (click)='select(folder, $event)'
-          (dblclick)='navigate(folder)'>
+          (dblclick)='router.navigate(["/folder", {id: folder._id}])'>
           <td class='left'>
             <!--<a [routerLink]='["/folder", {id: folder._id}] '>-->
               <clr-icon shape='folder' class='folder-icon is-solid'></clr-icon>
@@ -78,11 +76,6 @@
             </a>
           </td>
         </tr>
-        <!--<tr>
-          <td *ngIf="(childFolders | async)?.length === 0 && (childFiles | async)?.length === 0">
-            Oops! Seems like you don't have anything here yet
-          </td>
-        </tr>-->
       </tbody>
     </table>
   </section>

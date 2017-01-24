@@ -13,8 +13,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 
-
-
 @Component({
   selector: 'ax-files-page',
   templateUrl: './files-page.component.html',
@@ -32,7 +30,26 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('wizard') wizard: CreateFolderWizardComponent;
   @ViewChild('sidenav') sidenav;
+
+  /**
+   * Styling properties.
+   * @todo : Look for a pure CSS solution, if possible.
+   */
+  @ViewChild('subnavRightButtons') subnavRightButtons;
+
+  // Values being pushed through events in html.
   sidenavWidth$: Subject<number> = new Subject();
+
+  breadcrumbSize$ = this.sidenavWidth$.map(px => {
+    let size = window.innerWidth - px;
+    if (this.subnavRightButtons) {
+      size -= this.subnavRightButtons.nativeElement.offsetWidth;
+    }
+    return size;
+  });
+  /**
+   * End styling properties
+   */
 
   constructor(
     private route: ActivatedRoute,
@@ -74,15 +91,14 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
 
   }
 
+  /**
+   *  @todo also stream$ ?
+   */
   public select (item, $event) {
     this.selected = item;
     if ($event) {
       $event.stopPropagation();
     }
-  }
-
-  public navigate (item) {
-    this.router.navigate(['/folder', {id: item._id}]);
   }
 
   public fileOverDragArea (e: any): void {

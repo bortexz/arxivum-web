@@ -1,12 +1,18 @@
 <ul *ngIf='path'>
-  <li class='folders-breadcrumb-item'>
-    <!--TODO: Duplication-->
-    <a *ngIf='0 !== path.length' routerLink='/folder'> Arxivum </a> <!-- Root -->
+  <!--<li class='folders-breadcrumb-item'>
+
+    <a *ngIf='0 !== path.length' routerLink='/folder'> Arxivum </a>
     <span *ngIf='0 === path.length'> Arxivum </span>
-  </li>
+  </li>-->
   <li *ngFor='let folder of path; let i = index' class='folders-breadcrumb-item'>
-    <clr-icon shape='collapse right'></clr-icon>
-    <a *ngIf='i < path.length - 1' [routerLink]='["/folder", {id: folder._id}]'>{{folder.name}}</a>
+    <clr-icon *ngIf='i !== 0' shape='collapse right'></clr-icon>
+    <a
+      *ngIf='i < path.length - 1'
+      (click)='navigateTo(folder)'
+      [class.pointer]='i < (path.length - 1)'
+      [class.breadcrumb-link]='i < (path.length - 1)'>
+      {{folder.name}}
+    </a>
     <span *ngIf='i === path.length - 1'>{{folder.name}}</span>
   </li>
 </ul>

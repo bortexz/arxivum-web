@@ -1,10 +1,29 @@
 ul {
-  display:block;
+  display:flex;
+  list-style-type: none;
+  overflow-x: auto;
+
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+
+  flex-shrink: 0;
+
   li {
-    display:inline-block;
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+
     clr-icon {
       margin: auto 15px;
+    }
+
+    a {
+      white-space: nowrap;
     }
   }
 }
 
+.breadcrumb-link {
+  color: #9ABCC3;
+}

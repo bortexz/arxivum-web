@@ -48,6 +48,8 @@
   flex-direction: row;
   justify-content: flex-start;
 
+  max-width: 100%;
+
   #subnav-left {
     padding: 5px 20px;
     input {
@@ -56,11 +58,28 @@
   }
 
   #subnav-right {
+    padding: 5px 0px;
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
-    width: 100%;
+    flex-wrap: nowrap;
+
+    align-items: stretch;
+
+    box-sizing: border-box;
+
+    flex-grow: 1;
+
+    // breadcrumb
+    div:nth-child(1) {
+      padding: 0px 15px;
+    }
+    // rightSubnavButtons
+    div:nth-child(2) {
+      padding: 0px 15px;
+    }
   }
 
 }
