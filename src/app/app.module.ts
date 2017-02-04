@@ -30,7 +30,7 @@ import { UsersService } from './core/users/users.service';
 import { FilesizePipe } from './utils/file-size/filesize.pipe';
 import { CreateFolderWizardComponent } from './components/create-folder-wizard/create-folder-wizard.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
@@ -59,6 +59,7 @@ import { RegisterComponent } from './components/register/register.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     ClarityModule,
     TreeModule,

@@ -1,12 +1,88 @@
-<form (ngSubmit) id='register-form'>
-  <div class='form-group'>
-    <label for='user'>Email</label>
-    <input type='text' name='user' [(ngModel)]="email">
-  </div>
-  <div class='form-group'>
-    <label for='password'>Password</label>
-    <input type='password' name='password' [(ngModel)]="password">
-  </div>
+<form id='register-form'
+  [formGroup]='registerForm'
+  (ngSubmit)='submit()'
+  novalidate
+  >
+  <section class='form-block'>
+    <div class='form-group'>
+      <label>Name</label>
+      <label for="name"
+        class="tooltip tooltip-validation">
 
-  <input type='submit' class='btn btn-primary'>
+        <input type='text' id='name' formControlName='name'>
+
+      </label>
+    </div>
+
+    <div class='form-group'>
+      <label class='required'>Email</label>
+      <label for="email"
+        aria-haspopup="true"
+        role="tooltip"
+        class="tooltip tooltip-validation tooltip-sm"
+        [class.invalid]='registerForm.get("email").errors && registerForm.get("email").touched'>
+
+        <input type='text' id='email' formControlName='email'>
+
+        <span
+          *ngIf='registerForm.get("email").hasError("required")'
+          class='tooltip-content'>
+          This field is required
+        </span>
+        <span
+          *ngIf='registerForm.get("email").hasError("validateEmail")'
+          class='tooltip-content'>
+          This field needs to be an email
+        </span>
+
+      </label>
+    </div>
+
+    <div class='form-group'>
+      <label class='required'>Password</label>
+      <label for="password"
+        aria-haspopup="true"
+        role="tooltip"
+        class="tooltip tooltip-validation tooltip-sm"
+        [class.invalid]='registerForm.get("password").errors && registerForm.get("password").touched'>
+
+        <input type='password' id='password' formControlName='password'>
+
+        <span *ngIf='registerForm.get("password").hasError("required")' class='tooltip-content'>
+          This field is required
+        </span>
+        <span *ngIf='registerForm.get("password").hasError("matchPasswords")'
+          class='tooltip-content'>
+          Passwords don't match
+        </span>
+
+      </label>
+    </div>
+
+    <div class='form-group'>
+      <label class='required'>Repeat password</label>
+      <label for="repeat_password"
+        aria-haspopup="true"
+        role="tooltip"
+        class="tooltip tooltip-validation tooltip-sm"
+        [class.invalid]='registerForm.get("repeat_password").invalid && registerForm.get("repeat_password").touched'>
+
+        <input type='password' id='repeat_password' formControlName='repeat_password'>
+
+        <span *ngIf='registerForm.get("repeat_password").hasError("required")' class='tooltip-content'>
+          This field is required
+        </span>
+        <span *ngIf='registerForm.get("repeat_password").hasError("matchPasswords")'
+          class='tooltip-content'>
+          Passwords don't match
+        </span>
+
+      </label>
+    </div>
+
+    <input type='submit'
+      [disabled]="registerForm.invalid"
+      class='btn btn-primary'
+      value='Register'>
+  </section>
 </form>

@@ -34,4 +34,11 @@ export class AuthenticationService {
       .post(this.loginUrl, { email, password })
       .map(res => res.json());
   }
+
+  /**
+   * opts contains name, email, password, token
+   */
+  register (opts) {
+
+  }
 }

@@ -24,7 +24,6 @@
     "@ngrx/effects": "^2.0.0",
     "@ngrx/store": "^2.2.1",
     "@webcomponents/custom-elements": "^1.0.0-alpha.3",
-    "angular2-tree-component": "^2.5.1",
     "clarity-angular": "^0.8.0",
     "clarity-icons": "^0.8.0",
     "clarity-ui": "^0.8.0",

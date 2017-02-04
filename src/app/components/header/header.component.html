@@ -43,5 +43,12 @@
       class="nav-link nav-text">
       Login
     </a>
+    <a
+      id='header-login-link'
+      routerLink='register'
+      *ngIf='!(authenticated$ | async)'
+      class="nav-link nav-text">
+      Register
+    </a>
   </section>
 </header>

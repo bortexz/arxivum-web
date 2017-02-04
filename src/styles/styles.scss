@@ -5,3 +5,38 @@
 html, body {
   overflow-x: hidden;
 }
+
+// Forms
+#login-form, #register-form {
+
+  width: 450px;
+
+  border: 1px solid #eee;
+  background: white;
+
+  .form-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+
+    padding: 0px 35px;
+
+    .form-group {
+      padding-left: 120px;
+
+      label:nth-child(2) {
+        width: 100%;
+      }
+
+      input {
+        width: 100%;
+      }
+
+      input[type='submit'] {
+        margin: 6px 0px;
+      }
+    }
+  }
+}
+

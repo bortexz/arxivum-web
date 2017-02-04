@@ -8,10 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterPageComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor() { }
 
-  ngOnInit() {
-    console.log(this.activatedRoute.queryParams['value']);
-  }
+  ngOnInit() { }
 
 }

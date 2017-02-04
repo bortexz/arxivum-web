@@ -1,9 +1,4 @@
 <ul *ngIf='path'>
-  <!--<li class='folders-breadcrumb-item'>
-
-    <a *ngIf='0 !== path.length' routerLink='/folder'> Arxivum </a>
-    <span *ngIf='0 === path.length'> Arxivum </span>
-  </li>-->
   <li *ngFor='let folder of path; let i = index' class='folders-breadcrumb-item'>
     <clr-icon *ngIf='i !== 0' shape='collapse right'></clr-icon>
     <a
