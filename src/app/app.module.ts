@@ -38,6 +38,8 @@ import { StoreModule } from '@ngrx/store';
 import { TreeModule } from 'angular2-tree-component';
 import { ClarityModule } from 'clarity-angular';
 import { FileUploadModule } from 'ng2-file-upload';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { FileUploadModule } from 'ng2-file-upload';
     FileTreeComponent,
     FoldersBreadcrumbComponent,
     RightSidebarComponent,
-    FilesizePipe
+    FilesizePipe,
+    RegisterPageComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
