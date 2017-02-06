@@ -58,7 +58,6 @@ import ArxivumHttpProvider from './utils/http/arxivum-http.service.provider';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     ReactiveFormsModule,
     HttpModule,
     ClarityModule,
