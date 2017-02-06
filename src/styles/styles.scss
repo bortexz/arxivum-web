@@ -9,7 +9,7 @@ html, body {
 // Forms
 #login-form, #register-form {
 
-  width: 450px;
+  width: 500px;
 
   border: 1px solid #eee;
   background: white;
@@ -22,6 +22,11 @@ html, body {
 
     padding: 0px 35px;
 
+    input[type='submit'] {
+      // overrides button max
+      max-width: none !important;
+    }
+
     .form-group {
       padding-left: 120px;
 
@@ -31,10 +36,6 @@ html, body {
 
       input {
         width: 100%;
-      }
-
-      input[type='submit'] {
-        margin: 6px 0px;
       }
     }
   }

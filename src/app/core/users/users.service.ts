@@ -18,4 +18,8 @@ export class UsersService {
     return this.http.get(this.usersUrl).map(res => res.json());
   }
 
+  create ({name, email, password, token}) {
+    return this.http.post(this.usersUrl, {name, email, password, token}).map(res => res.json());
+  }
+
 }

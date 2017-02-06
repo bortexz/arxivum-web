@@ -1,3 +1,4 @@
+import { usersReducer, UsersState } from './core/users/users.reducer';
 import { downloaderReducer, DownloaderState } from './core/downloader/downloader.reducer';
 import { uploaderReducer, UploaderState } from './core/uploader/uploader.reducer';
 import { CurrentFolderState, foldersReducer } from './core/folders/folders.reducer';
@@ -13,6 +14,7 @@ export interface AppState {
     currentFolder: CurrentFolderState;
     uploading: UploaderState;
     downloading: DownloaderState;
+    users: UsersState; // contains register data
 };
 
 // Take into account
@@ -22,7 +24,8 @@ export function reducers (state, action) {
     authenticated: authReducer,
     currentFolder: foldersReducer,
     uploading: uploaderReducer,
-    downloading: downloaderReducer
+    downloading: downloaderReducer,
+    users: usersReducer
   })(state, action);
 
   debug(newState);

@@ -72,9 +72,26 @@
         <span *ngIf='registerForm.get("repeat_password").hasError("required")' class='tooltip-content'>
           This field is required
         </span>
-        <span *ngIf='registerForm.get("repeat_password").hasError("matchPasswords")'
+        <span *ngIf='registerForm.get("repeat_password").hasError("matchPassword")'
           class='tooltip-content'>
           Passwords don't match
+        </span>
+
+      </label>
+    </div>
+
+    <div class='form-group'>
+      <label class='required'>Token</label>
+      <label for="register_token"
+        aria-haspopup="true"
+        role="tooltip"
+        class="tooltip tooltip-validation tooltip-sm"
+        [class.invalid]='registerForm.get("token").invalid && registerForm.get("token").touched'>
+
+        <input type='text' id='register_token' formControlName='token'>
+
+        <span *ngIf='registerForm.get("token").hasError("required")' class='tooltip-content'>
+          This field is required
         </span>
 
       </label>
@@ -84,5 +101,6 @@
       [disabled]="registerForm.invalid"
       class='btn btn-primary'
       value='Register'>
+
   </section>
 </form>
