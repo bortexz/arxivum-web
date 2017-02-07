@@ -14,6 +14,14 @@
       class='nav-link nav-icon'>
       <clr-icon shape='cloud' class='is-solid'></clr-icon>
     </a>
+    <a
+      routerLink="/admin/users"
+      id='header-root-folder-link'
+      *ngIf='(authenticated$ | async)?.admin'
+      routerLinkActive="active"
+      class='nav-link nav-icon'>
+      <clr-icon shape='users' class='is-solid'></clr-icon>
+    </a>
   </section>
   <section class="header-actions">
     <!-- Authenticated -->

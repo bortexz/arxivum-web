@@ -40,6 +40,7 @@ import { StoreModule } from '@ngrx/store';
 import { ClarityModule } from 'clarity-angular';
 import { FileUploadModule } from 'ng2-file-upload';
 import ArxivumHttpProvider from './utils/http/arxivum-http.service.provider';
+import { UsersAdminPageComponent } from './pages/users-admin-page/users-admin-page.component';
 
 @NgModule({
   declarations: [
@@ -54,10 +55,12 @@ import ArxivumHttpProvider from './utils/http/arxivum-http.service.provider';
     RightSidebarComponent,
     FilesizePipe,
     RegisterPageComponent,
-    RegisterComponent
+    RegisterComponent,
+    UsersAdminPageComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpModule,
     ClarityModule,
