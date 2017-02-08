@@ -1,3 +1,4 @@
+import { InvitationsActions } from './core/invitations/invitations.actions';
 import { UsersEffects } from './core/users/users.effects';
 import { UsersActions } from './core/users/users.actions';
 import { AppComponent } from './app.component';
@@ -90,7 +91,8 @@ import { UsersAdminPageComponent } from './pages/users-admin-page/users-admin-pa
     FoldersActions,
     UploaderActions,
     DownloaderActions,
-    UsersActions
+    UsersActions,
+    InvitationsActions
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
