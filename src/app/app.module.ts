@@ -42,6 +42,7 @@ import { ClarityModule } from 'clarity-angular';
 import { FileUploadModule } from 'ng2-file-upload';
 import ArxivumHttpProvider from './utils/http/arxivum-http.service.provider';
 import { UsersAdminPageComponent } from './pages/users-admin-page/users-admin-page.component';
+import { InviteUserModalComponent } from './components/invite-user-modal/invite-user-modal.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { UsersAdminPageComponent } from './pages/users-admin-page/users-admin-pa
     FilesizePipe,
     RegisterPageComponent,
     RegisterComponent,
-    UsersAdminPageComponent
+    UsersAdminPageComponent,
+    InviteUserModalComponent
   ],
   imports: [
     BrowserModule,

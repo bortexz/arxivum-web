@@ -1,6 +1,7 @@
+import { InviteUserModalComponent } from '../../components/invite-user-modal/invite-user-modal.component';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducers';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'ax-users-admin-page',
@@ -12,8 +13,13 @@ export class UsersAdminPageComponent implements OnInit {
   users$ = this.store.select(state => state.admin_users);
   invitations$ = this.store.select(state => state.invitations);
 
+  @ViewChild(InviteUserModalComponent) inviteUserModal: InviteUserModalComponent;
+
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() { }
 
+  inviteUser (email) {
+
+  }
 }

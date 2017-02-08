@@ -1,5 +1,5 @@
 <section class='content-area'>
-  <button class='btn btn-primary' (click)='modalOpened = !modalOpened'>Invite user</button>
+  <button class='btn btn-primary' (click)='inviteUserModal.open()'>Invite user</button>
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="card">
@@ -36,13 +36,4 @@
   </div>
 </section>
 
-<clr-modal [(clrModalOpen)]="modalOpened">
-  <h3 class="modal-title">Invite user to arxivum</h3>
-  <div class="modal-body">
-    Email <input type='text' [(ngModel)]='modalEmail'>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="opened = false">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="opened = false">Ok</button>
-  </div>
-</clr-modal>
+<ax-invite-user-modal #invitUserModal (onFinished)='inviteUser($event)'></ax-invite-user-modal>

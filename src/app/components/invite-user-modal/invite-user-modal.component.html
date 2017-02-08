@@ -1,0 +1,36 @@
+<clr-modal [(clrModalOpen)]="opened">
+  <h3 class="modal-title">Invite new user</h3>
+  <div class="modal-body">
+    <form [formGroup]='inviteForm'>
+      <section class='form-block'>
+        <div class='form-group'>
+          <label class='required'>Email</label>
+          <label for='invite-email'
+            aria-haspopup="true"
+            role="tooltip"
+            class="tooltip tooltip-validation tooltip-sm"
+            [class.invalid]='inviteForm.get("email").errors && inviteForm.get("email").touched'>
+
+            <input type='text' formControlName='email' id='invite-email'>
+
+            <span
+              *ngIf='inviteForm.get("email").hasError("required")'
+              class='tooltip-content'>
+              This field is required
+            </span>
+            <span
+              *ngIf='inviteForm.get("email").hasError("validateEmail")'
+              class='tooltip-content'>
+              This field has to be an email
+            </span>
+
+          </label>
+        </div>
+      </section>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="opened = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="opened = false">Ok</button>
+  </div>
+</clr-modal>
