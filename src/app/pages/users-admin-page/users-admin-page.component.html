@@ -1,5 +1,22 @@
 <section class='content-area'>
+  <button class='btn btn-primary' (click)='modalOpened = !modalOpened'>Invite user</button>
   <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="card-title">
+                    alberto.fernandez.491@gmail.com
+                </div>
+                <div class="card-text">
+                    Invitation sent. Not yet registered.
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-sm btn-link">Resend invitation</button>
+                <button class="btn btn-sm btn-link">Delete invitation</button>
+            </div>
+        </div>
+    </div>
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="card">
             <div class="card-block">
@@ -18,3 +35,14 @@
     </div>
   </div>
 </section>
+
+<clr-modal [(clrModalOpen)]="modalOpened">
+  <h3 class="modal-title">Invite user to arxivum</h3>
+  <div class="modal-body">
+    Email <input type='text' [(ngModel)]='modalEmail'>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="opened = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="opened = false">Ok</button>
+  </div>
+</clr-modal>

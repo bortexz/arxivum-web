@@ -10,7 +10,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild, AfterViewInit } from '
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 @Component({
@@ -24,7 +24,7 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
   private authenticated$ = this.store.select(state => state.authenticated);
   private downloading$ = this.store.select(state => state.downloading);
 
-  private hasBaseDropZoneOver: boolean = false;
+  private hasBaseDropZoneOver = false;
 
   private selected = null;
 
@@ -34,6 +34,7 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
   /**
    * Styling properties.
    * @todo : Look for a pure CSS solution, if possible.
+   * Keeps the size of the breadcrumb in sync with sidenav width
    */
   @ViewChild('subnavRightButtons') subnavRightButtons;
 

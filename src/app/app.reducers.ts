@@ -1,6 +1,6 @@
 import { InvitationsListState, invitationsReducer } from './core/invitations/invitations.reducer';
 import { adminUsersReducer, AdminUsersState } from './core/users/admin.users.reducer';
-import { registerReducer, RegisterState } from './core/users/users.register.reducer';
+import { registerReducer, RegisterState } from './core/users/register.users.reducer';
 import { downloaderReducer, DownloaderState } from './core/downloader/downloader.reducer';
 import { uploaderReducer, UploaderState } from './core/uploader/uploader.reducer';
 import { CurrentFolderState, foldersReducer } from './core/folders/folders.reducer';

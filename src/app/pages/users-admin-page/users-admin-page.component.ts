@@ -1,3 +1,5 @@
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app.reducers';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersAdminPageComponent implements OnInit {
 
-  constructor() { }
+  users$ = this.store.select(state => state.admin_users);
+  invitations$ = this.store.select(state => state.invitations);
 
-  ngOnInit() {
-  }
+  constructor(private store: Store<AppState>) { }
+
+  ngOnInit() { }
 
 }
