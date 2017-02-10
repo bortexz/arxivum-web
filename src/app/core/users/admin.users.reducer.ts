@@ -14,8 +14,14 @@ const initialState: AdminUsersState = {
 
 export function adminUsersReducer (state = initialState, action): AdminUsersState {
   switch (action.type) {
-    case UsersActions.GET_USERS:
+    case UsersActions.GET_USERS: {
+      return {
+        users: state.users,
+        users_error: null
+      };
+    }
     case UsersActions.GET_USERS_SUCCESS: {
+      console.log(action.payload.users);
       return {
         users: action.payload.users,
         users_error: null

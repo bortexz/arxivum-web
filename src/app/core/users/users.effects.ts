@@ -12,19 +12,27 @@ export class UsersEffects {
   @Effect()
   register$ = this.actions$
     .ofType(UsersActions.REGISTER)
-    .switchMap(action => this.usersService.create(action.payload))
+    .switchMap(action => this.usersService.register(action.payload))
     .map(() => this.usersActions.registerSuccess())
     .catch((err) => Observable.of(this.usersActions.registerError(err)));
 
   @Effect()
   registerSuccess$ = this.actions$
     .ofType(UsersActions.REGISTER_SUCCESS)
-    .withLatestFrom(this.store.select(state => state.users))
+    .withLatestFrom(this.store.select(state => state.register))
     .map(([_, usersState]) => this.authActions.login(
         usersState.register.email,
         usersState.register.password
       )
     );
+
+  // admin user actions
+  @Effect()
+  getUsers$ = this.actions$
+    .ofType(UsersActions.GET_USERS)
+    .switchMap(() => this.usersService.getAll())
+    .map(users => this.usersActions.getUsersSuccess(users))
+    .catch(err => Observable.of(this.usersActions.getUsersError(err)));
 
   constructor(
     private actions$: Actions,

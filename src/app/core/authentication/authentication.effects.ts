@@ -20,13 +20,7 @@ export class AuthenticationEffects {
     .do(() => {
       this.router.navigate(['folder']);
     })
-    .catch(error => {
-      let action = this.authActions.loginError(error);
-      // ngrx/effects is not yet supporting dispatch actions from errors.
-      // see:
-      this.store.dispatch(action);
-      return Observable.of(action);
-    });
+    .catch(error => Observable.of(this.authActions.loginError(error)));
 
   @Effect({dispatch: false})
   logout$ = this.actions$
@@ -35,15 +29,14 @@ export class AuthenticationEffects {
       this.router.navigate(['login']);
     });
 
-  @Effect()
+  @Effect({ dispatch: false})
   error401$ = this.actions$
     .filter(action => action.payload && action.payload.error) // Only error requests
     .map(action => action.payload.error)
     .map(error => {
       if (error.status === 401) {
-        return this.authActions.logout();
+        this.store.dispatch(this.authActions.logout());
       }
-      // return Observable.of(error);
     });
 
   constructor(

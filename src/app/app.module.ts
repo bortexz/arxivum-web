@@ -1,3 +1,5 @@
+import { InvitationsService } from './core/invitations/invitations.service';
+import { InvitationsEffects } from './core/invitations/invitations.effects';
 import { InvitationsActions } from './core/invitations/invitations.actions';
 import { UsersEffects } from './core/users/users.effects';
 import { UsersActions } from './core/users/users.actions';
@@ -77,7 +79,8 @@ import { InviteUserModalComponent } from './components/invite-user-modal/invite-
     EffectsModule.run(FoldersEffects),
     EffectsModule.run(UploaderEffects),
     EffectsModule.run(DownloaderEffects),
-    EffectsModule.run(UsersEffects)
+    EffectsModule.run(UsersEffects),
+    EffectsModule.run(InvitationsEffects)
   ],
   providers: [
     AuthenticationService,
@@ -88,6 +91,7 @@ import { InviteUserModalComponent } from './components/invite-user-modal/invite-
     ArxivumHttpProvider,
     UploaderService,
     DownloaderService,
+    InvitationsService,
     AuthenticationActions,
     FilesPageGuard,
     FoldersActions,

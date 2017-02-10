@@ -9,7 +9,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class InviteUserModalComponent implements OnInit {
   opened = false;
-  email: string;
 
   inviteForm: FormGroup;
 
@@ -24,12 +23,13 @@ export class InviteUserModalComponent implements OnInit {
   }
 
   open () {
+    this.inviteForm.reset();
     this.opened = true;
   }
 
   submit () {
-    // @todo: dispatch action from here, check errors of email already exists ?
-    this.onFinished.emit(this.email);
+    this.onFinished.emit(this.inviteForm.value.email);
+    this.opened = false;
   }
 
 }

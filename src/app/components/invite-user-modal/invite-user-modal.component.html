@@ -31,6 +31,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="opened = false">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="opened = false">Ok</button>
+    <button type="button" class="btn btn-primary" (click)="submit()" [disabled]='inviteForm.invalid'>Invite</button>
   </div>
 </clr-modal>
