@@ -1,3 +1,4 @@
+import { FolderTreeActions } from '../../core/folders/tree/tree.actions';
 import { AppState } from '../../app.reducers';
 import { CreateFolderWizardComponent } from '../../components/create-folder-wizard/create-folder-wizard.component';
 import { DownloaderActions } from '../../core/downloader/downloader.actions';
@@ -23,6 +24,7 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
   private currentFolder$ = this.store.select(state => state.currentFolder);
   private authenticated$ = this.store.select(state => state.authenticated);
   private downloading$ = this.store.select(state => state.downloading);
+  private tree$ = this.store.select(state => state.folderTree.tree);
 
   private hasBaseDropZoneOver = false;
 
@@ -61,6 +63,7 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
     private foldersActions: FoldersActions,
     private uploaderActions: UploaderActions,
     private downloaderActions: DownloaderActions,
+    private folderTreeActions: FolderTreeActions,
     private changeDetector: ChangeDetectorRef
   ) {
   };
@@ -71,6 +74,7 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
     });
 
     this.downloading$.subscribe(() => this.changeDetector.detectChanges());
+    this.store.dispatch(this.folderTreeActions.getTree());
   }
 
   ngAfterViewInit() {
@@ -90,6 +94,10 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
       .map(files => files.find(elem => elem._id === id))
       .filter(file => !!file);
 
+  }
+
+  downloadFile (file) {
+    this.store.dispatch(this.downloaderActions.downloadFile(file));
   }
 
   /**

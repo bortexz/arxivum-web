@@ -9,9 +9,11 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class UsersEffects {
+  // register
   @Effect()
   register$ = this.actions$
     .ofType(UsersActions.REGISTER)
+    .do(console.log)
     .switchMap(action => this.usersService.register(action.payload))
     .map(() => this.usersActions.registerSuccess())
     .catch((err) => Observable.of(this.usersActions.registerError(err)));
@@ -20,9 +22,9 @@ export class UsersEffects {
   registerSuccess$ = this.actions$
     .ofType(UsersActions.REGISTER_SUCCESS)
     .withLatestFrom(this.store.select(state => state.register))
-    .map(([_, usersState]) => this.authActions.login(
-        usersState.register.email,
-        usersState.register.password
+    .map(([_, registerState]) => this.authActions.login(
+        registerState.register.email,
+        registerState.register.password
       )
     );
 

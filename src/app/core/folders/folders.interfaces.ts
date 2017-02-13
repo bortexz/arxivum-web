@@ -10,3 +10,9 @@ export interface ICurrentFolder extends IFolder {
   folders: IFolder[];
   ancestors: IFolder[];
 }
+
+export interface IFolderTreeNode {
+  _id: string;
+  name: string;
+  children: IFolderTreeNode[];
+}

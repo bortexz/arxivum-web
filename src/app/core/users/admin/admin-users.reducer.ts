@@ -1,6 +1,5 @@
-import { AdminUsersState } from './admin.users.reducer';
-import { UsersActions } from './users.actions';
-import { IUser } from './users.interfaces';
+import { UsersActions } from '../users.actions';
+import { IUser } from '../users.interfaces';
 
 export interface AdminUsersState {
   users: IUser[];

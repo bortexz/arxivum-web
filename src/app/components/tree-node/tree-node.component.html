@@ -1,0 +1,29 @@
+<button
+    class="clr-treenode-caret"
+    (click)="toggleExpand()"
+    *ngIf="(isExpandable || hasChildren) && (!loading)">
+    <clr-icon
+        shape="caret"
+        [attr.dir]="caretDirection"></clr-icon>
+</button>
+<span class="clr-treenode-spinner spinner" *ngIf="isExpandable && loading">
+    Loading...
+</span>
+<div class="clr-treenode-content">
+    <clr-icon shape='folder' class='is-solid'></clr-icon>
+    <a
+      [routerLink]="['/folder', {id: node._id}]"
+      class="clr-treenode-link">{{node.name}}</a>
+</div>
+<!-- FIXME: remove this string concatenation when boolean states are supported -->
+<div
+    class="clr-treenode-children"
+    [@collapse]="''+!expanded">
+
+    <ax-tree-node
+      *ngFor='let child of node.children'
+      [node]='child'
+      [clrTreeNodeExpandable]='child.children && child.children.length > 0'>
+
+    </ax-tree-node>
+</div>

@@ -1,0 +1,18 @@
+:host {
+    //Positioning
+    position: relative;
+
+    //Display
+    display: block;
+
+    & > clr-checkbox,
+    & > .checkbox {
+        //Positioning
+        position: absolute;
+
+        //Display
+        display: inline-block;
+    }
+
+    // @include positionCheckBoxInTree();
+}

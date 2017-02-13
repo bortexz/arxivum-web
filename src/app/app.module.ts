@@ -1,3 +1,5 @@
+import { FolderTreeEffects } from './core/folders/tree/tree.effects';
+import { FolderTreeActions } from './core/folders/tree/tree.actions';
 import { InvitationsService } from './core/invitations/invitations.service';
 import { InvitationsEffects } from './core/invitations/invitations.effects';
 import { InvitationsActions } from './core/invitations/invitations.actions';
@@ -8,7 +10,6 @@ import { AppEffects } from './app.effects';
 import { reducers } from './app.reducers';
 import { routing } from './app.routes';
 import { CreateFolderWizardComponent } from './components/create-folder-wizard/create-folder-wizard.component';
-import { FileTreeComponent } from './components/file-tree/file-tree.component';
 import { FoldersBreadcrumbComponent } from './components/folders-breadcrumb/folders-breadcrumb.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
@@ -45,6 +46,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import ArxivumHttpProvider from './utils/http/arxivum-http.service.provider';
 import { UsersAdminPageComponent } from './pages/users-admin-page/users-admin-page.component';
 import { InviteUserModalComponent } from './components/invite-user-modal/invite-user-modal.component';
+import { TreeNodeComponent } from './components/tree-node/tree-node.component';
 
 @NgModule({
   declarations: [
@@ -54,14 +56,14 @@ import { InviteUserModalComponent } from './components/invite-user-modal/invite-
     LoginComponent,
     FilesPageComponent,
     CreateFolderWizardComponent,
-    FileTreeComponent,
     FoldersBreadcrumbComponent,
     RightSidebarComponent,
     FilesizePipe,
     RegisterPageComponent,
     RegisterComponent,
     UsersAdminPageComponent,
-    InviteUserModalComponent
+    InviteUserModalComponent,
+    TreeNodeComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +82,8 @@ import { InviteUserModalComponent } from './components/invite-user-modal/invite-
     EffectsModule.run(UploaderEffects),
     EffectsModule.run(DownloaderEffects),
     EffectsModule.run(UsersEffects),
-    EffectsModule.run(InvitationsEffects)
+    EffectsModule.run(InvitationsEffects),
+    EffectsModule.run(FolderTreeEffects)
   ],
   providers: [
     AuthenticationService,
@@ -98,7 +101,8 @@ import { InviteUserModalComponent } from './components/invite-user-modal/invite-
     UploaderActions,
     DownloaderActions,
     UsersActions,
-    InvitationsActions
+    InvitationsActions,
+    FolderTreeActions
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

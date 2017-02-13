@@ -19,7 +19,7 @@ export class UsersService {
   }
 
   register ({name, email, password, token}) {
-    return this.http.post(this.usersUrl, {name, email, password, token}).map(res => res.json());
+    return this.http.post(urljoin(this.usersUrl, 'register'), {name, email, password, token}).map(res => res.json());
   }
 
 }

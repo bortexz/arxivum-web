@@ -17,11 +17,15 @@ export class FoldersService {
    * be returned.
    */
   getOne (id?) {
-    let url = id ? urljoin(this.foldersUrl, id) : this.foldersUrl;
+    const url = id ? urljoin(this.foldersUrl, id) : this.foldersUrl;
     return this.http.get(url).map(res => res.json());
   }
 
   create (data) {
     return this.http.post(this.foldersUrl, data).map(res => res.json());
+  }
+
+  getTree() {
+    return this.http.get(urljoin(this.foldersUrl, 'tree')).map(res => res.json());
   }
 }

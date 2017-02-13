@@ -1,6 +1,6 @@
-import { AuthenticationActions } from '../authentication/authentication.actions';
-import { UsersActions } from './users.actions';
-import { IUser } from './users.interfaces';
+import { AuthenticationActions } from '../../authentication/authentication.actions';
+import { UsersActions } from '../users.actions';
+import { IUser } from '../users.interfaces';
 
 export interface IRegisterData {
   email: string;
