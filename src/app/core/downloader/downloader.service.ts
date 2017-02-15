@@ -21,8 +21,6 @@ export class DownloaderService {
     }
   });
 
-  totalProgress$: Observable<number>;
-
   constructor(
     public zone: NgZone,
     private store: Store<AppState>,
