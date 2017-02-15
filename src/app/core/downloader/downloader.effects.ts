@@ -6,12 +6,15 @@ import { DownloaderActions } from './downloader.actions';
 import { DownloaderService } from './downloader.service';
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
+const streamToPromise = require('stream-to-promise');
 
 @Injectable()
 export class DownloaderEffects {
 
-  downloadItemComplete$ = this.actions$
-    .ofType(DownloaderActions.DOWNLOAD_FILE_COMPLETED);
+  // @Effect({ dispatch: false })
+  // downloadItemComplete$ = this.actions$
+  //   .ofType(DownloaderActions.DOWNLOAD_FILE_COMPLETED)
+  //   .switchMap(action =>)
 
   @Effect()
   downloadFile$ = this.actions$

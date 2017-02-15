@@ -9,6 +9,11 @@ export class DownloaderActions {
   static DOWNLOAD_FILE_PROGRESS_ITEM = '[Downloader] Download file progress';
   static DOWNLOAD_FILE_COMPLETED = '[Downloader] Download file completed';
   static DOWNLOAD_FILE_PROGRESS_ALL = '[Downloader] Download file progress all';
+
+  static DOWNLOAD_FILE_DECRYPTING = '[Downloader] Download file decrypting';
+  static DOWNLOAD_FILE_DECRYPTING_SUCCESS = '[Downloader] Download file decrypting success';
+  static DOWNLOAD_FILE_DECRYPTING_ERROR = '[Downloader] Download file decrypting error';
+
   static REMOVE_ITEM = '[Downloader] Remove item';
 
   downloadFile (file: IFile) {
@@ -33,6 +38,27 @@ export class DownloaderActions {
         progress,
         download_speed
       }
+    };
+  }
+
+  decrypt (_id) {
+    return {
+      type: DownloaderActions.DOWNLOAD_FILE_DECRYPTING_SUCCESS,
+      payload: { _id }
+    };
+  }
+
+  decryptSuccess (_id, stream) {
+    return {
+      type: DownloaderActions.DOWNLOAD_FILE_DECRYPTING_SUCCESS,
+      payload: { _id, stream }
+    };
+  }
+
+  decryptError (_id, error) {
+    return {
+      type: DownloaderActions.DOWNLOAD_FILE_DECRYPTING_ERROR,
+      payload: { _id, error }
     };
   }
 
