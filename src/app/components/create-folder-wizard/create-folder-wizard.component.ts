@@ -13,8 +13,6 @@ export class CreateFolderWizardComponent implements OnInit {
   @ViewChild('folderInfoForm') folderInfoForm;
 
   folder: any = {};
-  invitations: Array<any> = [];
-  files: Array<File> = [];
 
   finished = false;
 
@@ -34,9 +32,7 @@ export class CreateFolderWizardComponent implements OnInit {
 
   onFinish () {
     this.onFinished.emit({
-      folder: this.folder,
-      invitations: this.invitations,
-      files : this.files
+      folder: this.folder
     });
     this.finished = true;
   }

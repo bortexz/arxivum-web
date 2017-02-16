@@ -1,3 +1,4 @@
+import { FolderTreeActions } from './tree/tree.actions';
 import { CurrentFolderState } from './folders.reducer';
 import { AppState } from '../../app.reducers';
 import { Store } from '@ngrx/store';
@@ -29,8 +30,12 @@ export class FoldersEffects {
     .ofType(FoldersActions.CREATE_FOLDER)
     .map(action => action.payload)
     .switchMap(folder => this.foldersService.create(folder)
-      .withLatestFrom(this.currentFolder$, (created, current) =>
-        this.foldersActions.getFolder(current._id))
+      .withLatestFrom(this.currentFolder$)
+      .flatMap(([_, current]) => Observable.of(
+          this.foldersActions.getFolder(current._id),
+          this.treeActions.getTree()
+        )
+      )
       .catch(error => Observable.of(this.foldersActions.createFolderError(error)))
     );
 
@@ -39,6 +44,7 @@ export class FoldersEffects {
     private foldersService: FoldersService,
     private router: Router,
     private foldersActions: FoldersActions,
+    private treeActions: FolderTreeActions,
     private store: Store<AppState>
   ) { }
 }
