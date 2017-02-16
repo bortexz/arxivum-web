@@ -11,9 +11,10 @@ export class FolderTreeEffects {
   @Effect()
   getTree$ = this.actions$
     .ofType(FolderTreeActions.GET_TREE)
-    .switchMap(() => this.foldersService.getTree())
-    .map(tree => this.treeActions.getTreeSuccess(tree))
-    .catch(err => Observable.of(this.treeActions.getTreeError(err)));
+    .switchMap(() => this.foldersService.getTree()
+      .map(tree => this.treeActions.getTreeSuccess(tree))
+      .catch(err => Observable.of(this.treeActions.getTreeError(err)))
+    );
 
   constructor (
     private actions$: Actions,

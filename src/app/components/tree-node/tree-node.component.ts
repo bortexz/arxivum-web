@@ -1,3 +1,7 @@
+import { Observable } from 'rxjs/Rx';
+import { CurrentFolderState } from '../../core/folders/folders.reducer';
+import { AppState } from '../../app.reducers';
+import { Store } from '@ngrx/store';
 import { TreeNode } from 'clarity-angular/tree-view';
 import { IFolderTreeNode } from '../../core/folders/folders.interfaces';
 import { Component, Input, OnInit } from '@angular/core';
@@ -10,7 +14,13 @@ import { Component, Input, OnInit } from '@angular/core';
 export class TreeNodeComponent implements OnInit {
   @Input('node') node: IFolderTreeNode;
 
-  constructor () {}
+  currentFolder$: Observable<CurrentFolderState>;
 
-  ngOnInit () {}
+  constructor (
+    private store: Store<AppState>
+  ) {}
+
+  ngOnInit () {
+    this.currentFolder$ = this.store.select(state => state.currentFolder);
+  }
 }

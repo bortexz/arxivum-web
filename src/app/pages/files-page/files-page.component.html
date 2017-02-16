@@ -89,8 +89,7 @@
     <section class="sidenav-content">
       <ax-tree-node
         *ngFor='let node of tree$ | async'
-        [node]='node'
-        [clrTreeNodeExpandable]='node.children && node.children.length > 0'>
+        [node]='node'>
 
       </ax-tree-node>
     </section>

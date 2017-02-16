@@ -19,18 +19,20 @@ export class FoldersEffects {
   getFolder$ = this.actions$
     .ofType(FoldersActions.GET_FOLDER)
     .map(action => action.payload.id)
-    .switchMap(id => this.foldersService.getOne(id))
-    .map(folder => this.foldersActions.getFolderSuccess(folder))
-    .catch(error => Observable.of(this.foldersActions.getFolderError(error)));
+    .switchMap(id => this.foldersService.getOne(id)
+      .map(folder => this.foldersActions.getFolderSuccess(folder))
+      .catch(error => Observable.of(this.foldersActions.getFolderError(error)))
+    );
 
   @Effect()
   createFolder$ = this.actions$
     .ofType(FoldersActions.CREATE_FOLDER)
     .map(action => action.payload)
-    .switchMap(folder => this.foldersService.create(folder))
-    .withLatestFrom(this.currentFolder$, (created, current) =>
-      this.foldersActions.getFolder(current._id))
-    .catch(error => Observable.of(this.foldersActions.createFolderError(error)));
+    .switchMap(folder => this.foldersService.create(folder)
+      .withLatestFrom(this.currentFolder$, (created, current) =>
+        this.foldersActions.getFolder(current._id))
+      .catch(error => Observable.of(this.foldersActions.createFolderError(error)))
+    );
 
   constructor(
     private actions$: Actions,

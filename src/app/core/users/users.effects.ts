@@ -15,8 +15,9 @@ export class UsersEffects {
     .ofType(UsersActions.REGISTER)
     .do(console.log)
     .switchMap(action => this.usersService.register(action.payload))
-    .map(() => this.usersActions.registerSuccess())
-    .catch((err) => Observable.of(this.usersActions.registerError(err)));
+      .map(() => this.usersActions.registerSuccess())
+      .catch((err) => Observable.of(this.usersActions.registerError(err))
+    );
 
   @Effect()
   registerSuccess$ = this.actions$
@@ -33,8 +34,9 @@ export class UsersEffects {
   getUsers$ = this.actions$
     .ofType(UsersActions.GET_USERS)
     .switchMap(() => this.usersService.getAll())
-    .map(users => this.usersActions.getUsersSuccess(users))
-    .catch(err => Observable.of(this.usersActions.getUsersError(err)));
+      .map(users => this.usersActions.getUsersSuccess(users))
+      .catch(err => Observable.of(this.usersActions.getUsersError(err))
+    );
 
   constructor(
     private actions$: Actions,

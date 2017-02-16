@@ -16,11 +16,12 @@ export class AuthenticationEffects {
     .ofType(AuthenticationActions.LOGIN)
     .map(action => action.payload)
     .switchMap(({email, password}) => this.authService.login(email, password))
-    .map(authenticated => this.authActions.loginSuccess(authenticated))
-    .do(() => {
-      this.router.navigate(['folder']);
-    })
-    .catch(error => Observable.of(this.authActions.loginError(error)));
+      .map(authenticated => this.authActions.loginSuccess(authenticated))
+      .do(() => {
+        this.router.navigate(['folder']);
+      })
+      .catch(error => Observable.of(this.authActions.loginError(error))
+    );
 
   @Effect({dispatch: false})
   logout$ = this.actions$

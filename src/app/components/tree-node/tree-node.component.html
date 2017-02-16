@@ -1,6 +1,10 @@
 <clr-tree-node [clrTreeNodeExpandable]="node.children && node.children.length > 0">
   <clr-icon shape='folder'></clr-icon>
-  {{node.name}}
+  <a
+    class='clr-treenode-link'
+    [routerLink]='["/folder", {id: node._id}]'
+    [class.active]='(currentFolder$ | async)._id === node._id'
+  >{{node.name}}</a>
   <ax-tree-node
     ngProjectAs="clr-tree-node"
     *ngFor='let child of node.children'

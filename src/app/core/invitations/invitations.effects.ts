@@ -11,15 +11,17 @@ export class InvitationsEffects {
   getInvitations$ = this.actions$
     .ofType(InvitationsActions.GET_INVITATIONS)
     .switchMap(() => this.invitationsService.getAll())
-    .map(res => this.invitationActions.getInvitationsSuccess(res))
-    .catch(err => Observable.of(this.invitationActions.getInvitationsError(err)));
+      .map(res => this.invitationActions.getInvitationsSuccess(res))
+      .catch(err => Observable.of(this.invitationActions.getInvitationsError(err))
+    );
 
   @Effect()
   createInvitation$ = this.actions$
     .ofType(InvitationsActions.CREATE_INVITATION)
     .switchMap(action => this.invitationsService.create(action.payload.email))
-    .map(res => this.invitationActions.createInvitationSuccess(res))
-    .catch(err => Observable.of(this.invitationActions.createInvitationError(err)));
+      .map(res => this.invitationActions.createInvitationSuccess(res))
+      .catch(err => Observable.of(this.invitationActions.createInvitationError(err))
+    );
 
   @Effect()
   createInvitationSuccess$ = this.actions$
