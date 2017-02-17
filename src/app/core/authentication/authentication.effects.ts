@@ -15,12 +15,12 @@ export class AuthenticationEffects {
   login$ = this.actions$
     .ofType(AuthenticationActions.LOGIN)
     .map(action => action.payload)
-    .switchMap(({email, password}) => this.authService.login(email, password))
+    .switchMap(({email, password}) => this.authService.login(email, password)
       .map(authenticated => this.authActions.loginSuccess(authenticated))
       .do(() => {
         this.router.navigate(['folder']);
       })
-      .catch(error => Observable.of(this.authActions.loginError(error))
+      .catch(error => Observable.of(this.authActions.loginError(error)))
     );
 
   @Effect({dispatch: false})
@@ -30,7 +30,7 @@ export class AuthenticationEffects {
       this.router.navigate(['login']);
     });
 
-  @Effect({ dispatch: false})
+  @Effect({ dispatch: false} )
   error401$ = this.actions$
     .filter(action => action.payload && action.payload.error) // Only error requests
     .map(action => action.payload.error)
