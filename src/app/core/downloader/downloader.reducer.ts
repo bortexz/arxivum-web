@@ -1,4 +1,3 @@
-import { ReadStream } from 'fs';
 import { DownloaderActions } from './downloader.actions';
 const R = require('ramda');
 
@@ -12,7 +11,7 @@ export interface IDownloadingFile {
   download_speed: number;
   finished?: Boolean;
   decrypting?: boolean;
-  decrypted?: ReadStream;
+  decrypted?: ArrayBuffer;
 }
 
 export interface DownloaderState {
