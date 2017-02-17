@@ -24,10 +24,12 @@
     "@ngrx/effects": "^2.0.0",
     "@ngrx/store": "^2.2.1",
     "@webcomponents/custom-elements": "^1.0.0-alpha.3",
+    "blob-util": "^1.2.1",
     "clarity-angular": "^0.8.0",
     "clarity-icons": "^0.8.0",
     "clarity-ui": "^0.8.0",
     "core-js": "^2.4.1",
+    "crypto-browserify": "^3.11.0",
     "debug": "^2.6.0",
     "mutationobserver-shim": "^0.3.2",
     "ng2-file-upload": "^1.1.4-2",
@@ -42,7 +44,7 @@
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
-    "@angular/cli": "^1.0.0-beta.31",
+    "@angular/cli": "1.0.0-beta.31",
     "@angular/compiler-cli": "^2.3.1",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.42",

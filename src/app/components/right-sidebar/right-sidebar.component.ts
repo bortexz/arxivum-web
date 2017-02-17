@@ -4,13 +4,14 @@ import { Observable } from 'rxjs/Rx';
 import { AppState } from '../../app.reducers';
 import { Store } from '@ngrx/store';
 import { DownloaderService } from '../../core/downloader/downloader.service';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { UploaderService } from '../../core/uploader/uploader.service';
 
 @Component({
   selector: 'ax-right-sidebar',
   templateUrl: './right-sidebar.component.html',
-  styleUrls: ['./right-sidebar.component.scss']
+  styleUrls: ['./right-sidebar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RightSidebarComponent implements OnInit {
   shown: string = null;
@@ -40,7 +41,6 @@ export class RightSidebarComponent implements OnInit {
     });
 
   constructor(
-    private changeDetector: ChangeDetectorRef,
     private store: Store<AppState>,
     private downloaderService: DownloaderService,
     private downloaderActions: DownloaderActions
@@ -48,10 +48,7 @@ export class RightSidebarComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.uploading$.subscribe(() => this.changeDetector.detectChanges());
-    this.downloading$.subscribe(() => this.changeDetector.detectChanges());
-  }
+  ngOnInit() {}
 
   toggle(panel) {
     if (!this.shown) return this.shown = panel;

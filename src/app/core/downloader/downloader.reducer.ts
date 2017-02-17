@@ -6,6 +6,7 @@ export interface IDownloadingFile {
   _id: string;
   name: string;
   torrent: any;
+  torrent_file: any;
   torrent_info: any;
   progress: number;
   download_speed: number;
@@ -83,15 +84,25 @@ export function downloaderReducer (state = initialState, action) {
       const { _id } = action.payload;
       return assign({
           files: replaceFileInList(_id)
-            ( item => assign({ decrypted: true })(item) )
+            ( item => assign({ decrypting: true })(item) )
             ( files )
         })(state);
     }
     case DownloaderActions.DOWNLOAD_FILE_DECRYPTING_SUCCESS: {
-      return state;
+      const { _id, stream } = action.payload;
+      return assign({
+          files: replaceFileInList(_id)
+            ( item => assign({ decrypting: false, decrypted: stream })(item) )
+            ( files )
+        })(state);
     }
     case DownloaderActions.DOWNLOAD_FILE_DECRYPTING_ERROR: {
-      return state; // temporary
+      const { _id } = action.payload;
+      return assign({
+          files: replaceFileInList(_id)
+            ( item => assign({ decrypting: false })(item) )
+            ( files )
+        })(state);
     }
     case DownloaderActions.REMOVE_ITEM: {
       const { _id } = action.payload.file;

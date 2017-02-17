@@ -43,7 +43,7 @@ export class DownloaderActions {
 
   decrypt (_id) {
     return {
-      type: DownloaderActions.DOWNLOAD_FILE_DECRYPTING_SUCCESS,
+      type: DownloaderActions.DOWNLOAD_FILE_DECRYPTING,
       payload: { _id }
     };
   }

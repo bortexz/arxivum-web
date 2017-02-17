@@ -1,3 +1,4 @@
+import { ArxivumHttp } from '../../utils/http/arxivum-http.service';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
@@ -7,6 +8,12 @@ const urljoin = require('url-join');
 export class FilesService {
   public filesUrl = urljoin(environment.api_url, 'files');
 
-  constructor() { }
+  getOne(id) {
+    return this.http.get(urljoin(this.filesUrl, id)).map(res => res.json());
+  }
+
+  constructor(
+    private http: ArxivumHttp
+  ) { }
 
 }

@@ -35,6 +35,7 @@ export class DownloaderService {
           _id: file._id,
           name: file.name,
           torrent,
+          torrent_file: torrent.files[0],
           torrent_info: file.torrent,
           progress: 0,
           download_speed: 0
