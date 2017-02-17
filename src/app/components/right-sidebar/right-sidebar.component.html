@@ -55,8 +55,16 @@
             Pause
           </button>-->
           <button
+            class="btn btn-primary btn-sm"
+            (click)='this.store.dispatch(downloaderActions.saveFile(file._id))'
+            [disabled]='!file.decrypted'>
+            <span *ngIf='file.decrypted || !file.decrypting'>Save</span>
+            <span *ngIf='file.decrypting' class='spinner spinner-inline'></span>
+            <span *ngIf='file.decrypting'>Decrypting</span>
+          </button>
+          <button
             class="btn btn-danger-outline btn-sm"
-            (click)='this.store.dispatch(downloaderActions.removeItem(file))'>
+            (click)='this.store.dispatch(downloaderActions.removeFile(file))'>
             Remove
           </button>
         </div>

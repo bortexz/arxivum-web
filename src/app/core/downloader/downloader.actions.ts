@@ -14,7 +14,9 @@ export class DownloaderActions {
   static DOWNLOAD_FILE_DECRYPTING_SUCCESS = '[Downloader] Download file decrypting success';
   static DOWNLOAD_FILE_DECRYPTING_ERROR = '[Downloader] Download file decrypting error';
 
-  static REMOVE_ITEM = '[Downloader] Remove item';
+  static REMOVE_FILE = '[Downloader] Remove file';
+
+  static SAVE_FILE = '[Downloader] Save file'; // Save file in local file system
 
   downloadFile (file: IFile) {
     return {
@@ -76,10 +78,17 @@ export class DownloaderActions {
     };
   }
 
-  removeItem (file) {
+  removeFile (file) {
     return {
-      type: DownloaderActions.REMOVE_ITEM,
+      type: DownloaderActions.REMOVE_FILE,
       payload: { file }
+    };
+  }
+
+  saveFile (_id) {
+    return {
+      type: DownloaderActions.SAVE_FILE,
+      payload: { _id }
     };
   }
 

@@ -103,7 +103,7 @@ export function downloaderReducer (state = initialState, action) {
             ( files )
         })(state);
     }
-    case DownloaderActions.REMOVE_ITEM: {
+    case DownloaderActions.REMOVE_FILE: {
       const { _id } = action.payload.file;
       return assign( { files: filterFile(_id)(files) } )(state);
     }

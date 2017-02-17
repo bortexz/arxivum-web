@@ -1,3 +1,4 @@
+import { IDownloadingFile } from './downloader.reducer';
 import { FilesService } from '../files/files.service';
 import { AppState } from '../../app.reducers';
 import { Action, Store } from '@ngrx/store';
@@ -12,6 +13,7 @@ const streamToPromise = require('stream-to-promise');
 const R = require('ramda');
 const crypto = require('crypto-browserify');
 const blobUtil = require('blob-util');
+const debug = require('debug')('arxivum:downloading:effects');
 
 const DECRYPT_ALGO = 'aes-256-cbc';
 
@@ -45,25 +47,6 @@ export class DownloaderEffects {
         .catch(err => Observable.of(this.downloaderActions.decryptError(file._id, err)));
     });
 
-  @Effect({ dispatch: false })
-  decryptSuccess$ = this.actions$
-    .ofType(DownloaderActions.DOWNLOAD_FILE_DECRYPTING_SUCCESS)
-    .withLatestFrom(this.store.select(state => state.downloading))
-    .flatMap(([action, downloading]) => {
-      const file = findById(action.payload._id)(downloading.files);
-      return Observable.fromPromise(blobUtil.arrayBufferToBlob(file.decrypted))
-        .do(blob => {
-          const a = document.createElement('a');
-
-          a.target = '_blank';
-          a.download = file.name;
-          a.href = blobUtil.createObjectURL(blob);
-          a.textContent = 'Download ' + file.name;
-          a.click();
-        })
-        .catch(err => Observable.of(err));
-    });
-
   @Effect()
   downloadFile$ = this.actions$
     .ofType(DownloaderActions.DOWNLOAD_FILE)
@@ -72,7 +55,7 @@ export class DownloaderEffects {
       return Observable
         .fromPromise(this.downloaderService.download(file));
     })
-    .map((file) => this.downloaderActions.downloadFileAdded(file));
+    .map((file: IDownloadingFile) => this.downloaderActions.downloadFileAdded(file));
 
   @Effect()
   totalProgress$ = this.actions$
@@ -84,9 +67,26 @@ export class DownloaderEffects {
 
   @Effect({ dispatch: false })
   onItemRemoved$ = this.actions$
-    .ofType(DownloaderActions.REMOVE_ITEM)
+    .ofType(DownloaderActions.REMOVE_FILE)
     .do((action) => {
       this.downloaderService.remove(action.payload.file);
+    });
+
+  @Effect({ dispatch: false })
+  saveFile$ = this.actions$
+    .ofType(DownloaderActions.SAVE_FILE)
+    .withLatestFrom(this.store.select(state => state.downloading))
+    .do(([action, downloading]) => {
+      const file = findById(action.payload._id)(downloading.files);
+      blobUtil.arrayBufferToBlob(file.decrypted).then(blob => {
+        const link = document.createElement('a');
+        link.target = '_blank';
+        link.download = file.name;
+        link.href = blobUtil.createObjectURL(blob);
+        link.click();
+        document.removeChild(link);
+      }).catch(err => debug(err));
+
     });
 
   constructor (

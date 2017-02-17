@@ -29,7 +29,7 @@ nav {
       // flex-shrink: 1;
 
       span {
-        width: 100%;
+        //width: 100%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -79,6 +79,8 @@ nav {
     }
   }
 }
+
+
 
 .nav-shown {
   right: 0px;
