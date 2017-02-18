@@ -30,7 +30,7 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
 
   private currentFolder$ = this.store.select(state => state.currentFolder);
   private authenticated$ = this.store.select(state => state.authenticated);
-  private downloading$ = this.store.select(state => state.downloading);
+  private downloadData$ = this.store.select(state => state.downloadData);
   private tree$ = this.store.select(state => state.folderTree.tree);
 
   private hasBaseDropZoneOver = false;
@@ -91,14 +91,6 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
     data.folder.parent = currentFolder;
 
     this.store.dispatch(this.foldersActions.createFolder(data.folder));
-  }
-
-  public fileDownloading (id): Observable<IDownloadingFile> {
-    return this.downloading$
-      .map(downloading => downloading.files)
-      .map(files => files.find(elem => elem._id === id))
-      .filter(file => !!file);
-
   }
 
   downloadFile (file) {

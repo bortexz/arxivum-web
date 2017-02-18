@@ -1,0 +1,36 @@
+<!--<div class='list-file'>
+  <span>{{ file.file.name }}</span>
+  <div class='progress labeled'>
+    <progress max="100" [value]="file.progress"></progress>
+  </div>
+</div>-->
+
+<div class="card">
+  <div class="card-block">
+    <!--<h4 class="card-title">{{file.name}}</h4>-->
+    <p class="card-text">
+      {{file.file.name}}
+    </p>
+  </div>
+  <div class="card-footer">
+    <div class="progress">
+      <progress max="100" [value]="file.progress"></progress>
+    </div>
+    {{file.progress}} %
+    <!--<div class='list-item-actions'>
+      <button
+        class="btn btn-primary btn-sm"
+        (click)='this.store.dispatch(downloaderActions.saveFile(file._id))'
+        [disabled]='!file.decrypted'>
+        <span *ngIf='file.decrypted || !file.decrypting'>Save</span>
+        <span *ngIf='file.decrypting' class='spinner spinner-inline'></span>
+        <span *ngIf='file.decrypting'>Decrypting</span>
+      </button>
+      <button
+        class="btn btn-danger-outline btn-sm"
+        (click)='this.store.dispatch(downloaderActions.removeFile(file))'>
+        Remove
+      </button>
+    </div>-->
+  </div>
+</div>

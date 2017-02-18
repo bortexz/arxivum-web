@@ -72,8 +72,8 @@
             </a>
           </td>
           <td class='row-actions'>
-            <span *ngIf='fileDownloading(file._id) | async'>
-              {{ (fileDownloading(file._id) | async)?.progress }} %
+            <span *ngIf='downloadData$[file._id] | async'>
+              {{ (downloadData$[file._id] | async)?.progress }} %
             </span>
             <a class="row-action" (click)='downloadFile(file)'>
               <clr-icon shape='download'>

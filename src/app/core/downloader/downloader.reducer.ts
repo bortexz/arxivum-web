@@ -7,8 +7,6 @@ export interface IDownloadingFile {
   torrent: any;
   torrent_file: any;
   torrent_info: any;
-  progress: number;
-  download_speed: number;
   finished?: Boolean;
   decrypting?: boolean;
   decrypted?: ArrayBuffer;
@@ -56,15 +54,6 @@ export function downloaderReducer (state = initialState, action) {
       const { file } = action.payload;
       return assign({
         files: R.append(file)(files)
-      })(state);
-    }
-    case DownloaderActions.DOWNLOAD_FILE_PROGRESS_ITEM: {
-      const {_id, progress, download_speed} = action.payload;
-
-      return assign({
-        files: replaceFileInList(_id)
-          ( item => assign({progress, download_speed})(item) )
-          (files)
       })(state);
     }
     case DownloaderActions.DOWNLOAD_FILE_PROGRESS_ALL: {

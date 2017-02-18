@@ -27,48 +27,22 @@
   </ul>
   <div class='content'>
     <div id='uploader-content' *ngIf='this.shown === "uploader"'>
-      <h3>Uploader</h3>
-      <div *ngFor='let item of (uploading$ | async)?.files' class='list-item'>
-        <span>{{ item.file.name }}</span>
-        <progress max="100" [value]="item.progress" data-displayval="0%"></progress>
-        {{ item.progress }} %
+      <div class='content-title'>
+        <h3>uploads</h3>
       </div>
+      <ax-upload-item
+        *ngFor='let file of (uploading$ | async)?.files'
+        [file]='file'>
+      </ax-upload-item>
     </div>
     <div id='downloader-content' *ngIf='this.shown === "downloader"'>
-      <h3>Downloader</h3>
-      <div *ngFor='let file of (downloading$ | async)?.files' class='list-item'>
-        <span>{{file.name}}</span>
-        <progress max="100" *ngIf='file.progress' [value]="file.progress" data-displayval="0%"></progress>
-        {{ file.progress }} %
-        <div class='list-item-actions'>
-          <!-- https://github.com/feross/webtorrent/issues/580 -->
-          <!--<button
-            class="btn btn-success-outline btn-sm"
-            (click)='fileDownloaderService.resume(file)'
-            *ngIf='!file.torrent'>
-            Resume
-          </button>
-          <button
-            class="btn btn-info-outline btn-sm"
-            (click)='fileDownloaderService.pause(file)'
-            *ngIf='file.torrent'>
-            Pause
-          </button>-->
-          <button
-            class="btn btn-primary btn-sm"
-            (click)='this.store.dispatch(downloaderActions.saveFile(file._id))'
-            [disabled]='!file.decrypted'>
-            <span *ngIf='file.decrypted || !file.decrypting'>Save</span>
-            <span *ngIf='file.decrypting' class='spinner spinner-inline'></span>
-            <span *ngIf='file.decrypting'>Decrypting</span>
-          </button>
-          <button
-            class="btn btn-danger-outline btn-sm"
-            (click)='this.store.dispatch(downloaderActions.removeFile(file))'>
-            Remove
-          </button>
-        </div>
+      <div class='content-title'>
+        <h3><b>downloads</b></h3>
       </div>
+      <ax-download-item
+        *ngFor='let file of (downloading$ | async)?.files'
+        [file]='file'>
+      </ax-download-item>
     </div>
   </div>
 </nav>

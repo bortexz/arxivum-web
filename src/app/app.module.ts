@@ -1,3 +1,5 @@
+import { UploadItemComponent } from './components/right-sidebar/upload-item/upload-item.component';
+import { DownloadItemComponent } from './components/right-sidebar/download-item/download-item.component';
 import { FolderTreeEffects } from './core/folders/tree/tree.effects';
 import { FolderTreeActions } from './core/folders/tree/tree.actions';
 import { InvitationsService } from './core/invitations/invitations.service';
@@ -63,7 +65,9 @@ import { TreeNodeComponent } from './components/tree-node/tree-node.component';
     RegisterComponent,
     UsersAdminPageComponent,
     InviteUserModalComponent,
-    TreeNodeComponent
+    TreeNodeComponent,
+    DownloadItemComponent,
+    UploadItemComponent
   ],
   imports: [
     BrowserModule,

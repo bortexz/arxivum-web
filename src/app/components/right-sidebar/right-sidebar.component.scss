@@ -16,37 +16,6 @@ nav {
     height: 100%;
     background: rgb(250,250,250);
     box-shadow: -2px 0px 5px -3px black;
-
-    .list-item {
-      height: 120px;
-      width: 100%;
-      border-bottom: 1px solid rgb(204, 204, 204);
-      padding: 20px;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      // flex-shrink: 1;
-
-      span {
-        //width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      progress {
-        width: 100%;
-      }
-
-      .list-item-actions {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-
-        width: 100%;
-      }
-    }
   }
 
   ul {
@@ -70,6 +39,7 @@ nav {
         height: 60px;
         line-height: 60px;
 
+        // badge
         span {
           z-index: 101;
           margin-top: -22px;
@@ -80,7 +50,23 @@ nav {
   }
 }
 
+.content-title {
+  background-color: #002538; // clarity header color
+  height: 50px;
 
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  text-align: center;
+
+  h3 {
+    font-size: 24px;
+    letter-spacing: 3px;
+    margin: 0;
+    color: white;
+  }
+}
 
 .nav-shown {
   right: 0px;
