@@ -1,3 +1,4 @@
+import { uploadDataReducer, UploadDataState } from './core/uploader/upload-data/upload-data.reducer';
 import { downloadDataReducer, DownloadDataState } from './core/downloader/download-data/download-data.reducer';
 import { folderTreeReducer, FolderTreeState } from './core/folders/tree/tree.reducer';
 import { InvitationsListState, invitationsReducer } from './core/invitations/invitations.reducer';
@@ -23,6 +24,7 @@ export interface AppState {
     invitations: InvitationsListState;
     folderTree: FolderTreeState;
     downloadData: DownloadDataState; // Keeps real time progress updates separated from downloader.
+    uploadData: UploadDataState;
 };
 
 // Take into account
@@ -37,10 +39,11 @@ export function reducers (state, action) {
     register: registerReducer,
     invitations: invitationsReducer,
     folderTree: folderTreeReducer,
-    downloadData: downloadDataReducer
+    downloadData: downloadDataReducer,
+    uploadData: uploadDataReducer
   })(state, action);
 
-  debug(newState);
+  debug(action, newState);
 
   return newState;
 };

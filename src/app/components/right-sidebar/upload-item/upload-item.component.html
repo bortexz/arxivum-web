@@ -8,13 +8,13 @@
 <div class="card">
   <div class="card-block">
     <p class="card-text">
-      {{file.file.name}}
+      {{file.name}}
     </p>
   </div>
   <div class="card-footer">
     <div class="progress">
-      <progress max="100" [value]="file.progress"></progress>
+      <progress min="0" max="100" [value]="progress$ | async"></progress>
     </div>
-    {{file.progress}} %
+    {{progress$ | async}} %
   </div>
 </div>
