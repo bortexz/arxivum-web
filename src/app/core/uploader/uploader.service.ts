@@ -21,9 +21,6 @@ export class UploaderService {
     private uploaderActions: UploaderActions
   ) {
 
-    store.select(state => state.authenticated)
-      .subscribe(auth => this.authToken = auth ? auth.token : null);
-
     this.uploader = new FileUploader({});
 
     this.uploader.onAfterAddingAll = (files) => {
