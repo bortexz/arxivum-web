@@ -30,6 +30,7 @@
       <div class='content-title'>
         <h3>uploads</h3>
       </div>
+      <button class='btn'>Clear</button>
       <ax-upload-item
         *ngFor='let file of (uploading$ | async)?.files'
         [file]='file'>

@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import {Wizard} from 'clarity-angular';
 
@@ -10,11 +11,26 @@ export class CreateFolderWizardComponent implements OnInit {
   @Output('onFinished') onFinished: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('wizard') wizard: Wizard;
-  @ViewChild('folderInfoForm') folderInfoForm;
-
-  folder: any = {};
+  folderForm: FormGroup;
 
   finished = false;
+
+  constructor(
+    private formBuilder: FormBuilder
+  ) { }
+
+  ngOnInit() {
+    this.folderForm = this.formBuilder.group({
+      name: ['', Validators.required]
+    });
+  }
+
+  onFinish () {
+    this.onFinished.emit({
+      folder: this.folderForm.value
+    });
+    this.finished = true;
+  }
 
   open () {
     this.wizard.open();
@@ -22,18 +38,7 @@ export class CreateFolderWizardComponent implements OnInit {
     // user progress in case wizard is dismissed unintentionally
     if (this.finished) {
       this.finished = false;
-      this.folderInfoForm.form.reset();
+      this.folderForm.reset();
     }
-  }
-
-  constructor() { }
-
-  ngOnInit() {}
-
-  onFinish () {
-    this.onFinished.emit({
-      folder: this.folder
-    });
-    this.finished = true;
   }
 }

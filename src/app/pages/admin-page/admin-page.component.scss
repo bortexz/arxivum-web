@@ -1,0 +1,12 @@
+:host {
+  width: 100%;
+}
+
+.subnav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  max-width: 100%;
+  padding: 0px 15px;
+}

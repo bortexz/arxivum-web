@@ -8,41 +8,27 @@
   <clr-wizard-step>Select upload</clr-wizard-step>-->
 
   <clr-wizard-page
-    [clrWizardPageNextDisabled]="!folderInfoForm.form.valid"
+    [clrWizardPageNextDisabled]="!folderForm.valid"
     (clrWizardPageOnCommit)='onFinish()'>
-    <form class='compact' #folderInfoForm='ngForm'>
+    <form [formGroup]='folderForm'>
       <section class='form-block'>
-        <label>New folder info</label>
+        <div class='form-group'>
+          <label class='required'>Name</label>
+          <label for='folder-name'
+            aria-haspopup="true"
+            role="tooltip"
+            class="tooltip tooltip-validation tooltip-sm"
+            [class.invalid]='folderForm.get("name").errors && folderForm.get("name").touched'>
 
-        <div class='form-group row'>
-          <div class='col-md-3'>
-            <label
-              class='required'
-              for='folder_name'>
-              Name
-            </label>
-          </div>
-          <div class='col-md-9'>
-            <label
-              for='folder_name'
-              aria-haspopup="true"
-              role="tooltip"
-              class="tooltip tooltip-validation tooltip-sm tooltip-top-left required"
-              [class.invalid]='folderName.touched && !folderName.valid'>
-              <input
-                type='text'
-                id='folder_name'
-                placeholder='Folder name'
-                size='45'
-                [(ngModel)]='folder.name'
-                name='folderName'
-                #folderName='ngModel'
-                required>
-                <span class="tooltip-content">
-                  Required!
-                </span>
-            </label>
-          </div>
+            <input type='text' formControlName='name' id='folder-name'>
+
+            <span
+              *ngIf='folderForm.get("name").hasError("required")'
+              class='tooltip-content'>
+              This field is required
+            </span>
+
+          </label>
         </div>
       </section>
     </form>

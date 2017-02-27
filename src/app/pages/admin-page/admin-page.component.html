@@ -1,0 +1,24 @@
+<nav class="subnav">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link active" routerLink='users' routerLinkActive='active'>Users</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink='invitations' routerLinkActive='active'>Invitations</a>
+    </li>
+  </ul>
+
+  <div class='flex-xs-middle'>
+    <button
+      class="btn btn-outline-primary btn-sm"
+      (click)='inviteUserModal.open()'
+      *ngIf='(authenticated$ | async)?.admin'>
+      + Invite user
+    </button>
+  </div>
+
+</nav>
+
+<router-outlet></router-outlet>
+
+<ax-invite-user-modal #invitUserModal (onFinished)='inviteUser($event)'></ax-invite-user-modal>

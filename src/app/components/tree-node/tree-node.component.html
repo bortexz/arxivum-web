@@ -1,5 +1,5 @@
 <clr-tree-node [clrTreeNodeExpandable]="node.children && node.children.length > 0">
-  <clr-icon shape='folder'></clr-icon>
+  <clr-icon shape='folder' class='is-solid'></clr-icon>
   <a
     class='clr-treenode-link'
     [routerLink]='["/folder", {id: node._id}]'
