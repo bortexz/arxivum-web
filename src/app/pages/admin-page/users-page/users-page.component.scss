@@ -16,13 +16,23 @@
 
 table {
   flex-grow: 1;
-  border-radius: 0px;
-  border: none;
   tr {
+
     height: 55px;
     border-bottom: 1px solid #eee;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
+
+    td {
+      border: none;
+    }
+
+    .user-info {
+      strong, span {
+        margin-left: 30px;
+      }
+    }
   }
 }

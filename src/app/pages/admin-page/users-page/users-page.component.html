@@ -1,11 +1,17 @@
 <section class='content-area'>
- <table class='table'>
-   <tbody>
-     <tr>
-      <td>
-        Something
-      </td>
-     </tr>
-   </tbody>
- </table>
+  <table class='table table-noborder'>
+    <tbody>
+      <tr *ngFor='let user of users$ | async'>
+        <td class='user-info'>
+          <strong>{{ user.email }}</strong>
+          <span *ngIf='user.name'>
+            {{user.name}}
+          </span>
+        </td>
+        <td class='user-actions'>
+          <button class='btn btn-sm btn-outline-warning'>Disable user</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </section>

@@ -11,8 +11,7 @@
   <div class='flex-xs-middle'>
     <button
       class="btn btn-outline-primary btn-sm"
-      (click)='inviteUserModal.open()'
-      *ngIf='(authenticated$ | async)?.admin'>
+      (click)='inviteUserModal.open()'>
       + Invite user
     </button>
   </div>

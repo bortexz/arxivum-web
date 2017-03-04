@@ -1,3 +1,8 @@
+import { AppState } from '../../../app.reducers';
+import { Store } from '@ngrx/store';
+import { UsersActions } from '../../../core/users/users.actions';
+import { IUser } from '../../../core/users/users.interfaces';
+import { Observable } from 'rxjs/Rx';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +12,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersPageComponent implements OnInit {
 
-  constructor() { }
+  users$: Observable<IUser[]>;
+
+  constructor(
+    private store: Store<AppState>,
+    private usersActions: UsersActions
+  ) { }
 
   ngOnInit() {
+    this.users$ = this.store.select(state => state.admin_users.users);
+    this.store.dispatch(this.usersActions.getUsers());
   }
 
 }
