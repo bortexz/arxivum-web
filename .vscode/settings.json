@@ -2,5 +2,6 @@
   "typescript.check.workspaceVersion": false,
   "editor.rulers": [
     140
-  ]
+  ],
+  "javascript.validate.enable": false
 }

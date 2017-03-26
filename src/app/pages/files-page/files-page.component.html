@@ -65,7 +65,7 @@
                 class='is-info admin-action-icon'
                 *ngIf='(authenticated$ | async)?.admin && this.selected === file'></clr-icon>
             </a>
-            <a (click)='return'>
+            <a (click)='removeFile(file._id)'>
               <clr-icon shape='remove'
                 class='is-danger admin-action-icon'
                 *ngIf='(authenticated$ | async)?.admin && this.selected === file'></clr-icon>

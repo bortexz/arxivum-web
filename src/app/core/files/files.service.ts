@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Rx';
 import { ArxivumHttp } from '../../utils/http/arxivum-http.service';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
@@ -10,6 +11,10 @@ export class FilesService {
 
   getOne(id) {
     return this.http.get(urljoin(this.filesUrl, id)).map(res => res.json());
+  }
+
+  remove(id) {
+    return Observable.of({ payload: 'something '});
   }
 
   constructor(

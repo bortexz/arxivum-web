@@ -1,3 +1,4 @@
+import { FilesActions } from '../../core/files/files.actions';
 import { FolderTreeActions } from '../../core/folders/tree/tree.actions';
 import { AppState } from '../../app.reducers';
 import { CreateFolderWizardComponent } from '../../components/create-folder-wizard/create-folder-wizard.component';
@@ -70,7 +71,8 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
     private foldersActions: FoldersActions,
     private uploaderActions: UploaderActions,
     private downloaderActions: DownloaderActions,
-    private folderTreeActions: FolderTreeActions
+    private folderTreeActions: FolderTreeActions,
+    private filesActions: FilesActions
   ) {
   };
 
@@ -95,6 +97,12 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
 
   downloadFile (file) {
     this.store.dispatch(this.downloaderActions.downloadFile(file));
+  }
+
+  removeFile (id) {
+    console.log((<any>FilesActions.remove).SUCCESS);
+    console.log((<any>FilesActions.remove).ERROR);
+    FilesActions.remove(id);
   }
 
   /**

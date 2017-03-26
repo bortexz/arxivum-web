@@ -1,3 +1,4 @@
+import { FilesActions } from './core/files/files.actions';
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
 import { reducers } from './app.reducers';
@@ -51,6 +52,7 @@ import { ClarityModule } from 'clarity-angular';
 import { FileUploadModule } from 'ng2-file-upload';
 import { UsersPageComponent } from './pages/admin-page/users-page/users-page.component';
 import { InvitationsPageComponent } from './pages/admin-page/invitations-page/invitations-page.component';
+import { NgrxActionsModule } from './utils/ngrx-actions';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,10 @@ import { InvitationsPageComponent } from './pages/admin-page/invitations-page/in
     EffectsModule.run(DownloaderEffects),
     EffectsModule.run(UsersEffects),
     EffectsModule.run(InvitationsEffects),
-    EffectsModule.run(FolderTreeEffects)
+    EffectsModule.run(FolderTreeEffects),
+
+    // Async Actions
+    NgrxActionsModule.run(FilesActions)
   ],
   providers: [
     AuthenticationService,
@@ -104,6 +109,7 @@ import { InvitationsPageComponent } from './pages/admin-page/invitations-page/in
     DownloaderService,
     InvitationsService,
     AuthenticationActions,
+    AsyncActionsModule,
     FilesPageGuard,
     FoldersActions,
     UploaderActions,

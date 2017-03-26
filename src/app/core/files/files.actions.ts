@@ -1,6 +1,17 @@
+import { FilesService } from './files.service';
 import { Injectable } from '@angular/core';
+import { AsyncAction } from '../../utils/ngrx-actions/async-actions';
 
 @Injectable()
 export class FilesActions {
+
+  @AsyncAction(function(action) {
+    return this.fileApi.remove(action.request.id);
+  })
+  static remove(id) {
+    return { id };
+  };
+
+  constructor(private fileApi: FilesService) { }
 
 }
