@@ -5,10 +5,13 @@ import { AsyncAction } from '../../utils/ngrx-actions/async-actions';
 @Injectable()
 export class FilesActions {
 
+  // @ActionTypes
+  static types;
+
   @AsyncAction(function(action) {
     return this.fileApi.remove(action.request.id);
   })
-  static remove(id) {
+  remove(id) {
     return { id };
   };
 

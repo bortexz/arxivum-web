@@ -100,9 +100,12 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
   }
 
   removeFile (id) {
-    console.log((<any>FilesActions.remove).SUCCESS);
-    console.log((<any>FilesActions.remove).ERROR);
-    FilesActions.remove(id);
+    console.log(FilesActions);
+    console.log(FilesActions.types);
+    // console.log((<any>FilesActions).types.remove.REQUEST);
+    // console.log((<any>FilesActions).types.remove.SUCCESS);
+    // console.log((<any>FilesActions).types.remove.ERROR);
+    this.filesActions.remove(id);
   }
 
   /**

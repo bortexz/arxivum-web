@@ -1,4 +1,3 @@
-import { getMetadata } from './utils';
 import { Observable, Subject } from 'rxjs/Rx';
 // decorator for async-actions
 import { merge } from 'rxjs/observable/merge';
@@ -21,53 +20,48 @@ export interface AsyncActionCreatorMetadata {
   [key: string]: {request, success, error};
 }
 
-function defineTypeInMethod(target, type, value) {
-  Object.defineProperty(target, type, {
-    enumerable: false,
-    configurable: false,
-    writable: false,
-    value
-  });
+function typeName (target, methodName, type) {
+  return `[${target.constructor.name}] ${methodName}-${type}`;
+}
+
+const DEFAULT_TYPES_PROP = 'types';
+
+function addTypesToClass (target, methodName, typesObj, opts?) {
+  // const proto = Object.getPrototypeOf(target);
+  if (!target[DEFAULT_TYPES_PROP]) {
+    Object.defineProperty(target, DEFAULT_TYPES_PROP, {
+      value: {
+        [methodName]: typesObj
+      },
+      enumerable: true
+    });
+  } else {
+    target[DEFAULT_TYPES_PROP][methodName] = typesObj;
+  }
 }
 
 export function AsyncAction(action: (action) => Observable<any>): MethodDecorator {
   return function(target: any, methodName: string, descriptor: TypedPropertyDescriptor<any>) {
 
     const dispatcher = new Subject();
-
     const asyncActionMetadata: AsyncActionsMetadata = { methodName, action, dispatcher };
 
-    // metadata
-    if (!(Reflect as any).hasOwnMetadata(ASYNC_ACTIONS_METADATA, target)) {
-      (Reflect as any).defineMetadata(ASYNC_ACTIONS_METADATA, [], target);
-    }
-
-    if (!(Reflect as any).hasOwnMetadata(ASYNC_ACTION_CREATOR_METADATA, target)) {
-      (Reflect as any).defineMetadata(ASYNC_ACTION_CREATOR_METADATA, {}, target);
-    }
-
-    const actions: AsyncActionsMetadata[] = (Reflect as any).getOwnMetadata(ASYNC_ACTIONS_METADATA, target);
-    const actionCreators: AsyncActionCreatorMetadata = (Reflect as any).getOwnMetadata(ASYNC_ACTION_CREATOR_METADATA, target);
+    const actions: AsyncActionsMetadata[] = (Reflect as any).getOwnMetadata(ASYNC_ACTIONS_METADATA, target) || [];
 
     (Reflect as any).defineMetadata(ASYNC_ACTIONS_METADATA, [ ...actions, asyncActionMetadata ], target);
 
+    // Override original value
     const originalMethod = descriptor.value;
 
     // editing the descriptor/value parameter
     const newMethod = function(...args: any[]) {
       const result = originalMethod.apply(null, args);
-      // get async creators
-      console.log(target);
+      // get request async creator
       const { request } = (Reflect as any).getOwnMetadata(ASYNC_ACTION_CREATOR_METADATA, target)[methodName];
       // Get dispatcher on metadata
       dispatcher.next(request(result));
-
       return result;
     };
-
-    defineTypeInMethod(newMethod, 'REQUEST', `[${target.name}] ${methodName}Request`);
-    defineTypeInMethod(newMethod, 'SUCCESS', `[${target.name}] ${methodName}Success`);
-    defineTypeInMethod(newMethod, 'ERROR', `[${target.name}] ${methodName}Error`);
 
     descriptor.value = newMethod;
 
@@ -76,38 +70,46 @@ export function AsyncAction(action: (action) => Observable<any>): MethodDecorato
 }
 
 export function createActions (instance: any, store): Observable<any> {
-  // assign metadata somehow ?
-  // console.log((Reflect as any).getOwnMetadata(ASYNC_ACTIONS_METADATA, instance.constructor));
-  const observables: Observable<any>[] = (Reflect as any).getOwnMetadata(ASYNC_ACTIONS_METADATA, instance.constructor).map(
+  const target = Object.getPrototypeOf(instance);
+
+  console.log((Reflect as any).getOwnMetadata(ASYNC_ACTIONS_METADATA, target));
+  const observables: Observable<any>[] = (Reflect as any).getOwnMetadata(ASYNC_ACTIONS_METADATA, target).map(
     ({ methodName, action, dispatcher }): any => {
-      // we have instance here, subscribe for dispatcher and effectObservable. dispatcher + effectObservable go to store
+      // generate types for each action.
+      // Has to be added to constructor to be accessible directly by ActionsClass.types.
+      addTypesToClass(target.constructor, methodName, {
+        REQUEST: typeName(target, methodName, 'request'),
+        SUCCESS: typeName(target, methodName, 'success'),
+        ERROR: typeName(target, methodName, 'error')
+      });
+
+      // Action creators for each action
+      const typesObj = target.constructor[DEFAULT_TYPES_PROP][methodName];
       const asyncActionCreators = {
         [methodName]: {
           request: (request) => ({
-            type: `[${instance.constructor.name}] ${methodName}Request`,
+            type: typesObj.REQUEST,
             request
           }),
           success: (payload) => ({
-            type: `[${instance.constructor.name}] ${methodName}Success`,
+            type: typesObj.SUCCESS,
             payload
           }),
           error: (error) => ({
-            type: `[${instance.constructor.name}] ${methodName}Error`,
+            type: typesObj.ERROR,
             error
           })
         }
       };
 
-      const prevCreators = (Reflect as any).getOwnMetadata(ASYNC_ACTION_CREATOR_METADATA, instance.constructor);
-      (Reflect as any).defineMetadata(ASYNC_ACTION_CREATOR_METADATA,
-        {...prevCreators, ...asyncActionCreators },
-        instance.constructor
-      );
+      const actionCreators: AsyncActionCreatorMetadata = (Reflect as any).getOwnMetadata(ASYNC_ACTION_CREATOR_METADATA, target) || {};
+      (Reflect as any).defineMetadata(ASYNC_ACTION_CREATOR_METADATA, {...actionCreators, ...asyncActionCreators }, target);
 
       const { success, error } = asyncActionCreators[methodName];
 
+      // Use the types here based on method name? already in the Class.
       const effectObservable = dispatcher
-        .filter(({ type }: any) => type === `[${instance.constructor.name}] ${methodName}Request`)
+        .filter(({ type }: any) => type === typeName(target, methodName, 'request'))
         .switchMap(act => action.bind(instance)(act)
           .map(payload => success(payload))
           .catch(err => Observable.of(error(err)))

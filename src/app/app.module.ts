@@ -109,7 +109,7 @@ import { NgrxActionsModule } from './utils/ngrx-actions';
     DownloaderService,
     InvitationsService,
     AuthenticationActions,
-    AsyncActionsModule,
+    // AsyncActionsModule,
     FilesPageGuard,
     FoldersActions,
     UploaderActions,
