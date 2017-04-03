@@ -1,11 +1,10 @@
-import { AsyncActions, asyncActions } from './actions.provider';
-import { Actions } from '@ngrx/effects';
+import { NgrxActions, actionsToken } from './actions.provider';
 import { NgModule, Injector, Type, APP_BOOTSTRAP_LISTENER, OpaqueToken } from '@angular/core';
 // import { runAfterBootstrapEffects, afterBootstrapEffects } from './bootstrap-listener';
 
 @NgModule({
   providers: [
-    AsyncActions
+    NgrxActions
   ]
 })
 export class NgrxActionsModule {
@@ -13,9 +12,9 @@ export class NgrxActionsModule {
     return {
       ngModule: NgrxActionsModule,
       providers: [
-        AsyncActions,
+        NgrxActions,
         type,
-        {provide: asyncActions, useExisting: type, multi: true}
+        {provide: actionsToken, useExisting: type, multi: true}
       ]
     };
   }

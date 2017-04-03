@@ -1,3 +1,4 @@
+import { FilesEffects } from './core/files/files.effects';
 import { FilesActions } from './core/files/files.actions';
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
@@ -94,6 +95,7 @@ import { NgrxActionsModule } from './utils/ngrx-actions';
     EffectsModule.run(UsersEffects),
     EffectsModule.run(InvitationsEffects),
     EffectsModule.run(FolderTreeEffects),
+    EffectsModule.run(FilesEffects),
 
     // Async Actions
     NgrxActionsModule.run(FilesActions)

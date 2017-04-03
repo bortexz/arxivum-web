@@ -1,17 +1,18 @@
+import { createActions } from './action';
 import { merge } from 'rxjs/observable/merge';
-import { createActions } from './async-actions';
+import { createAsyncActions } from './async-action';
 import { Action, Store } from '@ngrx/store';
 import { Observer, Subscription } from 'rxjs/Rx';
 import { Inject, Injectable, OnDestroy, OpaqueToken, Optional, SkipSelf } from '@angular/core';
 
-export const asyncActions = new OpaqueToken('ngrx-async-actions');
+export const actionsToken = new OpaqueToken('ngrx-async-actions');
 
 @Injectable()
-export class AsyncActions extends Subscription implements OnDestroy {
+export class NgrxActions extends Subscription implements OnDestroy {
   constructor(
     @Inject(Store) private store: Observer<Action>,
-    @Optional() @SkipSelf() public parent: AsyncActions,
-    @Optional() @Inject(asyncActions) instances?: any[]
+    @Optional() @SkipSelf() public parent: NgrxActions,
+    @Optional() @Inject(actionsToken) instances?: any[]
   ) {
     super();
 
@@ -29,9 +30,10 @@ export class AsyncActions extends Subscription implements OnDestroy {
    * @param instances of services using async actions, provided through run in ngmodule
    */
   addActions(instances) {
-    const sources = instances.map(createActions);
-    const actions = merge(...sources);
-    this.add(actions.subscribe(this.store));
+    const asyncActions = instances.map(createAsyncActions);
+    const actions = instances.map(createActions);
+    const merged = merge(...asyncActions, ...actions);
+    this.add(merged.subscribe(this.store));
   }
 
   ngOnDestroy() {

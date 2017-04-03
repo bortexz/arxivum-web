@@ -14,7 +14,7 @@ export class FilesService {
   }
 
   remove(id) {
-    return Observable.of({ payload: 'something '});
+    return this.http.delete(urljoin(this.filesUrl, id)).map(res => res.json());
   }
 
   constructor(
