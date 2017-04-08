@@ -1,3 +1,4 @@
+import { NgrxAsyncRequestModule } from './utils/ngrx-actions/ngrx-async-request';
 import { FilesEffects } from './core/files/files.effects';
 import { FilesActions } from './core/files/files.actions';
 import { AppComponent } from './app.component';
@@ -98,7 +99,9 @@ import { NgrxActionsModule } from './utils/ngrx-actions';
     EffectsModule.run(FilesEffects),
 
     // Async Actions
-    NgrxActionsModule.run(FilesActions)
+    // NgrxActionsModule.run(FilesActions),
+
+    NgrxAsyncRequestModule
   ],
   providers: [
     AuthenticationService,
@@ -118,7 +121,8 @@ import { NgrxActionsModule } from './utils/ngrx-actions';
     DownloaderActions,
     UsersActions,
     InvitationsActions,
-    FolderTreeActions
+    FolderTreeActions,
+    FilesActions
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -100,7 +100,7 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
   }
 
   removeFile (id) {
-    this.filesActions.remove(id);
+    this.store.dispatch(this.filesActions.remove(id));
   }
 
   /**

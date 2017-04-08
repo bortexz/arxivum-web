@@ -28,3 +28,7 @@ export function Types(target: any, propName: string): void {
   }
 };
 
+export function Type(target: any, propName: string): void {
+  target[propName] = `[${target.name}] ${propName}`;
+}
+

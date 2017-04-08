@@ -14,7 +14,11 @@ export class FilesService {
   }
 
   remove(id) {
-    return this.http.delete(urljoin(this.filesUrl, id)).map(res => res.json());
+    return this.http.delete(urljoin(this.filesUrl, id));
+  }
+
+  update(data) {
+
   }
 
   constructor(
