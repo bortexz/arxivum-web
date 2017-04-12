@@ -1,3 +1,5 @@
+import { ModalsEffects } from './core/modals/modals.effects';
+import { ModalsActions } from './core/modals/modals.actions';
 import { NgrxAsyncRequestModule } from './utils/ngrx-actions/ngrx-async-request';
 import { FilesEffects } from './core/files/files.effects';
 import { FilesActions } from './core/files/files.actions';
@@ -8,7 +10,7 @@ import { routing } from './app.routes';
 import { CreateFolderWizardComponent } from './components/create-folder-wizard/create-folder-wizard.component';
 import { FoldersBreadcrumbComponent } from './components/folders-breadcrumb/folders-breadcrumb.component';
 import { HeaderComponent } from './components/header/header.component';
-import { InviteUserModalComponent } from './components/invite-user-modal/invite-user-modal.component';
+import { InviteUserModalComponent } from './components/modals/invite-user-modal/invite-user-modal.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DownloadItemComponent } from './components/right-sidebar/download-item/download-item.component';
@@ -55,6 +57,8 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { UsersPageComponent } from './pages/admin-page/users-page/users-page.component';
 import { InvitationsPageComponent } from './pages/admin-page/invitations-page/invitations-page.component';
 import { NgrxActionsModule } from './utils/ngrx-actions';
+import { NameFormModalComponent } from './components/modals/name-form-modal/name-form-modal.component';
+import { ConfirmationModalComponent } from './components/modals/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +79,9 @@ import { NgrxActionsModule } from './utils/ngrx-actions';
     DownloadItemComponent,
     UploadItemComponent,
     UsersPageComponent,
-    InvitationsPageComponent
+    InvitationsPageComponent,
+    NameFormModalComponent,
+    ConfirmationModalComponent
   ],
   imports: [
     BrowserModule,
@@ -97,6 +103,7 @@ import { NgrxActionsModule } from './utils/ngrx-actions';
     EffectsModule.run(InvitationsEffects),
     EffectsModule.run(FolderTreeEffects),
     EffectsModule.run(FilesEffects),
+    EffectsModule.run(ModalsEffects),
 
     // Async Actions
     // NgrxActionsModule.run(FilesActions),
@@ -122,7 +129,8 @@ import { NgrxActionsModule } from './utils/ngrx-actions';
     UsersActions,
     InvitationsActions,
     FolderTreeActions,
-    FilesActions
+    FilesActions,
+    ModalsActions
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

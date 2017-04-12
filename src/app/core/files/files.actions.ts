@@ -34,26 +34,18 @@ export class FilesActions {
   @Type static UPDATE;
   @Type static UPDATE_OK;
   @Type static UPDATE_ERR;
-  update = (payload) => ({
+  update = (id, data) => ({
     type: FilesActions.UPDATE,
-    payload,
+    payload: { id, data },
     meta: {
       async_request: {
-        req: (action) => this.fileApi.update(action.payload),
+        req: ({ payload }) => this.fileApi.update(payload.id, payload.data),
         success: (payload) => ({ type: FilesActions.UPDATE_OK, payload }),
         error: (error) => ({ type: FilesActions.UPDATE_ERR, error})
       }
     }
 
   })
-
-  @Action
-  recreate (id1, id2) {
-    return {
-      id1,
-      id2
-    };
-  }
 
   constructor(private fileApi: FilesService) { }
 

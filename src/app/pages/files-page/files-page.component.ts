@@ -1,3 +1,5 @@
+import { ModalsActions } from '../../core/modals/modals.actions';
+import { NameFormModalComponent } from '../../components/modals/name-form-modal/name-form-modal.component';
 import { FilesActions } from '../../core/files/files.actions';
 import { FolderTreeActions } from '../../core/folders/tree/tree.actions';
 import { AppState } from '../../app.reducers';
@@ -33,12 +35,15 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
   private authenticated$ = this.store.select(state => state.authenticated);
   private downloadData$ = this.store.select(state => state.downloadData);
   private tree$ = this.store.select(state => state.folderTree.tree);
+  private nameFormModal$ = this.store.select(state => state.modals.nameForm);
 
   private hasBaseDropZoneOver = false;
 
   private selected = null;
 
-  @ViewChild('wizard') wizard: CreateFolderWizardComponent;
+  onNameFormSubmit$: Subject<{ name }>;
+
+  // @ViewChild('wizard') wizard: CreateFolderWizardComponent;
   @ViewChild('sidenav') sidenav;
 
   /**
@@ -72,7 +77,8 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
     private uploaderActions: UploaderActions,
     private downloaderActions: DownloaderActions,
     private folderTreeActions: FolderTreeActions,
-    private filesActions: FilesActions
+    private filesActions: FilesActions,
+    private modalsActions: ModalsActions
   ) {
   };
 
@@ -82,17 +88,16 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
     });
 
     this.store.dispatch(this.folderTreeActions.getTree());
+
+    this.onNameFormSubmit$ = new Subject();
   }
 
   ngAfterViewInit() {
     this.sidenavWidth$.next(this.sidenav.nativeElement.offsetWidth);
   }
 
-  public wizardCreateFolderFinished (data) {
-    const currentFolder = this.route.snapshot.params['id'];
-    data.folder.parent = currentFolder;
-
-    this.store.dispatch(this.foldersActions.createFolder(data.folder));
+  newFolder () {
+    this.store.dispatch(this.modalsActions.newFolder());
   }
 
   downloadFile (file) {
@@ -101,6 +106,10 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
 
   removeFile (id) {
     this.store.dispatch(this.filesActions.remove(id));
+  }
+
+  editFile (file) {
+    this.store.dispatch(this.modalsActions.updateFileName(file));
   }
 
   /**

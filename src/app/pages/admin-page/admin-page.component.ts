@@ -4,7 +4,7 @@ import { IUser } from '../../core/users/users.interfaces';
 import { Observable } from 'rxjs/Rx';
 import { UsersActions } from '../../core/users/users.actions';
 import { InvitationsActions } from '../../core/invitations/invitations.actions';
-import { InviteUserModalComponent } from '../../components/invite-user-modal/invite-user-modal.component';
+import { InviteUserModalComponent } from '../../components/modals/invite-user-modal/invite-user-modal.component';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducers';
 import { Component, OnInit, ViewChild } from '@angular/core';

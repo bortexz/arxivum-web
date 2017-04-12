@@ -1,4 +1,4 @@
-import { validateEmail } from '../../utils/form-validators/email.validator';
+import { validateEmail } from '../../../utils/form-validators/email.validator';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 

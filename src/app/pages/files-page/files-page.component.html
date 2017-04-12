@@ -10,7 +10,7 @@
     <div class='flex-xs-middle' #subnavRightButtons>
       <button
         class="btn btn-outline-primary btn-sm"
-        (click)='wizard.open()'
+        (click)='newFolder()'
         *ngIf='(authenticated$ | async)?.admin'>
         + New folder
       </button>
@@ -46,6 +46,11 @@
             <!--<a [routerLink]='["/folder", {id: folder._id}] '>-->
               <clr-icon shape='folder' class='folder-icon is-solid'></clr-icon>
               <span>{{folder.name}}</span>
+              <a (click)='removeFolder(folder._id)'>
+                <clr-icon shape='remove'
+                  class='is-danger admin-action-icon'
+                  *ngIf='(authenticated$ | async)?.admin && this.selected === file'></clr-icon>
+              </a>
             <!--</a>-->
           </td>
           <td class='row-actions'>
@@ -60,7 +65,7 @@
           <td class='left'>
             <clr-icon shape='file' class='file-icon is-info is-solid'></clr-icon>
             <span>{{file.name}} <span class='file-size'>{{file.size | filesize}}</span></span>
-            <a (click)='return'>
+            <a (click)='editFile(file)'>
               <clr-icon shape='edit'
                 class='is-info admin-action-icon'
                 *ngIf='(authenticated$ | async)?.admin && this.selected === file'></clr-icon>
@@ -97,5 +102,7 @@
 
   <ax-right-sidebar></ax-right-sidebar>
 
-  <ax-create-folder-wizard #wizard (onFinished)='wizardCreateFolderFinished($event)'></ax-create-folder-wizard>
+  <!--<ax-create-folder-wizard #wizard (onFinished)='wizardCreateFolderFinished($event)'></ax-create-folder-wizard>-->
+  <!-- Modals -->
+  <ax-name-form-modal></ax-name-form-modal>
 </div>

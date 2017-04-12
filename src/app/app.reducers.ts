@@ -1,3 +1,4 @@
+import { modalsReducer, ModalsState } from './core/modals/modals.reducer';
 import { uploadDataReducer, UploadDataState } from './core/uploader/upload-data/upload-data.reducer';
 import { downloadDataReducer, DownloadDataState } from './core/downloader/download-data/download-data.reducer';
 import { folderTreeReducer, FolderTreeState } from './core/folders/tree/tree.reducer';
@@ -25,6 +26,7 @@ export interface AppState {
     folderTree: FolderTreeState;
     downloadData: DownloadDataState; // Keeps real time progress updates separated from downloader.
     uploadData: UploadDataState;
+    modals: ModalsState;
 };
 
 // Take into account
@@ -40,7 +42,8 @@ export function reducers (state, action) {
     invitations: invitationsReducer,
     folderTree: folderTreeReducer,
     downloadData: downloadDataReducer,
-    uploadData: uploadDataReducer
+    uploadData: uploadDataReducer,
+    modals: modalsReducer
   })(state, action);
 
   debug(action, newState);

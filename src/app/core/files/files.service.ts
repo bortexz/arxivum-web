@@ -17,7 +17,7 @@ export class FilesService {
     return this.http.delete(urljoin(this.filesUrl, id));
   }
 
-  update(data) {
+  update(id, data) {
 
   }
 
