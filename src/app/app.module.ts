@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
 import { reducers } from './app.reducers';
 import { routing } from './app.routes';
-import { CreateFolderWizardComponent } from './components/create-folder-wizard/create-folder-wizard.component';
 import { FoldersBreadcrumbComponent } from './components/folders-breadcrumb/folders-breadcrumb.component';
 import { HeaderComponent } from './components/header/header.component';
 import { InviteUserModalComponent } from './components/modals/invite-user-modal/invite-user-modal.component';
@@ -67,7 +66,6 @@ import { ConfirmationModalComponent } from './components/modals/confirmation-mod
     LoginPageComponent,
     LoginComponent,
     FilesPageComponent,
-    CreateFolderWizardComponent,
     FoldersBreadcrumbComponent,
     RightSidebarComponent,
     FilesizePipe,

@@ -3,7 +3,6 @@ import { NameFormModalComponent } from '../../components/modals/name-form-modal/
 import { FilesActions } from '../../core/files/files.actions';
 import { FolderTreeActions } from '../../core/folders/tree/tree.actions';
 import { AppState } from '../../app.reducers';
-import { CreateFolderWizardComponent } from '../../components/create-folder-wizard/create-folder-wizard.component';
 import { DownloaderActions } from '../../core/downloader/downloader.actions';
 import { IDownloadingFile } from '../../core/downloader/downloader.reducer';
 import { DownloaderService } from '../../core/downloader/downloader.service';
@@ -41,9 +40,6 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
 
   private selected = null;
 
-  onNameFormSubmit$: Subject<{ name }>;
-
-  // @ViewChild('wizard') wizard: CreateFolderWizardComponent;
   @ViewChild('sidenav') sidenav;
 
   /**
@@ -88,8 +84,6 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
     });
 
     this.store.dispatch(this.folderTreeActions.getTree());
-
-    this.onNameFormSubmit$ = new Subject();
   }
 
   ngAfterViewInit() {
