@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalsEffects } from './core/modals/modals.effects';
 import { ModalsActions } from './core/modals/modals.actions';
 import { NgrxAsyncRequestModule } from './utils/ngrx-actions/ngrx-async-request';
@@ -83,6 +84,7 @@ import { ConfirmationModalComponent } from './components/modals/confirmation-mod
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,

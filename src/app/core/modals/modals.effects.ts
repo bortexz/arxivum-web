@@ -18,7 +18,7 @@ export class ModalsEffects {
   saveNameForm$ = this.actions$
     .ofType(ModalsActions.SAVE_NAME_FORM_MODAL)
     .withLatestFrom(this.nameFormModalState)
-    .mergeMap(([action, nameForm]) => {
+    .switchMap(([action, nameForm]) => {
       const name = action.payload.name;
       const actions = [this.modalsActions.closeNameFormModal()];
       switch (nameForm.trigger) {

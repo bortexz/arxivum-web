@@ -1,6 +1,7 @@
 <clr-modal
   *ngIf='options$ | async'
   [clrModalOpen]='(options$ | async)?.open'
+  (clrModalOpenChange)='onOpenChange($event)'
   >
   <h3 class="modal-title">{{ (options$ | async)?.title }}</h3>
   <div class="modal-body">

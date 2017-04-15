@@ -18,7 +18,7 @@ export class FilesService {
   }
 
   update(id, data) {
-
+    return this.http.patch(urljoin(this.filesUrl, id), data);
   }
 
   constructor(

@@ -11,8 +11,8 @@ import { ChangeDetectionStrategy, Component, OnInit, Input, OnDestroy } from '@a
 @Component({
   selector: 'ax-name-form-modal',
   templateUrl: './name-form-modal.component.html',
-  styleUrls: ['./name-form-modal.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./name-form-modal.component.scss']
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NameFormModalComponent implements OnInit, OnDestroy {
 
@@ -38,6 +38,12 @@ export class NameFormModalComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (!this.nameControlSubscription.closed) this.nameControlSubscription.unsubscribe();
+  }
+
+  onOpenChange (open) {
+    if (!open) {
+      this.cancel();
+    }
   }
 
   public save () {
