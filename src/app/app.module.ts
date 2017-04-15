@@ -1,7 +1,9 @@
+import { FormsModule } from '@angular/forms';
+import { NgrxAsyncRequest } from './utils/ngrx-actions/ngrx-async-request';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalsEffects } from './core/modals/modals.effects';
 import { ModalsActions } from './core/modals/modals.actions';
-import { NgrxAsyncRequestModule } from './utils/ngrx-actions/ngrx-async-request';
+import { NgrxAsyncRequestModule } from './utils/ngrx-actions/ngrx-async-request.module';
 import { FilesEffects } from './core/files/files.effects';
 import { FilesActions } from './core/files/files.actions';
 import { AppComponent } from './app.component';
@@ -47,7 +49,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { FilesizePipe } from './utils/file-size/filesize.pipe';
 import { ArxivumHttpProvider } from './utils/http/arxivum-http.service.provider';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
@@ -104,10 +106,6 @@ import { ConfirmationModalComponent } from './components/modals/confirmation-mod
     EffectsModule.run(FolderTreeEffects),
     EffectsModule.run(FilesEffects),
     EffectsModule.run(ModalsEffects),
-
-    // Async Actions
-    // NgrxActionsModule.run(FilesActions),
-
     NgrxAsyncRequestModule
   ],
   providers: [
@@ -121,7 +119,6 @@ import { ConfirmationModalComponent } from './components/modals/confirmation-mod
     DownloaderService,
     InvitationsService,
     AuthenticationActions,
-    // AsyncActionsModule,
     FilesPageGuard,
     FoldersActions,
     UploaderActions,

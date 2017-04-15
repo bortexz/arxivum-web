@@ -10,7 +10,7 @@ export class FilesEffects {
 
   @Effect()
   onFileRemoved$ = this.actions$
-    .ofType(FilesActions.REMOVE_OK)
+    .ofType(FilesActions.REMOVE_OK, FilesActions.UPDATE_OK)
     .withLatestFrom(this.store.select(state => state.currentFolder))
     .map(([_, currentFolder]) => this.foldersActions.getFolder(currentFolder._id));
 

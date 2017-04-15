@@ -22,13 +22,13 @@ export function nameFormModalReducer(state = initialState, action) {
         open: true,
         entity: action.payload,
         title: UPDATE_FILE_TITLE,
-        trigger: ModalsActions.UPDATE_FILE_NAME
+        trigger: action.type
       };
     case ModalsActions.NEW_FOLDER:
       return {
         open: true,
         title: NEW_FOLDER_TITLE,
-        trigger: ModalsActions.NEW_FOLDER
+        trigger: action.type
       };
     case ModalsActions.CLOSE_NAME_FORM_MODAL:
       return { open: false };

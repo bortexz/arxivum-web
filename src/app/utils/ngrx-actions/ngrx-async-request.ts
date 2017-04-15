@@ -1,7 +1,7 @@
+import { Actions } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { Observable, Observer, Subscription } from 'rxjs/Rx';
-import { Actions } from '@ngrx/effects';
-import { Inject, Injectable, NgModule, OnDestroy, Type } from '@angular/core';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
 
 const noop = () => undefined;
 
@@ -9,10 +9,7 @@ const noop = () => undefined;
 export class NgrxAsyncRequest implements OnDestroy {
   subscription: Subscription;
 
-  constructor(
-    private actions$: Actions,
-    @Inject(Store) private store: Observer<Action>,
-  ) {
+  constructor(private actions$: Actions, @Inject(Store) private store: Observer<Action>) {
     this.subscription = new Subscription();
 
     this.subscription.add(
@@ -33,10 +30,3 @@ export class NgrxAsyncRequest implements OnDestroy {
     }
   }
 }
-
-@NgModule({
-  providers: [
-    NgrxAsyncRequest
-  ]
-})
-export class NgrxAsyncRequestModule {}

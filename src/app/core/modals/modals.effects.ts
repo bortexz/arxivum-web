@@ -1,3 +1,4 @@
+import { NgrxAsyncRequest } from '../../utils/ngrx-actions/ngrx-async-request';
 import { Observable } from 'rxjs/Observable';
 import { FoldersActions } from '../folders/folders.actions';
 import { FilesActions } from '../files/files.actions';
@@ -24,8 +25,10 @@ export class ModalsEffects {
       switch (nameForm.trigger) {
         case ModalsActions.UPDATE_FILE_NAME:
           actions.push(this.fileActions.update(nameForm.entity._id, { name }));
+          break;
         case ModalsActions.NEW_FOLDER:
           actions.push(this.folderActions.createFolder({ name }));
+          break;
         case ModalsActions.UPDATE_FOLDER_NAME:
           //nameAction = this.folderActions
       }

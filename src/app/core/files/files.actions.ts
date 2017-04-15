@@ -10,11 +10,6 @@ export class FilesActions {
   @Types
   static types;
 
-  // @AsyncAction(function(action) { return this.fileApi.remove(action.payload.id); })
-  // remove(id) {
-  //   return { id };
-  // };
-
   @Type static REMOVE;
   @Type static REMOVE_OK;
   @Type static REMOVE_ERR;
@@ -30,7 +25,6 @@ export class FilesActions {
     }
   })
 
-
   @Type static UPDATE;
   @Type static UPDATE_OK;
   @Type static UPDATE_ERR;
@@ -44,7 +38,6 @@ export class FilesActions {
         error: (error) => ({ type: FilesActions.UPDATE_ERR, error})
       }
     }
-
   })
 
   constructor(private fileApi: FilesService) { }
