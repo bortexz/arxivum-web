@@ -33,7 +33,9 @@
       <div class='content-title'>
         <h3>uploads</h3>
       </div>
-      <button class='btn btn-sm pull-right' (click)='clearUploads()'>Clear</button>
+      <div id='uploader-actions'>
+        <button class='btn btn-sm pull-right' (click)='clearUploads()'>Clear</button>
+      </div>
       <ax-upload-item
         *ngFor='let file of (uploading$ | async)?.files'
         [file]='file'>

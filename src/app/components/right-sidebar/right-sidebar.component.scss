@@ -62,3 +62,9 @@ nav {
     color: white;
   }
 }
+
+#uploader-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
