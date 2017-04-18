@@ -1,3 +1,5 @@
+import { FoldersService } from './folders.service';
+import { Type } from '../../utils/ngrx-actions/types';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -51,4 +53,38 @@ export class FoldersActions {
       payload: { error }
     };
   }
+
+  @Type static UPDATE;
+  @Type static UPDATE_OK;
+  @Type static UPDATE_ERROR;
+  update = (id, data) => ({
+    type: FoldersActions.UPDATE,
+    payload: { id, data },
+    meta: {
+      async_request: {
+        req: ({ payload }) => this.foldersApi.update(payload.id, payload.data),
+        success: (payload) => ({ type: FoldersActions.UPDATE_OK, payload }),
+        err: (error) => ({ type: FoldersActions.UPDATE_ERROR, error })
+      }
+    }
+  })
+
+  @Type static DELETE;
+  @Type static DELETE_OK;
+  @Type static DELETE_ERR;
+  delete = (id) => ({
+    type: FoldersActions.DELETE,
+    payload: { id },
+    meta: {
+      async_request: {
+        req: ({ payload }) => this.foldersApi.delete(payload.id),
+        success: (payload) => ({ type: FoldersActions.DELETE_OK, payload }),
+        err: (error) => ({ type: FoldersActions.DELETE_ERR, error })
+      }
+    }
+  })
+
+  constructor(
+    private foldersApi: FoldersService
+  ) {}
 }

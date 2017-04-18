@@ -8,8 +8,6 @@ const urljoin = require('url-join');
 export class FoldersService {
   public foldersUrl = urljoin(environment.api_url, 'folders');
 
-  // Should cache data?
-
   constructor(private http: ArxivumHttp) { }
 
   /**
@@ -27,5 +25,13 @@ export class FoldersService {
 
   getTree() {
     return this.http.get(urljoin(this.foldersUrl, 'tree')).map(res => res.json());
+  }
+
+  update (id, data) {
+    return this.http.patch(urljoin(this.foldersUrl, id), data);
+  }
+
+  delete (id) {
+    return this.http.delete(urljoin(this.foldersUrl, id));
   }
 }

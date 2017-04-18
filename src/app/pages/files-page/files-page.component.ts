@@ -90,25 +90,34 @@ export class FilesPageComponent implements OnInit, AfterViewInit {
     this.sidenavWidth$.next(this.sidenav.nativeElement.offsetWidth);
   }
 
+  /**
+   * File & Folders operations: create, edit, delete, download,...
+   */
+
   newFolder () {
     this.store.dispatch(this.modalsActions.newFolder());
+  }
+
+  editFolder (folder) {
+    this.store.dispatch(this.modalsActions.updateFolderName(folder));
+  }
+
+  deleteFolder (id) {
+    this.store.dispatch(this.foldersActions.delete(id));
   }
 
   downloadFile (file) {
     this.store.dispatch(this.downloaderActions.downloadFile(file));
   }
 
-  removeFile (id) {
-    this.store.dispatch(this.filesActions.remove(id));
+  deleteFile (id) {
+    this.store.dispatch(this.filesActions.delete(id));
   }
 
   editFile (file) {
     this.store.dispatch(this.modalsActions.updateFileName(file));
   }
 
-  /**
-   *  @todo also stream$ ?
-   */
   public select (item, $event) {
     this.selected = item;
     if ($event) {

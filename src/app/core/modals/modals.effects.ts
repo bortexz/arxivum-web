@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs/Rx';
 import { NgrxAsyncRequest } from '../../utils/ngrx-actions/ngrx-async-request';
 import { Observable } from 'rxjs/Observable';
 import { FoldersActions } from '../folders/folders.actions';
@@ -14,12 +15,13 @@ const nameFormModalSelector = (state: AppState) => state.modals.nameForm;
 export class ModalsEffects {
 
   nameFormModalState = this.store.select(nameFormModalSelector);
+  currentFolder = this.store.select(state => state.currentFolder);
 
   @Effect()
   saveNameForm$ = this.actions$
     .ofType(ModalsActions.SAVE_NAME_FORM_MODAL)
-    .withLatestFrom(this.nameFormModalState)
-    .switchMap(([action, nameForm]) => {
+    .withLatestFrom(this.nameFormModalState, this.currentFolder)
+    .switchMap(([action, nameForm, currentFolder]) => {
       const name = action.payload.name;
       const actions = [this.modalsActions.closeNameFormModal()];
       switch (nameForm.trigger) {
@@ -27,10 +29,11 @@ export class ModalsEffects {
           actions.push(this.fileActions.update(nameForm.entity._id, { name }));
           break;
         case ModalsActions.NEW_FOLDER:
-          actions.push(this.folderActions.createFolder({ name }));
+          actions.push(this.folderActions.createFolder({ name, parent: currentFolder._id }));
           break;
         case ModalsActions.UPDATE_FOLDER_NAME:
-          //nameAction = this.folderActions
+          actions.push(this.folderActions.update(nameForm.entity._id, { name }));
+          break;
       }
       return Observable.from(actions);
     });

@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalsEffects } from './core/modals/modals.effects';
 import { ModalsActions } from './core/modals/modals.actions';
 import { NgrxAsyncRequestModule } from './utils/ngrx-actions/ngrx-async-request.module';
-import { FilesEffects } from './core/files/files.effects';
 import { FilesActions } from './core/files/files.actions';
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
@@ -104,7 +103,6 @@ import { ConfirmationModalComponent } from './components/modals/confirmation-mod
     EffectsModule.run(UsersEffects),
     EffectsModule.run(InvitationsEffects),
     EffectsModule.run(FolderTreeEffects),
-    EffectsModule.run(FilesEffects),
     EffectsModule.run(ModalsEffects),
     NgrxAsyncRequestModule
   ],

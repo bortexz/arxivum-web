@@ -1,4 +1,7 @@
+import { assign } from '../../utils/functional';
 import { UploaderActions } from './uploader.actions';
+const R = require('ramda');
+
 
 export interface IUploadingFile {
   file: {
@@ -18,30 +21,21 @@ const initialState: UploaderState = {
   progress: 0
 };
 
+
+
 export function uploaderReducer (state = initialState, action) {
-  let files = state ? state.files : [];
+  // let files = state ? state.files : [];
   switch (action.type) {
     case UploaderActions.UPLOAD_FILES:
       return state;
 
     case UploaderActions.UPLOAD_FILES_UPDATE_QUEUE:
-      files = action.payload.queue.map(item => {
-        // return {
-        //   file: item.file
-        // };
-        return item.file;
-      });
-
-      return {
-        files,
-        progress: state.progress
-      };
+      return assign({
+        files: R.map(item => item.file, action.payload.queue)
+      }, state);
 
     case UploaderActions.UPLOAD_FILES_ON_PROGRESS_ALL:
-      return {
-        files,
-        progress: action.payload.progress
-      };
+      return assign({ progress: action.payload.progress }, state);
 
     case UploaderActions.UPLOAD_FILES_ON_SUCCESS_ITEM:
       return state;

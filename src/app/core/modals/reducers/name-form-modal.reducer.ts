@@ -5,6 +5,7 @@ import { IFolder } from '../../folders/folders.interfaces';
 
 export const UPDATE_FILE_TITLE = 'Edit file name';
 export const NEW_FOLDER_TITLE = 'New folder';
+export const UPDATE_FOLDER_TITLE = 'Edit folder name';
 
 export interface NameFormState {
   open: boolean;
@@ -28,6 +29,13 @@ export function nameFormModalReducer(state = initialState, action) {
       return {
         open: true,
         title: NEW_FOLDER_TITLE,
+        trigger: action.type
+      };
+    case ModalsActions.UPDATE_FOLDER_NAME:
+      return {
+        open: true,
+        entity: action.payload,
+        title: UPDATE_FOLDER_TITLE,
         trigger: action.type
       };
     case ModalsActions.CLOSE_NAME_FORM_MODAL:

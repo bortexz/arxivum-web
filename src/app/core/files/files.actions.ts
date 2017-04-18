@@ -10,17 +10,17 @@ export class FilesActions {
   @Types
   static types;
 
-  @Type static REMOVE;
-  @Type static REMOVE_OK;
-  @Type static REMOVE_ERR;
-  remove = (id) => ({
-    type: FilesActions.REMOVE,
+  @Type static DELETE;
+  @Type static DELETE_OK;
+  @Type static DELETE_ERR;
+  delete = (id) => ({
+    type: FilesActions.DELETE,
     payload: { id },
     meta: {
       async_request: {
         req: ({ payload }) => this.fileApi.remove(id),
-        success: () => ({ type: FilesActions.REMOVE_OK }),
-        error: (error) => ({ type: FilesActions.REMOVE_ERR, error })
+        success: () => ({ type: FilesActions.DELETE_OK }),
+        error: (error) => ({ type: FilesActions.DELETE_ERR, error })
       }
     }
   })

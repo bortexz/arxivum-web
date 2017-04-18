@@ -1,22 +1,43 @@
+import { UploaderActions } from '../../core/uploader/uploader.actions';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { state, style, transition, trigger, animate } from '@angular/animations';
 import { DownloadDataState } from '../../core/downloader/download-data/download-data.reducer';
 import { UploaderState } from '../../core/uploader/uploader.reducer';
 import { DownloaderActions } from '../../core/downloader/downloader.actions';
 import { DownloaderState, IDownloadingFile } from '../../core/downloader/downloader.reducer';
-import { Observable } from 'rxjs/Rx';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs/Rx';
 import { AppState } from '../../app.reducers';
 import { Store } from '@ngrx/store';
-import { DownloaderService } from '../../core/downloader/downloader.service';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { UploaderService } from '../../core/uploader/uploader.service';
 
 @Component({
   selector: 'ax-right-sidebar',
   templateUrl: './right-sidebar.component.html',
   styleUrls: ['./right-sidebar.component.scss'],
+  animations: [
+    trigger('displayed', [
+      state('downloader', style({
+        transform: 'translateX(-300px)'
+      })),
+      state('uploader', style({
+        transform: 'translateX(-300px)'
+      })),
+      state('hidden',   style({
+        transform: 'translateX(0px)'
+      })),
+      // transition('uploader => hidden', animate('250ms ease-in')),
+      transition('* => hidden', animate('150ms ease-in')),
+      transition('hidden => *', animate('150ms ease-out'))
+    ])
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RightSidebarComponent implements OnInit {
-  shown: string = null;
+  // Behavior subject to toggle different panels
+  toggle$: BehaviorSubject<string>;
+
+  // String that has the current panel shown, "hidden" otherwise
+  shown$: Observable<string>;
 
   uploading$: Observable<UploaderState>;
   downloading$: Observable<DownloaderState>;
@@ -30,19 +51,44 @@ export class RightSidebarComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private downloaderService: DownloaderService,
-    private downloaderActions: DownloaderActions
+    private downloaderActions: DownloaderActions,
+    private uploaderActions: UploaderActions
   ) {}
 
   ngOnInit() {
     this.uploading$ = this.store.select(state => state.uploading);
     this.downloading$ = this.store.select(state => state.downloading);
 
+    this.toggle$ = new BehaviorSubject('hidden');
+    this.shown$ = this.toggle$
+      .scan((prev, val) => {
+        return prev === 'hidden' || prev !== val ? val : 'hidden';
+
+        // if (prev === 'hidden') return val;
+        // if (prev === val) {
+        //   return 'hidden';
+        // } else return val;
+      }, 'hidden');
+
     this.shouldDisplay$ = Observable
       .combineLatest(this.uploading$, this.downloading$)
-      .map(([uploading, downloading]) => {
-        if (uploading && uploading.files.length > 0) return true;
-        if (downloading && downloading.files.length > 0) return true;
+      .withLatestFrom(this.shown$)
+      .map(([[uploading, downloading], shown]) => {
+        // In case of clear, we retoggle to the other panel or hide
+        if (shown === 'downloader' && downloading.files.length === 0) {
+          if (uploading.files.length > 0) this.toggle$.next('uploader');
+          else this.toggle$.next('hidden');
+        }
+
+        if (shown === 'uploader' && uploading.files.length === 0) {
+          if (downloading.files.length > 0) this.toggle$.next('downloader');
+          else this.toggle$.next('hidden');
+        }
+
+        // calculate should display
+        if (uploading.files.length > 0 || downloading.files.length > 0) {
+          return true;
+        }
         return false;
       });
 
@@ -60,11 +106,11 @@ export class RightSidebarComponent implements OnInit {
       });
   }
 
-  toggle(panel) {
-    if (!this.shown) return this.shown = panel;
+  clearUploads() {
+    this.store.dispatch(this.uploaderActions.clearQueue());
+  }
 
-    if (this.shown === panel) {
-      return this.shown = null;
-    } else return this.shown = panel;
+  toggle(panel) {
+    this.toggle$.next(panel);
   }
 }

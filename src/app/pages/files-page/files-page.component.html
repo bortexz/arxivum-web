@@ -46,11 +46,17 @@
             <!--<a [routerLink]='["/folder", {id: folder._id}] '>-->
               <clr-icon shape='folder' class='folder-icon is-solid'></clr-icon>
               <span>{{folder.name}}</span>
-              <a (click)='removeFolder(folder._id)'>
+              <a (click)='editFolder(folder)'>
+                <clr-icon shape='edit'
+                  class='is-info admin-action-icon'
+                  *ngIf='(authenticated$ | async)?.admin && this.selected === folder'></clr-icon>
+              </a>
+              <a (click)='deleteFolder(folder._id)'>
                 <clr-icon shape='remove'
                   class='is-danger admin-action-icon'
-                  *ngIf='(authenticated$ | async)?.admin && this.selected === file'></clr-icon>
+                  *ngIf='(authenticated$ | async)?.admin && this.selected === folder'></clr-icon>
               </a>
+
             <!--</a>-->
           </td>
           <td class='row-actions'>
@@ -70,7 +76,7 @@
                 class='is-info admin-action-icon'
                 *ngIf='(authenticated$ | async)?.admin && this.selected === file'></clr-icon>
             </a>
-            <a (click)='removeFile(file._id)'>
+            <a (click)='deleteFile(file._id)'>
               <clr-icon shape='remove'
                 class='is-danger admin-action-icon'
                 *ngIf='(authenticated$ | async)?.admin && this.selected === file'></clr-icon>

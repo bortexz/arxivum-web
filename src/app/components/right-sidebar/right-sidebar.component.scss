@@ -3,13 +3,8 @@ nav {
   height: 100%;
   width: 360px;
   right: -300px;
-  display:flex;
+  display: flex;
   justify-content: horizontal;
-
-  //
-  -webkit-transition: right 0.3s;
-  -moz-transition: right 0.3s;
-  transition: right 0.3s;
 
   .content {
     width: 300px;
@@ -66,8 +61,4 @@ nav {
     margin: 0;
     color: white;
   }
-}
-
-.nav-shown {
-  right: 0px;
 }

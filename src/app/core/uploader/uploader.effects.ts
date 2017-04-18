@@ -32,12 +32,10 @@ export class UploaderEffects {
       this.uploaderService.uploader.uploadAll();
     });
 
-  @Effect()
-  onUploadSuccessItem$ = this.actions$
-    .ofType(UploaderActions.UPLOAD_FILES_ON_SUCCESS_ITEM)
-    .withLatestFrom(this.currentFolder$, (action, current) => {
-      return this.foldersActions.getFolder(current._id);
-    });
+  @Effect({ dispatch: false })
+  clearQueue$ = this.actions$
+    .ofType(UploaderActions.UPLOAD_FILES_CLEAR_QUEUE)
+    .do(_ => this.uploaderService.clearQueue());
 
   constructor(
     private uploaderService: UploaderService,

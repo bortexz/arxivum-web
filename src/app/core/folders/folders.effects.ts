@@ -1,3 +1,5 @@
+import { UploaderActions } from '../uploader/uploader.actions';
+import { FilesActions } from '../files/files.actions';
 import { FolderTreeActions } from './tree/tree.actions';
 import { CurrentFolderState } from './folders.reducer';
 import { AppState } from '../../app.reducers';
@@ -30,14 +32,32 @@ export class FoldersEffects {
     .ofType(FoldersActions.CREATE_FOLDER)
     .map(action => action.payload)
     .switchMap(folder => this.foldersService.create(folder)
-      .withLatestFrom(this.currentFolder$)
-      .flatMap(([_, current]) => Observable.of(
-          this.foldersActions.getFolder(current._id),
-          this.treeActions.getTree()
-        )
-      )
+      .map(payload => this.foldersActions.createFolderSuccess(payload))
       .catch(error => Observable.of(this.foldersActions.createFolderError(error)))
     );
+
+  @Effect()
+  reloadTree$ = this.actions$
+    .ofType(
+      FoldersActions.CREATE_FOLDER_SUCCESS,
+      FoldersActions.UPDATE_OK,
+      FoldersActions.DELETE_OK
+    )
+    .withLatestFrom(this.currentFolder$)
+    .map(([_, current]) => this.treeActions.getTree());
+
+  @Effect()
+  reloadFolders$ = this.actions$
+    .ofType(
+      FilesActions.DELETE_OK,
+      FilesActions.UPDATE_OK,
+      UploaderActions.UPLOAD_FILES_ON_SUCCESS_ITEM,
+      FoldersActions.CREATE_FOLDER_SUCCESS,
+      FoldersActions.UPDATE_OK,
+      FoldersActions.DELETE_OK
+    )
+    .withLatestFrom(this.store.select(state => state.currentFolder))
+    .map(([_, currentFolder]) => this.foldersActions.getFolder(currentFolder._id));
 
   constructor(
     private actions$: Actions,
