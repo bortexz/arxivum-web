@@ -1,6 +1,11 @@
 const R = require('ramda');
 
 /**
+ * Function to find by id.
+ */
+export const findById = (id) => R.find(item => item._id === id);
+
+/**
  * returns a new Object result from assigning a new property to the object provided
  *
  * * note: R.flip ensures the new property overrides the previous one if it existed.

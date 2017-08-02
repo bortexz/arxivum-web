@@ -13,7 +13,7 @@ export class NgrxAsyncRequest implements OnDestroy {
     this.subscription = new Subscription();
 
     this.subscription.add(
-      this.actions$
+      (<Observable<any>>this.actions$)
         .filter(({ meta }) => Boolean(meta && meta.async_request))
         .switchMap(action => action.meta.async_request.req(action)
           .map(payload => (action.meta.async_request.success || noop)(payload))

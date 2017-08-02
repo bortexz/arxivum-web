@@ -1,6 +1,7 @@
 import { IDownloadingFile } from '../downloader/downloader.reducer';
 import { IFile } from '../files/files.interfaces';
 import { Injectable } from '@angular/core';
+import { Type } from '../../utils/ngrx-actions/types';
 
 @Injectable()
 export class DownloaderActions {
@@ -43,26 +44,26 @@ export class DownloaderActions {
     };
   }
 
-  decrypt (_id) {
-    return {
-      type: DownloaderActions.DOWNLOAD_FILE_DECRYPTING,
-      payload: { _id }
-    };
-  }
+  // decrypt (_id) {
+  //   return {
+  //     type: DownloaderActions.DOWNLOAD_FILE_DECRYPTING,
+  //     payload: { _id }
+  //   };
+  // }
 
-  decryptSuccess (_id, stream) {
-    return {
-      type: DownloaderActions.DOWNLOAD_FILE_DECRYPTING_SUCCESS,
-      payload: { _id, stream }
-    };
-  }
+  // decryptSuccess (_id, stream) {
+  //   return {
+  //     type: DownloaderActions.DOWNLOAD_FILE_DECRYPTING_SUCCESS,
+  //     payload: { _id, stream }
+  //   };
+  // }
 
-  decryptError (_id, error) {
-    return {
-      type: DownloaderActions.DOWNLOAD_FILE_DECRYPTING_ERROR,
-      payload: { _id, error }
-    };
-  }
+  // decryptError (_id, error) {
+  //   return {
+  //     type: DownloaderActions.DOWNLOAD_FILE_DECRYPTING_ERROR,
+  //     payload: { _id, error }
+  //   };
+  // }
 
   downloadFileCompleted (_id) {
     return {
@@ -91,5 +92,4 @@ export class DownloaderActions {
       payload: { _id }
     };
   }
-
 }

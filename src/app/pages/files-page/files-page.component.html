@@ -14,9 +14,21 @@
         *ngIf='(authenticated$ | async)?.admin'>
         + New folder
       </button>
+      <button
+        class="btn btn-outline-primary btn-sm"
+        (click)='test()'
+        *ngIf='(authenticated$ | async)?.admin'>
+        TEST
+      </button>
     </div>
   </div>
 </nav>
+
+<div id='player' #renderMedia>
+</div>
+
+<div id='testplayer' #renderMediaTest>
+</div>
 
 <div class='files-container'>
   <section
@@ -88,6 +100,10 @@
             </span>
             <a class="row-action" (click)='downloadFile(file)'>
               <clr-icon shape='download'>
+              </clr-icon>
+            </a>
+            <a class="row-action" (click)='playFile(file)'>
+              <clr-icon shape='play'>
               </clr-icon>
             </a>
           </td>

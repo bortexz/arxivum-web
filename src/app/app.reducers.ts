@@ -1,3 +1,4 @@
+import { playerReducer, PlayerState } from './core/player/player.reducer';
 import { modalsReducer, ModalsState } from './core/modals/modals.reducer';
 import { uploadDataReducer, UploadDataState } from './core/uploader/upload-data/upload-data.reducer';
 import { downloadDataReducer, DownloadDataState } from './core/downloader/download-data/download-data.reducer';
@@ -27,12 +28,13 @@ export interface AppState {
     downloadData: DownloadDataState; // Keeps real time progress updates separated from downloader.
     uploadData: UploadDataState;
     modals: ModalsState;
+    player: PlayerState;
 };
 
 // Take into account
 // https://github.com/ngrx/store/issues/190
 export function reducers (state, action) {
-  const newState = compose(localStorageSync(['authenticated'], true), combineReducers)({
+  const newState = compose(localStorageSync({keys: ['authenticated'], rehydrate: true}), combineReducers)({
     authenticated: authReducer,
     currentFolder: foldersReducer,
     uploading: uploaderReducer,
@@ -43,10 +45,9 @@ export function reducers (state, action) {
     folderTree: folderTreeReducer,
     downloadData: downloadDataReducer,
     uploadData: uploadDataReducer,
-    modals: modalsReducer
+    modals: modalsReducer,
+    player: playerReducer
   })(state, action);
-
-  debug(action, newState);
 
   return newState;
 };

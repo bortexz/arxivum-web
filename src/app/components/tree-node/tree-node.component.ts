@@ -2,7 +2,6 @@ import { Observable } from 'rxjs/Rx';
 import { CurrentFolderState } from '../../core/folders/folders.reducer';
 import { AppState } from '../../app.reducers';
 import { Store } from '@ngrx/store';
-import { TreeNode } from 'clarity-angular/tree-view';
 import { IFolderTreeNode } from '../../core/folders/folders.interfaces';
 import { Component, Input, OnInit } from '@angular/core';
 

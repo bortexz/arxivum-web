@@ -1,3 +1,6 @@
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { PlayerActions } from './core/player/player.actions';
+import { PlayerEffects } from './core/player/player.effects';
 import { FormsModule } from '@angular/forms';
 import { NgrxAsyncRequest } from './utils/ngrx-actions/ngrx-async-request';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -94,6 +97,7 @@ import { ConfirmationModalComponent } from './components/modals/confirmation-mod
     routing,
     // Store
     StoreModule.provideStore(reducers),
+    // StoreDevtoolsModule.instrumentOnlyWithExtension(),
     // Effects
     EffectsModule.run(AppEffects),
     EffectsModule.run(AuthenticationEffects),
@@ -104,6 +108,7 @@ import { ConfirmationModalComponent } from './components/modals/confirmation-mod
     EffectsModule.run(InvitationsEffects),
     EffectsModule.run(FolderTreeEffects),
     EffectsModule.run(ModalsEffects),
+    EffectsModule.run(PlayerEffects),
     NgrxAsyncRequestModule
   ],
   providers: [
@@ -125,7 +130,8 @@ import { ConfirmationModalComponent } from './components/modals/confirmation-mod
     InvitationsActions,
     FolderTreeActions,
     FilesActions,
-    ModalsActions
+    ModalsActions,
+    PlayerActions
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
