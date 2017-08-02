@@ -1,3 +1,4 @@
+import { ReadStream } from 'fs';
 import { DownloaderActions } from './downloader.actions';
 const R = require('ramda');
 import {
@@ -13,8 +14,7 @@ export interface IDownloadingFile {
   torrent_file: any;
   torrent_info: any;
   finished?: Boolean;
-  decrypting?: boolean;
-  decrypted?: ArrayBuffer;
+  read_stream?: ReadStream;
 }
 
 export interface DownloaderState {
@@ -50,30 +50,30 @@ export function downloaderReducer (state = initialState, action) {
             (files)
         })(state);
     }
-    case DownloaderActions.DOWNLOAD_FILE_DECRYPTING: {
-      const { _id } = action.payload;
-      return assign({
-          files: replaceFileInList(_id)
-            ( item => assign({ decrypting: true })(item) )
-            ( files )
-        })(state);
-    }
-    case DownloaderActions.DOWNLOAD_FILE_DECRYPTING_SUCCESS: {
-      const { _id, stream } = action.payload;
-      return assign({
-          files: replaceFileInList(_id)
-            ( item => assign({ decrypting: false, decrypted: stream })(item) )
-            ( files )
-        })(state);
-    }
-    case DownloaderActions.DOWNLOAD_FILE_DECRYPTING_ERROR: {
-      const { _id } = action.payload;
-      return assign({
-          files: replaceFileInList(_id)
-            ( item => assign({ decrypting: false })(item) )
-            ( files )
-        })(state);
-    }
+    // case DownloaderActions.DOWNLOAD_FILE_DECRYPTING: {
+    //   const { _id } = action.payload;
+    //   return assign({
+    //       files: replaceFileInList(_id)
+    //         ( item => assign({ decrypting: true })(item) )
+    //         ( files )
+    //     })(state);
+    // }
+    // case DownloaderActions.DOWNLOAD_FILE_DECRYPTING_SUCCESS: {
+    //   const { _id, stream } = action.payload;
+    //   return assign({
+    //       files: replaceFileInList(_id)
+    //         ( item => assign({ decrypting: false, decrypted: stream })(item) )
+    //         ( files )
+    //     })(state);
+    // }
+    // case DownloaderActions.DOWNLOAD_FILE_DECRYPTING_ERROR: {
+    //   const { _id } = action.payload;
+    //   return assign({
+    //       files: replaceFileInList(_id)
+    //         ( item => assign({ decrypting: false })(item) )
+    //         ( files )
+    //     })(state);
+    // }
     case DownloaderActions.REMOVE_FILE: {
       const { _id } = action.payload.file;
       return assign( { files: filterFile(_id)(files) } )(state);
