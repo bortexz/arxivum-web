@@ -10,8 +10,7 @@ import { downloaderReducer, DownloaderState } from './core/downloader/downloader
 import { uploaderReducer, UploaderState } from './core/uploader/uploader.reducer';
 import { CurrentFolderState, foldersReducer } from './core/folders/folders.reducer';
 import { AuthenticationState, authReducer } from './core/authentication/authentication.reducer';
-import { compose } from '@ngrx/core/compose';
-import { combineReducers } from '@ngrx/store';
+import { combineReducers, compose } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
 const debug = require('debug')('arxivum:state-logger');
