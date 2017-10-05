@@ -1,6 +1,8 @@
-import { Action, ActionReducer } from '@ngrx/store';
-import { AuthenticationActions } from './authentication.actions';
+import { ActionReducer } from '@ngrx/store';
+import * as AuthActions from './authentication.actions';
 import { Store } from '@ngrx/store';
+
+type Action = AuthActions.All;
 
 export interface AuthenticationState {
   email: string;
@@ -12,19 +14,11 @@ const initialState: AuthenticationState = null;
 
 export function authReducer (state: AuthenticationState = initialState, action: Action) {
   switch (action.type) {
-    case AuthenticationActions.LOGIN: {
-      return null;
-    }
-
-    case AuthenticationActions.LOGIN_SUCCESS: {
+    case AuthActions.LOGIN_SUCCESS: {
       return action.payload;
     }
 
-    case AuthenticationActions.LOGIN_ERROR: {
-      return null;
-    }
-
-    case AuthenticationActions.LOGOUT: {
+    case AuthActions.LOGOUT: {
       return null;
     }
   }

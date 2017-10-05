@@ -1,0 +1,147 @@
+section {
+  text-align: center;
+  padding: 0px;
+  overflow: auto;
+  padding-bottom: 0px !important;
+  height: 100%;
+
+  // display: flex;
+  // flex-direction: row;
+  // justify-content: flex-start;
+  // align-content: stretch;
+  // align-items: flex-start;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 250px;
+
+  background-color: white;
+  // background-image: url("../../../assets/files-background.jpg");
+  // background-repeat: repeat;
+  div.action-sidebar {
+    // position: fixed;
+    width: 250px;
+    // margin-left: auto;
+    right: 0;
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  div.file-list {
+    flex-grow: 1;
+
+    height: 100%;
+    overflow: scroll;
+
+    ax-folders-breadcrumb {
+      padding-left: 25px;
+    }
+  }
+
+  table {
+    padding: 30px;
+    border: none;
+    border-radius: 0px;
+    margin: 0px;
+    table-layout: fixed;
+
+    tr {
+
+      height: 60px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+
+      td.left {
+        max-width: calc(100% - 150px);
+        line-height: 24px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        flex-grow: 1;
+        white-space: nowrap;
+        // display: inline-block;
+        .admin-action-icon {
+          display: none;
+        }
+
+        .file-name {
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        clr-icon {
+          min-width: 18px;
+          min-height: 18px;
+        }
+
+      }
+
+      td.row-actions {
+        width: 100px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+
+        div {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          align-items: center;
+        }
+      }
+
+      td {
+        color: #007cbb;
+        border-top: none;
+        font-size: 14px;
+        * {
+          margin-left: 15px;
+        }
+
+        .play-icon {
+          display: none;
+        }
+
+      }
+
+      td:hover {
+        .file-icon {
+          display: none;
+        }
+        .play-icon {
+          display: block;
+        }
+
+        .admin-action-icon {
+          display: block;
+        }
+        cursor: pointer;
+        span {
+          color: #004a70;
+        }
+      }
+    }
+  }
+}
+
+.folder-icon {
+  color: rgb(255, 215, 0);
+}
+
+.file-size {
+  white-space: nowrap;
+  font-size: 0.8em;
+  color: rgb(169, 169, 169);
+}
+
+.real-input-files {
+  display: none;
+}

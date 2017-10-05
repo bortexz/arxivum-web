@@ -1,1 +1,11 @@
-<ax-login></ax-login>
+<ax-login-form (onSubmit)='loginPageService.login($event.email, $event.password)'></ax-login-form>
+<!-- Login Error -->
+<clr-alert [clrAlertType]="'alert-danger'"
+  [clrAlertClosed]='!(loginPageService.error$ | async)'
+  (clrAlertClosedChange)='loginPageService.closeError()'>
+    <div clr-alert-item class="alert-item">
+        <span class="alert-text">
+            {{ loginPageService.error$ | async}}
+        </span>
+    </div>
+</clr-alert>

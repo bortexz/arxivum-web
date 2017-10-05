@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ax-folders-breadcrumb',
@@ -17,7 +17,7 @@ export class FoldersBreadcrumbComponent implements OnInit {
   ngOnInit() {}
 
   navigateTo (folder) {
-    let args: any[] = ['folder'];
+    const args: any[] = ['/files/list'];
     if (folder._id) args.push({ id: folder._id});
     this.router.navigate(args);
   }

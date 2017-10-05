@@ -2,43 +2,15 @@ import { Injectable } from '@angular/core';
 import { AuthenticationState } from './authentication.reducer';
 import { Action } from '@ngrx/store';
 
-@Injectable()
-export class AuthenticationActions {
-  static LOGIN = '[Authentication] Login';
-  static LOGIN_SUCCESS = '[Authentication] Login success';
-  static LOGIN_ERROR = '[Authentication] Login error';
-  static LOGOUT = '[Authentication] Logout';
-
-  login (email, password): Action {
-    return {
-      type: AuthenticationActions.LOGIN,
-      payload: {
-        email,
-        password
-      }
-    };
-  }
-
-  logout () {
-    return {
-      type: AuthenticationActions.LOGOUT
-    };
-  }
-
-  loginSuccess (authenticated: AuthenticationState) {
-    return {
-      type: AuthenticationActions.LOGIN_SUCCESS,
-      payload: authenticated
-    };
-  }
-
-  loginError (error) {
-    return {
-      type: AuthenticationActions.LOGIN_ERROR,
-      payload: {
-        error
-      }
-    };
-  }
-
+export const LOGOUT = '[Authentication] Logout';
+export class Logout implements Action {
+  readonly type = LOGOUT;
 }
+
+export const LOGIN_SUCCESS = '[Authentication] Login success';
+export class LoginSuccess implements Action {
+  readonly type = LOGIN_SUCCESS;
+  constructor(public payload: AuthenticationState) {}
+}
+
+export type All = Logout | LoginSuccess;

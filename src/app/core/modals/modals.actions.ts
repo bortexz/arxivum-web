@@ -1,23 +1,48 @@
 import { IFile } from '../files/files.interfaces';
 import { IFolder } from '../folders/folders.interfaces';
-import { Type } from '../../utils/ngrx-actions/types';
-import { Injectable } from '@angular/core';
 
-@Injectable()
-export class ModalsActions {
-  @Type static UPDATE_FOLDER_NAME;
-  updateFolderName = (payload: IFolder) => ({ type: ModalsActions.UPDATE_FOLDER_NAME, payload });
+export const CLOSE_MODAL = '[Modals] Close modal';
+export class CloseModal {
+  readonly type = CLOSE_MODAL;
+}
 
-  @Type static NEW_FOLDER;
-  newFolder = () => ({ type: ModalsActions.NEW_FOLDER });
+export const NEW_FOLDER = '[Modals] New folder';
+export class NewFolder {
+  readonly type = NEW_FOLDER;
+  constructor (public parent) {}
+}
 
-  @Type static UPDATE_FILE_NAME;
-  updateFileName = (payload: IFile) => ({ type: ModalsActions.UPDATE_FILE_NAME, payload });
+export const UPDATE_FOLDER = '[Modals] Update folder';
+export class UpdateFolder {
+  readonly type = UPDATE_FOLDER;
+  constructor(public folder: IFolder) {};
+}
 
-  @Type static CLOSE_NAME_FORM_MODAL;
-  closeNameFormModal = () => ({ type: ModalsActions.CLOSE_NAME_FORM_MODAL });
+export const UPDATE_FILE = '[Modals] Update file';
+export class UpdateFile {
+  readonly type = UPDATE_FILE;
+  constructor(public file: IFile) {};
+}
 
-  @Type static SAVE_NAME_FORM_MODAL;
-  saveNameFormEntity = name => ({ type: ModalsActions.SAVE_NAME_FORM_MODAL, payload: { name } });
+export const DELETE_FOLDER = '[Modals] Delete folder';
+export class DeleteFolder {
+  readonly type = DELETE_FOLDER;
+  constructor(public id) {};
+}
 
+export const DELETE_FILE = '[Modals] Delete file';
+export class DeleteFile {
+  readonly type = DELETE_FILE;
+  constructor(public file) {}
+}
+
+export const INVITE_USER = '[Modals] Invite user';
+export class InviteUser {
+  readonly type = INVITE_USER;
+}
+
+export const DELETE_INVITATION = '[Modals] Delete invitation'
+export class DeleteInvitation {
+  readonly type = DELETE_INVITATION
+  constructor(public id) {}
 }

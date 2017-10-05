@@ -1,6 +1,5 @@
 import { AppState } from '../../app.reducers';
 import { AuthenticationState } from '../../core/authentication/authentication.reducer';
-import { UsersService } from '../../core/users/users.service';
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
@@ -14,17 +13,16 @@ export class LoginPageGuard implements CanActivate {
   authenticated: AuthenticationState;
 
   constructor(
-    private usersService: UsersService,
     private router: Router,
     private store: Store<AppState>
   ) {
     this.store.select(state => state.authenticated)
-      .subscribe(auth => this.authenticated = auth)
+      .subscribe(auth => this.authenticated = auth);
   }
 
   canActivate() {
     if (this.authenticated) {
-      this.router.navigate(['/folder']);
+      this.router.navigate(['/files']);
       return false;
     }
     return true;

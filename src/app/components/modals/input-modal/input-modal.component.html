@@ -1,0 +1,44 @@
+<clr-modal
+  [clrModalOpen]='shouldDisplay$ | async'
+  (clrModalOpenChange)='onOpenChange($event)'
+  >
+  <h3 class="modal-title">{{ title$ | async }}</h3>
+  <div class="modal-body">
+    <form>
+      <section class='form-block'>
+        <div class='form-group'>
+          <label class='required'>{{ inputName$ | async }}</label>
+          <label for='invite-email'
+            aria-haspopup="true"
+            role="tooltip"
+            class="tooltip tooltip-validation tooltip-sm"
+            [class.invalid]='(inputSubject | async).errors && (inputSubject | async).touched'>
+
+            <input type='text' [formControl]='inputSubject | async' id='invite-email'>
+
+            <div *ngIf='(inputSubject | async)?.errors' class='tooltip-content'>
+              <span>
+                <!-- {{ errorList[error] }} -->
+                {{ getError(error) }}
+              </span>
+            </div>
+
+            <div *ngFor='let error of errors$ | async' class='tooltip-content'>
+              <div *ngIf='(inputSubject | async).hasError(error)'>
+                  <span>
+                    <!-- {{ errorList[error] }} -->
+                    {{ getError(error) }}
+                </span>
+              </div>
+            </div>
+          </label>
+        </div>
+      </section>
+    </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="cancel()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="onSubmit()"
+        [disabled]='!(inputSubject | async)?.valid'>{{ submitText$ | async}}</button>
+  </div>
+</clr-modal>

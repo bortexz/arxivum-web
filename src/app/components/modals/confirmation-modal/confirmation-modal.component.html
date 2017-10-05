@@ -1,3 +1,15 @@
-<p>
-  confirmation-modal works!
-</p>
+<clr-modal
+[clrModalOpen]='shouldDisplay$ | async'
+(clrModalOpenChange)='onOpenChange($event)'
+>
+  <h3 class="modal-title">{{ title$ | async}}</h3>
+  <div class="modal-body">
+    <div>
+      {{ message$ | async }}
+    </div>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="cancel()">Cancel</button>
+      <button type="button" class="btn btn-danger" (click)="onSubmit()">{{ submitText$ | async}}</button>
+  </div>
+</clr-modal>

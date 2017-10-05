@@ -1,0 +1,33 @@
+<section>
+  <div class='downloads-list'>
+    <table class='table'>
+      <tbody>
+        <tr *ngFor='let file of (filesPageService.downloadingList$ | async)?.files'>
+          <td class='left'>
+            <span>{{ file.name }}</span>
+          </td>
+          <td class='progress-bar' *ngIf='(filesPageService.downloadData$ | async)[file._id] as downloadData'>
+              <div class="progress labeled">
+                <progress max="100" [value]="downloadData.progress" data-displayval="0%"></progress>
+                <span>{{downloadData.progress}}%</span>
+              </div>
+          </td>
+          <td class='actions'>
+            <div>
+              <button class='btn btn-link remove-item'
+                tab-index='-1'
+                (click)='filesPageService.removeDownloadingFile(file)'>
+                <clr-icon shape='remove' size='18'></clr-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf='(filesPageService.downloadingList$ | async)?.files.length === 0'>
+          <td class='empty-message'>
+            Nothing here yet, go to the list to start downloading
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

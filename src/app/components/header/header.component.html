@@ -7,16 +7,21 @@
   </section>
   <section class="header-nav">
     <a
-      routerLink="/folder"
-      id='header-root-folder-link'
-      *ngIf='authenticated$ | async'
+      routerLink="/files"
       routerLinkActive="active"
+      *ngIf='authenticated$ | async'
       class='nav-link nav-icon'>
       <clr-icon shape='cloud' class='is-solid'></clr-icon>
     </a>
     <a
-      routerLink="admin"
-      id='header-root-folder-link'
+      routerLink="player"
+      *ngIf='player$ | async'
+      routerLinkActive="active"
+      class='nav-link nav-icon'>
+      <clr-icon shape='film-strip' class='is-solid'></clr-icon>
+    </a>
+    <a
+      routerLink="users"
       *ngIf='(authenticated$ | async)?.admin'
       routerLinkActive="active"
       class='nav-link nav-icon'>
@@ -37,9 +42,14 @@
       </button>
       <div class="dropdown-menu">
         <a
-        id='header-user-logout-link'
-        (click)='store.dispatch(authActions.logout())'
-        clrDropdownItem>Log out</a>
+          id='header-user-logout-link'
+          (click)='headerService.userInfo()'
+          clrDropdownItem>Change password</a>
+        <a
+          id='header-user-logout-link'
+          (click)='headerService.logout()'
+          clrDropdownItem>Log out</a>
+
       </div>
     </clr-dropdown>
 

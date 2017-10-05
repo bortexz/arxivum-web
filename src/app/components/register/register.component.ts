@@ -1,4 +1,7 @@
-import { UsersActions } from '../../core/users/users.actions';
+import { AppError } from '../../core/common/errors.actions';
+import { LoginPageService } from '../../pages/login-page/login-page.service';
+import { UsersService } from '../../core/users/users.service';
+// import { UsersActions } from '../../core/users/users.actions';
 import { AppState } from '../../app.reducers';
 import { Store } from '@ngrx/store';
 import { validateEmail } from '../../utils/form-validators/email.validator';
@@ -20,7 +23,8 @@ export class RegisterComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private store: Store<AppState>,
-    private usersActions: UsersActions
+    private usersApi: UsersService,
+    private loginPageService: LoginPageService
   ) { }
 
   ngOnInit() {
@@ -45,6 +49,11 @@ export class RegisterComponent implements OnInit {
   }
 
   submit () {
-    this.store.dispatch(this.usersActions.register(this.registerForm.value));
+    const {email, password} = this.registerForm.value;
+    // this.store.dispatch(this.usersActions.register(this.registerForm.value));
+    this.usersApi.register(this.registerForm.value).subscribe(
+      () => this.loginPageService.login(email, password),
+      err => this.store.dispatch(new AppError('Error while trying to register'))
+    )
   }
  }

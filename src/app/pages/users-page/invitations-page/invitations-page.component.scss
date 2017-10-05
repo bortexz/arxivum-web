@@ -1,0 +1,100 @@
+:host {
+  background-color: white;
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+  display: block;
+
+
+  .invitations-list {
+    flex-grow: 1;
+
+    height: 100%;
+    overflow: scroll;
+
+  }
+
+  table {
+    padding: 30px;
+    border: none;
+    border-radius: 0px;
+    margin: 0px;
+    table-layout: fixed;
+    overflow: visible;
+
+    .theader {
+      color: red;
+    }
+
+    tr {
+      height: 60px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: stretch;
+
+      td.actions {
+        width: 100px;
+
+
+      }
+
+      td.left {
+        flex-grow: 1;
+      }
+
+      td.empty-message {
+        flex-grow: 1;
+        color: #878787;
+        font-size: 20px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      td {
+        color: #004a70;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        line-height: 24px;
+
+        .remove-item {
+          color: #e03637;
+        }
+
+        .admin-action-icon {
+          display: none;
+        }
+
+        height: inherit;
+        border-bottom: 1px solid #eee;
+        border-top: none;
+        // span {
+        font-size: 14px;
+          // font-weight: 32px;
+        // }
+        * {
+          margin-left: 15px;
+        }
+
+
+      }
+
+      td:hover {
+        .admin-action-icon {
+          display: block;
+        }
+
+      }
+    }
+
+    tr.fulfilled {
+      color: grey;
+    }
+  }
+}
+
+

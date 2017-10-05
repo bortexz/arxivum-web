@@ -1,0 +1,37 @@
+<section>
+    <button
+      *ngIf='(filesPageService.uploadingList$ | async)?.files.length !== 0'
+      (click)='filesPageService.clearUploadQueue()'
+      class='btn btn-link btn-clear'><clr-icon shape='remove' size='18'></clr-icon>  Clear all</button>
+    <div class='uploads-list'>
+      <table class='table'>
+        <tbody>
+          <tr *ngFor='let file of (filesPageService.uploadingList$ | async)?.files'>
+            <td class='left'>
+              <span>{{ file.name }}</span>
+            </td>
+            <td class='progress-bar' *ngIf='(filesPageService.uploadData$ | async)?.get(file) as uploadData'>
+                <div class="progress labeled">
+                  <progress max="100" [value]="uploadData" data-displayval="0%"></progress>
+                  <span>{{uploadData}}%</span>
+                </div>
+            </td>
+            <td class='actions'>
+              <div>
+                <!-- <button class='btn btn-link remove-item'
+                  tab-index='-1'
+                  (click)='filesPageService.removeDownloadingFile(file)'>
+                  <clr-icon shape='remove' size='18'></clr-icon>
+                </button> -->
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf='(filesPageService.uploadingList$ | async)?.files.length === 0'>
+            <td class='empty-message'>
+              Nothing here yet, go to the list and start uploading to any folder
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>

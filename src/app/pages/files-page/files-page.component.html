@@ -1,126 +1,35 @@
-<nav class="subnav">
-  <div id='subnav-left' [style.minWidth]='(sidenavWidth$ | async) + "px"'>
-    <!--<input type='text' placeholder='Search...'>-->
-  </div>
-  <div id='subnav-right'>
-    <div class='flex-xs-middle' [style.max-width]='(breadcrumbSize$ | async) + "px"'>
-      <ax-folders-breadcrumb [path]='(currentFolder$ | async)?.path'></ax-folders-breadcrumb>
-    </div>
-
-    <div class='flex-xs-middle' #subnavRightButtons>
-      <button
-        class="btn btn-outline-primary btn-sm"
-        (click)='newFolder()'
-        *ngIf='(authenticated$ | async)?.admin'>
-        + New folder
-      </button>
-      <button
-        class="btn btn-outline-primary btn-sm"
-        (click)='test()'
-        *ngIf='(authenticated$ | async)?.admin'>
-        TEST
-      </button>
-    </div>
-  </div>
-</nav>
-
-<div id='player' #renderMedia>
+<!-- <div id='player' #renderMedia>
 </div>
 
 <div id='testplayer' #renderMediaTest>
-</div>
+</div> -->
 
 <div class='files-container'>
-  <section
-    class='content-area'
-    ng2FileDrop
-    [ngClass]='{"drop-area-file-over": hasBaseDropZoneOver}'
-    (fileOver)='fileOverDragArea($event)'
-    (onFileDrop)='store.dispatch(uploaderActions.uploadFiles())'
-    [uploader]='uploaderService.uploader'
-    (window:click)='select(null, $event)'>
+  <div class="content-area">
+    <router-outlet></router-outlet>
+  </div>
 
-    <div class='drop-area-layer'>
-      <div class='drop-area-border'>
-        <span>Drop files to upload them to this folder</span>
-      </div>
-    </div>
-
-    <table class='table'>
-      <tbody>
-        <tr
-          *ngFor='let folder of (currentFolder$ | async)?.folders'
-          class='folder-row'
-          [ngClass]="{selected: folder === selected}"
-          (click)='select(folder, $event)'
-          (dblclick)='router.navigate(["/folder", {id: folder._id}])'>
-          <td class='left'>
-            <!--<a [routerLink]='["/folder", {id: folder._id}] '>-->
-              <clr-icon shape='folder' class='folder-icon is-solid'></clr-icon>
-              <span>{{folder.name}}</span>
-              <a (click)='editFolder(folder)'>
-                <clr-icon shape='edit'
-                  class='is-info admin-action-icon'
-                  *ngIf='(authenticated$ | async)?.admin && this.selected === folder'></clr-icon>
-              </a>
-              <a (click)='deleteFolder(folder._id)'>
-                <clr-icon shape='remove'
-                  class='is-danger admin-action-icon'
-                  *ngIf='(authenticated$ | async)?.admin && this.selected === folder'></clr-icon>
-              </a>
-
-            <!--</a>-->
-          </td>
-          <td class='row-actions'>
-          </td>
-        </tr>
-        <tr
-          *ngFor='let file of (currentFolder$ | async)?.files'
-          class='file-row'
-          [ngClass]="{selected: file === selected}"
-          (click)='select(file, $event)'
-          (dblclick)='store.dispatch(downloaderActions.downloadFile(file))'>
-          <td class='left'>
-            <clr-icon shape='file' class='file-icon is-info is-solid'></clr-icon>
-            <span>{{file.name}} <span class='file-size'>{{file.size | filesize}}</span></span>
-            <a (click)='editFile(file)'>
-              <clr-icon shape='edit'
-                class='is-info admin-action-icon'
-                *ngIf='(authenticated$ | async)?.admin && this.selected === file'></clr-icon>
-            </a>
-            <a (click)='deleteFile(file._id)'>
-              <clr-icon shape='remove'
-                class='is-danger admin-action-icon'
-                *ngIf='(authenticated$ | async)?.admin && this.selected === file'></clr-icon>
-            </a>
-          </td>
-          <td class='row-actions'>
-            <span *ngIf='downloadData$[file._id] | async'>
-              {{ (downloadData$[file._id] | async)?.progress }} %
-            </span>
-            <a class="row-action" (click)='downloadFile(file)'>
-              <clr-icon shape='download'>
-              </clr-icon>
-            </a>
-            <a class="row-action" (click)='playFile(file)'>
-              <clr-icon shape='play'>
-              </clr-icon>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <nav class="sidenav" #sidenav (window:resize)='sidenavWidth$.next(sidenav.offsetWidth)'>
+  <nav class="sidenav">
     <section class="sidenav-content">
-      <ax-tree-node
-        *ngFor='let node of tree$ | async'
-        [node]='node'>
+      <button class="btn btn-link" tabIndex="-1" (click)='filesPageService.goTo("list")'>
+          <clr-icon shape='bars' size='18'></clr-icon>   List
+      </button>
+      <button class="btn btn-link" tabIndex="-1" (click)='filesPageService.goTo("downloads")'>
+          <clr-icon shape='download' size='18'></clr-icon>
+          Downloads
+          <span class='badge' [ngClass]='downloadsBadgeColor$ | async'
+            *ngIf='downloadsBadge$ | async'>{{downloadsBadge$ | async}}</span>
+      </button>
 
-      </ax-tree-node>
+      <button
+        *ngIf='(filesPageService.authenticated$ | async)?.admin'
+        class="btn btn-link" tabIndex="-1" (click)='filesPageService.goTo("uploads")'>
+          <clr-icon shape='upload' size='18'></clr-icon>   Uploads
+          <span class='badge' [ngClass]='uploadsBadgeColor$ | async'
+            *ngIf='uploadsBadge$ | async'>{{uploadsBadge$ | async}}</span>
+      </button>
     </section>
   </nav>
 
-  <ax-right-sidebar></ax-right-sidebar>
+  <!-- <ax-right-sidebar></ax-right-sidebar> -->
 </div>

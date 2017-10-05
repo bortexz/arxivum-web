@@ -1,0 +1,31 @@
+<!-- <div id='player' #renderMedia>
+</div>
+
+<div id='testplayer' #renderMediaTest>
+</div> -->
+
+<div class='users-container'>
+  <div class="content-area">
+    <router-outlet></router-outlet>
+  </div>
+
+  <nav class="sidenav">
+    <section class="sidenav-content">
+      <button class="btn btn-link" tabindex="-1" [routerLink]='"registered"'>
+          <clr-icon shape='users' size='18'></clr-icon>
+          Users
+      </button>
+      <button class="btn btn-link" tabindex="-1" [routerLink]='"invitations"'>
+          <clr-icon shape='pop-out' size='18'></clr-icon>
+          Invitations
+      </button>
+    </section>
+  </nav>
+
+  <div class='users-actions'>
+    <button class='btn btn-link' (click)='usersPageService.inviteUser()'>
+      <clr-icon shape='share' size='18'></clr-icon>  Invite user
+    </button>
+  </div>
+  <!-- <ax-right-sidebar></ax-right-sidebar> -->
+</div>

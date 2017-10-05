@@ -1,7 +1,8 @@
 import { Observable } from 'rxjs/Rx';
-import { ArxivumHttp } from '../../utils/http/arxivum-http.service';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+
 
 const urljoin = require('url-join');
 
@@ -10,7 +11,7 @@ export class FilesService {
   public filesUrl = urljoin(environment.api_url, 'files');
 
   getOne(id) {
-    return this.http.get(urljoin(this.filesUrl, id)).map(res => res.json());
+    return this.http.get(urljoin(this.filesUrl, id));
   }
 
   remove(id) {
@@ -22,7 +23,7 @@ export class FilesService {
   }
 
   constructor(
-    private http: ArxivumHttp
+    private http: HttpClient
   ) { }
 
 }

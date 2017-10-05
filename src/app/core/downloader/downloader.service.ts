@@ -1,4 +1,4 @@
-import { DownloaderActions } from './downloader.actions';
+import * as DownloaderActions from './downloader.actions';
 import { AppState } from '../../app.reducers';
 import { Store } from '@ngrx/store';
 import { IDownloadingFile } from '../downloader/downloader.reducer';
@@ -23,8 +23,7 @@ export class DownloaderService {
 
   constructor(
     public zone: NgZone,
-    private store: Store<AppState>,
-    private downloaderActions: DownloaderActions
+    private store: Store<AppState>
   ) {
   }
 
@@ -40,17 +39,19 @@ export class DownloaderService {
         };
 
         torrent.on('done', () => {
-          this.store.dispatch(
-            this.downloaderActions.downloadFileCompleted(file._id)
-          );
+          this.zone.run(() =>
+            this.store.dispatch(new DownloaderActions.FileComplete(file._id))
+          )
         });
 
         torrent.on('download', () => {
-          this.store.dispatch(
-            this.downloaderActions.downloadFileProgressItem(
-              file._id,
-              Math.round(torrent.progress * 100),
-              torrent.downloadSpeed
+          this.zone.run(() =>
+            this.store.dispatch(
+              new DownloaderActions.FileProgress(
+                file._id,
+                Math.round(torrent.progress * 100),
+                torrent.downloadSpeed
+              )
             )
           );
         });

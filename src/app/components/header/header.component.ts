@@ -1,9 +1,6 @@
-import { AppState } from '../../app.reducers';
-import { AuthenticationActions } from '../../core/authentication/authentication.actions';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { HeaderService } from './header.service';
 import { AuthenticationState } from '../../core/authentication/authentication.reducer';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthenticationService } from '../../core/authentication/authentication.service';
 
 @Component({
@@ -11,16 +8,11 @@ import { AuthenticationService } from '../../core/authentication/authentication.
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  authenticated$: Observable<AuthenticationState>;
+export class HeaderComponent {
+  authenticated$ = this.headerService.authenticated$;
+  player$ = this.headerService.player$;
 
   constructor(
-    private store: Store<AppState>,
-    private authActions: AuthenticationActions
-  ) {
-    this.authenticated$ = store.select(state => state.authenticated);
-  }
-
-  ngOnInit() {
-  }
+    private headerService: HeaderService
+  ) { }
 }

@@ -1,5 +1,5 @@
 import { ReadStream } from 'fs';
-import { DownloaderActions } from './downloader.actions';
+import * as DownloaderActions from './downloader.actions';
 const R = require('ramda');
 import {
   assign,
@@ -14,7 +14,6 @@ export interface IDownloadingFile {
   torrent_file: any;
   torrent_info: any;
   finished?: Boolean;
-  read_stream?: ReadStream;
 }
 
 export interface DownloaderState {
@@ -30,26 +29,22 @@ const initialState: DownloaderState = {
 export function downloaderReducer (state = initialState, action) {
   const { files } = state;
   switch (action.type) {
-    case DownloaderActions.DOWNLOAD_FILE:
-      return state;
-    case DownloaderActions.DOWNLOAD_FILE_ADDED: {
-      const { file } = action.payload;
+    // case DownloaderActions.DOWNLOAD_FILE:
+    //   return state;
+    case DownloaderActions.ADD_DOWNLOADING_FILE:
       return assign({
-        files: R.append(file)(files)
+        files: R.append(action.file)(files)
       })(state);
-    }
-    case DownloaderActions.DOWNLOAD_FILE_PROGRESS_ALL: {
-      return assign({ progress: action.payload.progress })(state);
-    }
-    case DownloaderActions.DOWNLOAD_FILE_COMPLETED: {
-      const { _id } = action.payload;
 
+    case DownloaderActions.TOTAL_PROGRESS: return assign({ progress: action.progress })(state);
+
+    case DownloaderActions.FILE_COMPLETE:
       return assign({
-          files: replaceFileInList(_id)
+          files: replaceFileInList(action.id)
             (file => assign({finished: true})(file))
             (files)
         })(state);
-    }
+
     // case DownloaderActions.DOWNLOAD_FILE_DECRYPTING: {
     //   const { _id } = action.payload;
     //   return assign({
@@ -74,10 +69,9 @@ export function downloaderReducer (state = initialState, action) {
     //         ( files )
     //     })(state);
     // }
-    case DownloaderActions.REMOVE_FILE: {
-      const { _id } = action.payload.file;
-      return assign( { files: filterFile(_id)(files) } )(state);
-    }
+    case DownloaderActions.REMOVE_FILE:
+      const id = action.file._id;
+      return assign( { files: filterFile(id)(files) } )(state);
   }
   return state;
 }

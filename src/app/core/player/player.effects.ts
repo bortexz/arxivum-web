@@ -1,41 +1,32 @@
+import { Injectable } from '@angular/core';
 import { AppState } from '../../app.reducers';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Rx';
 import { PlayerState } from './player.reducer';
-import { DownloaderActions } from '../downloader/downloader.actions';
-import { assign } from '../../utils/functional';
-import { DECRYPT_ALGO } from '../../utils/crypto';
-import { PlayerActions } from './player.actions';
-import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
-import { DownloaderService } from 'app/core/downloader/downloader.service';
-import { FilesService } from 'app/core/files/files.service';
-
-const R = require('ramda');
-const crypto = require('crypto-browserify');
+import * as PlayerActions from './player.actions';
+import * as DownloaderActions from '../downloader/downloader.actions';
+import * as AuthActions from '../authentication/authentication.actions';
+import { Actions, Effect } from '@ngrx/effects';
 
 @Injectable()
 export class PlayerEffects {
   player$: Observable<PlayerState> = this.store.select(state => state.player);
 
   @Effect()
-  playFile$ = this.actions$
-    .ofType(PlayerActions.PLAY_FILE)
-    .map(({ payload }) => this.downloaderActions.downloadFile(payload.file));
+  onDownloadingFileRemoved$ = this.actions$
+    .ofType(DownloaderActions.REMOVE_FILE)
+    .withLatestFrom(this.player$)
+    .filter(([_, player]) => Boolean(player))
+    .filter(([action, player]) => ((<DownloaderActions.RemoveFile>action).file._id === player.file._id))
+    .map(() => new PlayerActions.ClearPlayer())
 
   @Effect()
-  onFileReady$ = this.actions$
-    .ofType(DownloaderActions.DOWNLOAD_FILE_ADDED)
-    .withLatestFrom(this.player$,
-      ({ payload }, player) => player.id === payload.file._id ? payload.file : null
-    )
-    .filter(Boolean)
-    .map(file => this.playerActions.playFileReady(file));
+  logout$ = this.actions$
+    .ofType(AuthActions.LOGOUT)
+    .map(() => new PlayerActions.ClearPlayer())
 
   constructor(
-     private actions$: Actions,
-     private store: Store<AppState>,
-     private playerActions: PlayerActions,
-     private downloaderActions: DownloaderActions
-  ) { }
+    public store: Store<AppState>,
+    public actions$: Actions
+  ) {}
 }

@@ -1,0 +1,13 @@
+<section>
+  <div class='registered-list'>
+    <table class='table'>
+      <tbody>
+        <tr *ngFor='let user of usersPageService.users$ | async'>
+          <td class='left'>
+            {{ user.email }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

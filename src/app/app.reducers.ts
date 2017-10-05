@@ -1,17 +1,15 @@
+import { commonReducer, CommonState } from './core/common/common.reducer';
+import { invitationsReducer, InvitationsState } from './core/invitations/invitations.reducer';
+import { usersReducer, UsersState } from './core/users/users.reducer';
 import { playerReducer, PlayerState } from './core/player/player.reducer';
-import { modalsReducer, ModalsState } from './core/modals/modals.reducer';
-import { uploadDataReducer, UploadDataState } from './core/uploader/upload-data/upload-data.reducer';
-import { downloadDataReducer, DownloadDataState } from './core/downloader/download-data/download-data.reducer';
-import { folderTreeReducer, FolderTreeState } from './core/folders/tree/tree.reducer';
-import { InvitationsListState, invitationsReducer } from './core/invitations/invitations.reducer';
-import { adminUsersReducer, AdminUsersState } from './core/users/admin/admin-users.reducer';
-import { registerReducer, RegisterState } from './core/users/register/register.reducer';
 import { downloaderReducer, DownloaderState } from './core/downloader/downloader.reducer';
-import { uploaderReducer, UploaderState } from './core/uploader/uploader.reducer';
-import { CurrentFolderState, foldersReducer } from './core/folders/folders.reducer';
-import { AuthenticationState, authReducer } from './core/authentication/authentication.reducer';
-import { combineReducers, compose } from '@ngrx/store';
+import { downloadDataReducer, DownloadDataState } from './core/downloader/download-data.reducer';
+import { uploadDataReducer, UploadDataState } from './core/uploader/upload-data.reducer';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { AuthenticationState, authReducer } from './core/authentication/authentication.reducer';
+import { CurrentFolderState, foldersReducer } from './core/folders/folders.reducer';
+import { modalsReducer, ModalsState } from './core/modals/modals.reducer';
+import { uploaderReducer, UploaderState } from './core/uploader/uploader.reducer';
 
 const debug = require('debug')('arxivum:state-logger');
 
@@ -20,33 +18,44 @@ export interface AppState {
     currentFolder: CurrentFolderState;
     uploading: UploaderState;
     downloading: DownloaderState;
-    admin_users: AdminUsersState;
-    register: RegisterState;
-    invitations: InvitationsListState;
-    folderTree: FolderTreeState;
+    users: UsersState;
     downloadData: DownloadDataState; // Keeps real time progress updates separated from downloader.
     uploadData: UploadDataState;
     modals: ModalsState;
     player: PlayerState;
+    invitations: InvitationsState;
+    common: CommonState;
 };
 
-// Take into account
-// https://github.com/ngrx/store/issues/190
-export function reducers (state, action) {
-  const newState = compose(localStorageSync({keys: ['authenticated'], rehydrate: true}), combineReducers)({
+export const reducers = {
     authenticated: authReducer,
     currentFolder: foldersReducer,
     uploading: uploaderReducer,
     downloading: downloaderReducer,
-    admin_users: adminUsersReducer,
-    register: registerReducer,
-    invitations: invitationsReducer,
-    folderTree: folderTreeReducer,
+    users: usersReducer,
     downloadData: downloadDataReducer,
     uploadData: uploadDataReducer,
     modals: modalsReducer,
-    player: playerReducer
-  })(state, action);
+    player: playerReducer,
+    invitations: invitationsReducer,
+    common: commonReducer
+  };
 
-  return newState;
-};
+export function logger (reducer) {
+  return function(state, action) {
+    const res = reducer(state, action)
+    debug(action.type, res);
+    return res;
+  }
+}
+
+export const storageSync = localStorageSync({keys: ['authenticated'], rehydrate: true})
+
+export function storageSyncReducer (reducer) {
+  return storageSync(reducer);
+}
+
+export const metaReducers = [
+  logger,
+  storageSyncReducer
+];

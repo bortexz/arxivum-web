@@ -1,0 +1,120 @@
+section {
+  text-align: center;
+  padding: 20px;
+  overflow: auto;
+  padding-bottom: 0px !important;
+  height: 100%;
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  div.downloads-list {
+    flex-grow: 1;
+
+    height: 100%;
+    overflow: scroll;
+
+    ax-folders-breadcrumb {
+      padding-left: 25px;
+    }
+  }
+
+  table {
+    padding: 30px;
+    border: none;
+    border-radius: 0px;
+    margin: 0px;
+    overflow: auto;
+
+    table-layout: fixed;
+
+    tr {
+      height: 60px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: stretch;
+
+      td.left {
+        flex-grow: 1;
+        max-width: calc(100% - 500px);
+        white-space: nowrap;
+
+        span {
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+
+      td.empty-message {
+        flex-grow: 1;
+        color: #878787;
+        font-size: 20px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      td.progress-bar {
+        width: 400px;
+        min-width: 400px;
+        height: 60px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        progress {
+          width: 90%;
+        }
+      }
+
+      td.actions {
+        width: 100px;
+      }
+
+      td {
+        color: #004a70;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        line-height: 24px;
+
+        .remove-item {
+          color: #e03637;
+        }
+
+        .admin-action-icon {
+          display: none;
+        }
+
+        height: inherit;
+        border-bottom: 1px solid #eee;
+        border-top: none;
+        // span {
+        font-size: 14px;
+          // font-weight: 32px;
+        // }
+        * {
+          margin-left: 15px;
+        }
+
+
+      }
+
+      td:hover {
+        .admin-action-icon {
+          display: block;
+        }
+
+        // span {
+        //   color: #004a70;
+        // }
+      }
+    }
+  }
+}

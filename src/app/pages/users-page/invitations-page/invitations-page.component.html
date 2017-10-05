@@ -1,0 +1,32 @@
+<section>
+  <div class='invitations-list'>
+    <table class='table'>
+      <tbody>
+        <tr *ngFor='let invitation of usersPageService.invitations$ | async' [class.fulfilled]='invitation.fulfilled'>
+          <td class='left'>
+              {{ invitation.email }}
+          </td>
+          <td>
+            <div *ngIf='invitation.fulfilled; else notFulfilled'>
+              <span class="label label-info">User has registered</span>
+            </div>
+            <ng-template #notFulfilled>
+              <button tabindex="-1" class="btn btn-link" (click)='usersPageService.resendInvitation(invitation._id)'>Resend email</button>
+              <span class="label label-warning">Pending</span>
+            </ng-template>
+          </td>
+          <td>
+            <button tabindex='-1' class='btn btn-link'>
+              <clr-icon shape='remove' size='18' class='is-error' (click)='usersPageService.deleteInvitation(invitation._id)'></clr-icon>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf='(usersPageService.invitations$ | async)?.length === 0'>
+          <td class='empty-message'>
+            Nothing here yet, invite users to see their invitations here
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

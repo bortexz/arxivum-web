@@ -1,9 +1,8 @@
 import { Store } from '@ngrx/store';
-import 'rxjs/src/add/operator/map';
 import { environment } from '../../../environments/environment';
 import { AuthenticationState } from './authentication.reducer';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
@@ -25,14 +24,13 @@ export class AuthenticationService {
   private loginUrl = urljoin(environment.api_url, 'authenticate');
 
   constructor(
-    private http: Http
+    private http: HttpClient
   ) {
   }
 
   login(email, password) {
     return this.http
       .post(this.loginUrl, { email, password })
-      .map(res => res.json());
   }
 
   /**

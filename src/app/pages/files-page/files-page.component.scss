@@ -8,81 +8,27 @@
   flex-shrink: 1;
 
   .files-container {
-    height: calc(100% - 36px);
+    height: 100%;
+
+    .content-area {
+      padding: 0px;
+    }
   }
 
-  .content-area {
-    text-align: center;
-    padding: 0px;
-    overflow: auto;
+  .sidenav {
+    border-right: 1px solid #eee;
 
-    background-image: url("../../../assets/files-background.jpg");
-    background-repeat: repeat;
-
-    table {
-      margin: 0px;
-      border: none;
-      border-radius: 0px;
-
-      overflow: auto;
-
-      tr {
-        height: 37px;
-        td {
-          padding-bottom: 10px;
-          box-sizing: content-box;
-          border-bottom: 1px solid #eee;
-          border-top: none;
-        }
-      }
-    }
+    padding: 20px 40px;
   }
 
   .sidenav-content {
-    padding: 10px;
     margin-bottom: 0px;
-  }
-}
-
-.subnav {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-
-  max-width: 100%;
-
-  #subnav-left {
-    padding: 5px 20px;
-    input {
-      min-width: 100%;
-    }
-  }
-
-  #subnav-right {
-    padding: 5px 0px;
 
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    flex-wrap: nowrap;
-
-    align-items: stretch;
-
-    box-sizing: border-box;
-
-    flex-grow: 1;
-
-    // breadcrumb
-    div:nth-child(1) {
-      padding: 0px 15px;
-    }
-    // rightSubnavButtons
-    div:nth-child(2) {
-      padding: 0px 15px;
-    }
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
-
 }
 
 .files-container {
@@ -94,40 +40,6 @@
 /* Header including breadcrumb and new folder button */
 .files-header {
   margin: 0px;
-}
-
-/* Drop area */
-.drop-area-layer {
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-
-  display:none;
-
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: 0.2;
-
-  z-index: 100;
-  position: absolute;
-  pointer-events: none;
-
-  .drop-area-border {
-    width: 100%;
-    height: 100%;
-    border: 3px dotted black;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    span {
-      font-size: 3em;
-      line-height: 1.2em;
-    }
-  }
 }
 
 .drop-area-file-over > .drop-area-layer {
@@ -150,16 +62,3 @@
   text-align: right;
 }
 
-.folder-icon {
-  color: rgb(255, 215, 0);
-}
-
-.selected {
-  background: rgb(250, 250, 250);
-}
-
-// File size text
-.file-size {
-  font-size: 0.8em;
-  color: rgb(169, 169, 169);
-}

@@ -5,5 +5,5 @@ export interface IFile {
   size: number;
   folder?: string; // folder id
   torrent: any;
-  encryption_key?: string;
+  encryption_key?: {type: string, data: Uint8Array};
 }

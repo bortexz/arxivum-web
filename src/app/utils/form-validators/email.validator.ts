@@ -5,8 +5,6 @@ const EMAIL_REGEXP =
 
 export function validateEmail(c: FormControl): {[key: string]: any} {
   return EMAIL_REGEXP.test(c.value) ? null : {
-    validateEmail: {
-      valid: false
-    }
+    validateEmail: true
   };
 }

@@ -1,51 +1,28 @@
-import { Injectable } from '@angular/core';
+// Convenience action to trigger effect with latest from auth and currentFolder
+export const UPLOAD_FILES = '[Uploader] Upload files';
+export class UploadFiles {
+  readonly type = UPLOAD_FILES;
+}
 
-@Injectable()
-export class UploaderActions {
-  static UPLOAD_FILES = '[Uploader] Upload files';
-  static UPLOAD_FILES_UPDATE_QUEUE = '[Uploader] Upload files update queue';
-  static UPLOAD_FILES_ON_PROGRESS_ITEM = '[Uploader] Upload files on progress item';
-  static UPLOAD_FILES_ON_PROGRESS_ALL = '[Uploader] Upload files on progress all';
-  static UPLOAD_FILES_ON_SUCCESS_ITEM = '[Uploader] Upload files on success item';
-  static UPLOAD_FILES_CLEAR_QUEUE = '[Uploader] Clear queue';
+export const UPDATE_QUEUE = '[Uploader] Update queue';
+export class UpdateQueue {
+  readonly type = UPDATE_QUEUE;
+  constructor(public queue) {};
+}
 
-  uploadFiles () {
-    return {
-      type: UploaderActions.UPLOAD_FILES
-    };
-  }
+export const UPDATE_TOTAL_PROGRESS = '[Uploader] Update total progress';
+export class UpdateTotalProgress {
+  readonly type = UPDATE_TOTAL_PROGRESS;
+  constructor(public progress) {};
+}
 
-  uploadFilesUpdateQueue (queue) {
-    return {
-      type: UploaderActions.UPLOAD_FILES_UPDATE_QUEUE,
-      payload: { queue }
-    };
-  }
+export const UPDATE_FILE_PROGRESS = '[Uploader] Update file progress';
+export class UpdateFileProgress {
+  readonly type = UPDATE_FILE_PROGRESS;
+  constructor(public file) {};
+}
 
-  uploadFilesOnProgressItem (item) {
-    return {
-      type: UploaderActions.UPLOAD_FILES_ON_PROGRESS_ITEM,
-      payload: { item }
-    };
-  }
-
-  uploadFilesOnProgressAll (progress) {
-    return {
-      type: UploaderActions.UPLOAD_FILES_ON_PROGRESS_ALL,
-      payload: { progress }
-    };
-  }
-
-  uploadFilesOnSuccessItem (item) {
-    return {
-      type: UploaderActions.UPLOAD_FILES_ON_SUCCESS_ITEM,
-      payload: { item }
-    };
-  }
-
-  clearQueue () {
-    return {
-      type: UploaderActions.UPLOAD_FILES_CLEAR_QUEUE
-    };
-  }
+export const CLEAR_QUEUE = '[Uploader] Clear queue';
+export class ClearQueue {
+  readonly type = CLEAR_QUEUE;
 }

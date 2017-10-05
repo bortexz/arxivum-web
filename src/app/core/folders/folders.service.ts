@@ -1,6 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { ArxivumHttp } from '../../utils/http/arxivum-http.service';
 
 const urljoin = require('url-join');
 
@@ -8,7 +8,7 @@ const urljoin = require('url-join');
 export class FoldersService {
   public foldersUrl = urljoin(environment.api_url, 'folders');
 
-  constructor(private http: ArxivumHttp) { }
+  constructor(private http: HttpClient) { }
 
   /**
    * Function to get one folder. If id is NOT specified, then root folder will
@@ -16,15 +16,15 @@ export class FoldersService {
    */
   getOne (id?) {
     const url = id ? urljoin(this.foldersUrl, id) : this.foldersUrl;
-    return this.http.get(url).map(res => res.json());
+    return this.http.get(url);
   }
 
   create (data) {
-    return this.http.post(this.foldersUrl, data).map(res => res.json());
+    return this.http.post(this.foldersUrl, data);
   }
 
   getTree() {
-    return this.http.get(urljoin(this.foldersUrl, 'tree')).map(res => res.json());
+    return this.http.get(urljoin(this.foldersUrl, 'tree'))
   }
 
   update (id, data) {

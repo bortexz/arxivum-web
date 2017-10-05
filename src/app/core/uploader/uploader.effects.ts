@@ -1,8 +1,8 @@
-import { FoldersActions } from '../folders/folders.actions';
+import * as FoldersActions from '../folders/folders.actions';
 import { AppState } from '../../app.reducers';
 import { Store } from '@ngrx/store';
 import { FilesService } from '../files/files.service';
-import { UploaderActions } from './uploader.actions';
+import * as UploaderActions from './uploader.actions';
 import { Actions, Effect } from '@ngrx/effects';
 import { UploaderService } from './uploader.service';
 import { Injectable } from '@angular/core';
@@ -25,25 +25,27 @@ export class UploaderEffects {
     .withLatestFrom(this.authenticated$, (query, auth) => ({query, auth}))
     .do(({query, auth}) => {
       this.uploaderService.uploader.setOptions({
-        url: this.filesService.filesUrl + (query && query.folder ? `?${querystring.stringify(query)}` : ''),
+        url: this.filesApi.filesUrl + (query && query.folder ? `?${querystring.stringify(query)}` : ''),
         authToken: auth ? `Bearer ${auth.token}` : null
       });
 
       this.uploaderService.uploader.uploadAll();
     });
 
+  @Effect()
+  addToQueue$ = this.actions$
+    .ofType(UploaderActions.UPDATE_QUEUE)
+    .map(() => new UploaderActions.UploadFiles())
+
   @Effect({ dispatch: false })
   clearQueue$ = this.actions$
-    .ofType(UploaderActions.UPLOAD_FILES_CLEAR_QUEUE)
+    .ofType(UploaderActions.CLEAR_QUEUE)
     .do(_ => this.uploaderService.clearQueue());
 
   constructor(
     private uploaderService: UploaderService,
     private actions$: Actions,
-    private filesService: FilesService,
-    private store: Store<AppState>,
-    private foldersActions: FoldersActions
-  ) {
-
-  }
+    private filesApi: FilesService,
+    private store: Store<AppState>
+  ) {}
 }

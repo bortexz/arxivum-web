@@ -1,4 +1,5 @@
-import { UploaderActions } from './uploader.actions';
+import * as FoldersActions from '../folders/folders.actions';
+import * as UploaderActions from './uploader.actions';
 import { AppState } from '../../app.reducers';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
@@ -9,47 +10,36 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UploaderService {
-
-  authToken: string;
-  onSuccess: Observable<any>;
-
   uploader: FileUploader;
 
   constructor(
     private store: Store<AppState>,
-    private filesService: FilesService,
-    private uploaderActions: UploaderActions
+    private filesService: FilesService
   ) {
 
     this.uploader = new FileUploader({});
 
     this.uploader.onAfterAddingAll = (files) => {
       this.store.dispatch(
-        this.uploaderActions.uploadFilesUpdateQueue(this.uploader.queue)
+        new UploaderActions.UpdateQueue(this.uploader.queue)
       );
     };
 
     this.uploader.onSuccessItem = (item) => {
-      this.store.dispatch(
-        this.uploaderActions.uploadFilesOnSuccessItem(item)
-      );
+      // Not the best to put reload here
+      this.store.dispatch(new FoldersActions.ReloadList())
     };
 
     this.uploader.onProgressItem = (item) => {
-      this.store.dispatch(
-        this.uploaderActions.uploadFilesOnProgressItem(item)
-      );
+      this.store.dispatch(new UploaderActions.UpdateFileProgress(item));
     };
 
     this.uploader.onProgressAll = (progress) => {
-      this.store.dispatch(
-        this.uploaderActions.uploadFilesOnProgressAll(progress)
-      );
+      this.store.dispatch(new UploaderActions.UpdateTotalProgress(progress));
     };
   }
 
   clearQueue () {
     this.uploader.clearQueue();
   }
-
 }

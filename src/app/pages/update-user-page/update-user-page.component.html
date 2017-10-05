@@ -1,0 +1,32 @@
+<div>
+  <h2>Change password</h2>
+  <form [formGroup]='changePasswordForm'>
+    <section class="form-block">
+      <div class="form-group">
+        <label for="current-password">Current password</label>
+        <input type="password" id="current-password" size="45" formControlName='current_password'>
+      </div>
+      <div class="form-group">
+        <label for="new-password">New password</label>
+        <input type="password" id="new-password" size="45" formControlName='new_password'>
+      </div>
+      <div class="form-group">
+        <label for="repeat-new-password">Repeat password</label>
+        <input type="password" id="repeat-new-password" size="45" formControlName='repeat_password'>
+      </div>
+      <div>
+        <button class='btn btn-primary' (click)='submit()' [disabled]='changePasswordForm.invalid'>Change</button>
+      </div>
+    </section>
+  </form>
+
+  <clr-alert [clrAlertType]="'alert-danger'"
+    [clrAlertClosed]='!(error$ | async)'
+    (clrAlertClosedChange)='closeError()'>
+      <div clr-alert-item class="alert-item">
+          <span class="alert-text">
+              {{ (error$ | async)?.error.message }}
+          </span>
+      </div>
+  </clr-alert>
+</div>

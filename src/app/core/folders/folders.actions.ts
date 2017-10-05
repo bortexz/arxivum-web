@@ -1,90 +1,27 @@
-import { FoldersService } from './folders.service';
-import { Type } from '../../utils/ngrx-actions/types';
-import { Injectable } from '@angular/core';
+import { Action } from '@ngrx/store';
+// import { FoldersService } from './folders.service';
+// import { Type } from '../../utils/ngrx-actions/types';
+// import { Injectable } from '@angular/core';
 
-@Injectable()
-export class FoldersActions {
-  static GET_FOLDER = '[Folders] Get folder';
-  static GET_FOLDER_SUCCESS = '[Folders] Get folder success';
-  static GET_FOLDER_ERROR = '[Folders] Get folder error';
+export const GO_TO_FOLDER = '[Folders] Go to folder' // Action triggered when the router changes route
+export class GoToFolder implements Action {
+  readonly type = GO_TO_FOLDER;
+  constructor(public id) {}
+}
 
-  static CREATE_FOLDER = '[Folders] Create folder';
-  static CREATE_FOLDER_SUCCESS = '[Folders] Create folder success';
-  static CREATE_FOLDER_ERROR = '[Folders] Create folder error';
+export const UPDATE_FOLDER_LIST = '[Folders] Update folder list';
+export class UpdateFolderList implements Action {
+  readonly type = UPDATE_FOLDER_LIST;
+  constructor(public payload) {}
+}
 
-  getFolder (id) {
-    return {
-      type: FoldersActions.GET_FOLDER,
-      payload: { id }
-    };
-  }
+export const RELOAD_LIST = '[Folders] Reload list';
+export class ReloadList implements Action {
+  readonly type = RELOAD_LIST;
+}
 
-  getFolderSuccess (data) {
-    return {
-      type: FoldersActions.GET_FOLDER_SUCCESS,
-      payload: data
-    };
-  }
-
-  getFolderError (error) {
-    return {
-      type: FoldersActions.GET_FOLDER_ERROR,
-      payload: { error }
-    };
-  }
-
-  createFolder (data) {
-    return {
-      type: FoldersActions.CREATE_FOLDER,
-      payload: data
-    };
-  }
-
-  createFolderSuccess (data) {
-    return {
-      type: FoldersActions.CREATE_FOLDER_SUCCESS,
-      payload: data
-    };
-  }
-
-  createFolderError (error) {
-    return {
-      type: FoldersActions.CREATE_FOLDER_ERROR,
-      payload: { error }
-    };
-  }
-
-  @Type static UPDATE;
-  @Type static UPDATE_OK;
-  @Type static UPDATE_ERROR;
-  update = (id, data) => ({
-    type: FoldersActions.UPDATE,
-    payload: { id, data },
-    meta: {
-      async_request: {
-        req: ({ payload }) => this.foldersApi.update(payload.id, payload.data),
-        success: (payload) => ({ type: FoldersActions.UPDATE_OK, payload }),
-        err: (error) => ({ type: FoldersActions.UPDATE_ERROR, error })
-      }
-    }
-  })
-
-  @Type static DELETE;
-  @Type static DELETE_OK;
-  @Type static DELETE_ERR;
-  delete = (id) => ({
-    type: FoldersActions.DELETE,
-    payload: { id },
-    meta: {
-      async_request: {
-        req: ({ payload }) => this.foldersApi.delete(payload.id),
-        success: (payload) => ({ type: FoldersActions.DELETE_OK, payload }),
-        err: (error) => ({ type: FoldersActions.DELETE_ERR, error })
-      }
-    }
-  })
-
-  constructor(
-    private foldersApi: FoldersService
-  ) {}
+export const UPDATE_TREE = '[Folder tree] Update folder tree';
+export class UpdateTree implements Action {
+  readonly type = UPDATE_TREE;
+  constructor(public tree) {};
 }

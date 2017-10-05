@@ -1,70 +1,38 @@
-import { UploaderActions } from '../uploader/uploader.actions';
-import { FilesActions } from '../files/files.actions';
-import { FolderTreeActions } from './tree/tree.actions';
-import { CurrentFolderState } from './folders.reducer';
+import { Observable } from 'rxjs/Observable';
+import { AppError } from '../common/errors.actions';
+import { FoldersService } from './folders.service';
+import { Actions, Effect } from '@ngrx/effects';
 import { AppState } from '../../app.reducers';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { FoldersActions } from './folders.actions';
-import { FoldersService } from './folders.service';
-import { AuthenticationService } from '../authentication/authentication.service';
-import { Router } from '@angular/router';
-import { AuthenticationActions } from '../authentication/authentication.actions';
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import * as FoldersActions from './folders.actions';
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/switchMap'
+import 'rxjs/add/operator/catch'
+import 'rxjs/add/operator/withLatestFrom'
+import 'rxjs/add/observable/of'
 
 @Injectable()
 export class FoldersEffects {
-
   private currentFolder$ = this.store.select(state => state.currentFolder);
 
   @Effect()
-  getFolder$ = this.actions$
-    .ofType(FoldersActions.GET_FOLDER)
-    .map(action => action.payload.id)
-    .switchMap(id => this.foldersService.getOne(id)
-      .map(folder => this.foldersActions.getFolderSuccess(folder))
-      .catch(error => Observable.of(this.foldersActions.getFolderError(error)))
-    );
-
-  @Effect()
-  createFolder$ = this.actions$
-    .ofType(FoldersActions.CREATE_FOLDER)
-    .map(action => action.payload)
-    .switchMap(folder => this.foldersService.create(folder)
-      .map(payload => this.foldersActions.createFolderSuccess(payload))
-      .catch(error => Observable.of(this.foldersActions.createFolderError(error)))
-    );
-
-  @Effect()
-  reloadTree$ = this.actions$
-    .ofType(
-      FoldersActions.CREATE_FOLDER_SUCCESS,
-      FoldersActions.UPDATE_OK,
-      FoldersActions.DELETE_OK
-    )
+  reloadList$ = this.actions$
+    .ofType(FoldersActions.RELOAD_LIST)
     .withLatestFrom(this.currentFolder$)
-    .map(([_, current]) => this.treeActions.getTree());
+    .map(([_, currentFolder]) => new FoldersActions.GoToFolder(currentFolder._id))
 
   @Effect()
-  reloadFolders$ = this.actions$
-    .ofType(
-      FilesActions.DELETE_OK,
-      FilesActions.UPDATE_OK,
-      UploaderActions.UPLOAD_FILES_ON_SUCCESS_ITEM,
-      FoldersActions.CREATE_FOLDER_SUCCESS,
-      FoldersActions.UPDATE_OK,
-      FoldersActions.DELETE_OK
-    )
-    .withLatestFrom(this.store.select(state => state.currentFolder))
-    .map(([_, currentFolder]) => this.foldersActions.getFolder(currentFolder._id));
+  goToFolder$ = this.actions$
+    .ofType(FoldersActions.GO_TO_FOLDER)
+    .switchMap((action: FoldersActions.GoToFolder) => this.foldersApi.getOne(action.id)
+      .map(payload => new FoldersActions.UpdateFolderList(payload))
+      .catch(error => Observable.of(new AppError('Could not load folder')))
+    );
 
   constructor(
     private actions$: Actions,
-    private foldersService: FoldersService,
-    private router: Router,
-    private foldersActions: FoldersActions,
-    private treeActions: FolderTreeActions,
-    private store: Store<AppState>
-  ) { }
+    private store: Store<AppState>,
+    private foldersApi: FoldersService
+  ) {}
 }

@@ -1,0 +1,112 @@
+<section
+    class='content-area'>
+    <div class='file-list'>
+      <ax-folders-breadcrumb [path]='path$ | async'></ax-folders-breadcrumb>
+      <table class='table'>
+        <tbody>
+          <tr
+            *ngFor='let folder of (currentFolder$ | async)?.folders'
+            class='folder-row'
+            [ngClass]="{selected: folder === selected}">
+            <td class='left'
+              (click)='folderLink(folder._id)'>
+              <!-- <a [routerLink]='["/folder", {id: folder._id}] '> -->
+                <clr-icon shape='folder' size='18' class='folder-icon is-solid'></clr-icon>
+                <span>{{folder.name}}</span>
+                <a (click)='filesPageService.editFolder(folder); $event.stopPropagation();'>
+                  <clr-icon shape='edit'
+                  size='18'
+                    class='is-info admin-action-icon'
+                    *ngIf='(authenticated$ | async)?.admin'>
+
+
+                  </clr-icon>
+                </a>
+                <a (click)='filesPageService.deleteFolder(folder._id); $event.stopPropagation();'>
+                  <clr-icon shape='remove'
+                    size='18'
+                    class='is-danger admin-action-icon'
+                    *ngIf='(authenticated$ | async)?.admin'>
+
+
+                  </clr-icon>
+                </a>
+
+              <!-- </a> -->
+            </td>
+            <td class='row-actions'>
+            </td>
+          </tr>
+          <tr
+            *ngFor='let file of (currentFolder$ | async)?.files'
+            class='file-row'
+            [ngClass]="{selected: file === selected}">
+            <td class='left'
+              (click)='filesPageService.playFile(file)'>
+              <clr-icon shape='play' size='18' class='play-icon is-danger is-solid'></clr-icon>
+              <clr-icon shape='file' size='18' class='file-icon is-info is-solid'></clr-icon>
+
+              <span class='file-name'>{{file.name}} </span>
+              <a (click)='filesPageService.editFile(file); $event.stopPropagation()'>
+                <clr-icon shape='edit'
+                  class='is-info admin-action-icon'
+                  *ngIf='(authenticated$ | async)?.admin'></clr-icon>
+              </a>
+              <a (click)='filesPageService.deleteFile(file); $event.stopPropagation()'>
+                <clr-icon shape='remove'
+                  class='is-danger admin-action-icon'
+                  *ngIf='(authenticated$ | async)?.admin'></clr-icon>
+              </a>
+            </td>
+            <td class='row-actions' width='200px'>
+              <span class='file-size'>{{file.size | filesize}}</span>
+              <div *ngIf='(filesPageService.downloadData$ | async)[file._id] as downloadData;else downloadlink'>
+                <span class="spinner spinner-inline" *ngIf='!downloadData.finished;else save'>
+                </span>
+                <ng-template #save>
+                    <a class="row-action">
+                      <clr-icon shape='backup' size='18'>
+                      </clr-icon>
+                    </a>
+                </ng-template>
+              </div>
+              <ng-template #downloadlink>
+                  <a class="row-action" (click)='filesPageService.downloadFile(file)'>
+                    <clr-icon shape='download' size='18'>
+                    </clr-icon>
+                  </a>
+              </ng-template>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class='action-sidebar'>
+      <button class='btn btn-link'
+        tabIndex="-1"
+        (click)='filesPageService.newFolder()'
+        *ngIf='(authenticated$ | async)?.admin'>
+          <clr-icon shape='plus' size='18'></clr-icon>  Create new folder
+      </button>
+
+      <button
+        class='btn btn-link'
+        tabIndex="-1"
+        *ngIf='(authenticated$ | async)?.admin'
+        (click)='uploadPrompt()'>
+          <clr-icon shape='upload' size='18'></clr-icon>  Upload files
+      </button>
+      <input
+        class='real-input-files'
+        #inputfiles
+        type='file'
+        ng2FileSelect
+        multiple
+        [uploader]='filesPageService.uploader'
+        *ngIf='(authenticated$ | async)?.admin' />
+          <!-- <clr-icon shape='upload' size='18'></clr-icon>  Upload files -->
+      <!-- </button> -->
+    </div>
+  </section>
