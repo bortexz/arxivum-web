@@ -1,3 +1,4 @@
+import { SaveFile } from '../../core/downloader/downloader.actions';
 import { IFile } from '../../core/files/files.interfaces';
 import * as PlayerActions from '../../core/player/player.actions';
 import { IDownloadingFile } from '../../core/downloader/downloader.reducer';
@@ -89,18 +90,24 @@ export class FilesPageService {
     this.store.dispatch(new UploaderActions.ClearQueue());
   }
 
-  // A bit messy
-  playFile (file: IFile) {
-    // Check if is already downloading
+  _getDownloadingFromId (id) {
     let downloading;
     this.store
       .select(state => state.downloading)
       .take(1)
       .subscribe(
         data => {
-          downloading = R.find(elem => elem._id === file._id, data.files);
+          downloading = R.find(elem => elem._id === id, data.files);
         }
       );
+
+    return downloading;
+  }
+
+  // A bit messy
+  playFile (file: IFile) {
+    // Check if is already downloading
+    const downloading = this._getDownloadingFromId(file._id);
 
     Observable.combineLatest(
       downloading ? Observable.of(downloading) : Observable.fromPromise(this.downloaderService.download(file)),
@@ -110,6 +117,11 @@ export class FilesPageService {
       this.store.dispatch(new PlayerActions.PlayFile(downloadingFile, (<IFile>fileInfo).encryption_key.data, file.size));
       this.router.navigate(['player']);
     })
+  }
+
+  saveFile(file: IFile) {
+    const downloading = this._getDownloadingFromId(file._id);
+    this.store.dispatch(new SaveFile(downloading))
   }
 
   constructor(

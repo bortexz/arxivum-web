@@ -14,6 +14,7 @@ export interface IDownloadingFile {
   torrent_file: any;
   torrent_info: any;
   finished?: Boolean;
+  decrypting?: Boolean;
 }
 
 export interface DownloaderState {

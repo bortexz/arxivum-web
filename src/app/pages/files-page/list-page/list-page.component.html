@@ -64,7 +64,7 @@
                 <span class="spinner spinner-inline" *ngIf='!downloadData.finished;else save'>
                 </span>
                 <ng-template #save>
-                    <a class="row-action">
+                    <a class="row-action" (click)='filesPageService.saveFile(file)'>
                       <clr-icon shape='backup' size='18'>
                       </clr-icon>
                     </a>
