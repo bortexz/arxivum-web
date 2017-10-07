@@ -56,6 +56,10 @@ export class DownloaderService {
           );
         });
 
+        torrent.on('noPeers', function (announceType) {
+          torrent.addWebSeed((torrent as any).urlList[0])
+        })
+
         resolve(downloadingFile);
       });
     });
