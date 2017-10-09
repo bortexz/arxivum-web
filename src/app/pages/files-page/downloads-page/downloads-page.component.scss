@@ -72,8 +72,12 @@ section {
         }
       }
 
-      td.actions {
-        width: 100px;
+      td.actions > div {
+        min-width: 200px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
       }
 
       td {

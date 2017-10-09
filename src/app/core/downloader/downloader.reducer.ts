@@ -46,6 +46,19 @@ export function downloaderReducer (state = initialState, action) {
             (files)
         })(state);
 
+    case DownloaderActions.START_DECRYPTING:
+      return assign({
+        files: replaceFileInList(action.fileId)
+          (file => assign({decrypting: true})(file))
+          (files)
+      })(state);
+
+    case DownloaderActions.FINISHED_DECRYPTING:
+      return assign({
+        files: replaceFileInList(action.fileId)
+          (file => assign({decrypting: false})(file))
+          (files)
+      })(state);
     // case DownloaderActions.DOWNLOAD_FILE_DECRYPTING: {
     //   const { _id } = action.payload;
     //   return assign({

@@ -14,6 +14,12 @@
           </td>
           <td class='actions'>
             <div>
+              <button class='btn btn-link' tabindex='-1'
+                (click)='filesPageService.saveFile(file)'
+                *ngIf='file.finished && !file.decrypting'>
+                <clr-icon shape='backup' size='18'></clr-icon>
+              </button>
+              <span *ngIf='file.finished && file.decrypting'>Decrypting...</span>
               <button class='btn btn-link remove-item'
                 tab-index='-1'
                 (click)='filesPageService.removeDownloadingFile(file)'>

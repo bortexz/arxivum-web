@@ -39,11 +39,17 @@ export class SaveFile implements Action {
 export const START_DECRYPTING = '[Downloader] Start decrypting';
 export class StartDecrypting implements Action {
   readonly type = START_DECRYPTING;
-  constructor (public file) {}
+  constructor (public fileId) {}
 }
 
 export const FINISHED_DECRYPTING = '[Downloader] Finished decrypting';
 export class FinishedDecrypting implements Action {
   readonly type = FINISHED_DECRYPTING;
-  constructor (public file) {}
+  constructor (public fileId) {}
+}
+
+export const ERROR_DECRYPTING = '[Downloader] Error decrypting'
+export class ErrorDecrypting implements Action {
+  readonly type = ERROR_DECRYPTING
+  constructor(public fileId, public error) {}
 }

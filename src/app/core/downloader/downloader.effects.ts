@@ -138,7 +138,7 @@ export class DownloaderEffects {
   @Effect()
   saveFile$ = this.actions$
     .ofType(DownloaderActions.SAVE_FILE)
-    .do(action => this.store.dispatch(new StartDecrypting((<SaveFile>action).file)))
+    .do(action => this.store.dispatch(new StartDecrypting((<SaveFile>action).file._id)))
     .switchMap(action => {
       const file = (<SaveFile>action).file;
       return this.filesService.getOne(file._id)
@@ -158,7 +158,7 @@ export class DownloaderEffects {
           link.href = blobUtil.createObjectURL(blob);
           link.click();
         })
-        .map(() => new FinishedDecrypting(file))
+        .map(() => new FinishedDecrypting(file._id))
     })
 
     constructor (
