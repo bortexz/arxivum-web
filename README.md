@@ -28,6 +28,8 @@ You can also run `npm build` to build the artifacts to deploy.
 ## Docker compatibility
 There is a docker image to deploy this frontend, too. But because of the needed customization of the parameters of the Backend, this image first builds the artifacts, and then redeploys. It is useful for quick test iterations, or if you don't mind rebuilding each time you deploy, but might not be the best option for big infrastructures.
 
+[Link to docker hub](https://hub.docker.com/r/albertoferbcn/arxivum-front/)
+
 ## License
 
 Copyright 2017 Alberto Fernandez
