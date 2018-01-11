@@ -159,6 +159,7 @@ export class DownloaderEffects {
           link.click();
         })
         .map(() => new FinishedDecrypting(file._id))
+        // .catch(err => Observable.of(new ))
     })
 
     constructor (
