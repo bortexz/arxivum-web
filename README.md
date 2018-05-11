@@ -1,3 +1,8 @@
+## Not maintained anymore
+This project is not being maintained or developed anymore, please don't use it as it is!
+
+Feel free to get inspired / fork / copy and update it.
+
 # Arxivum FrontEnd
 This repository contains the code for the frontend of the Arxivum project. It is used along with the [Arxivum Backend](https://github.com/bertofer/arxivum-api).
 
